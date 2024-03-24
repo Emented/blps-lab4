@@ -1,0 +1,104 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+plugins {
+    id 'org.springframework.boot' version '3.2.3'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.22'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.9.22'
+    id "org.openapi.generator" version "7.3.0"
+    id "org.jooq.jooq-codegen-gradle" version "3.19.6"
+}
+
+group = 'com.emented'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
+
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect'
+
+    implementation 'org.jooq:jooq:3.19.6'
+    implementation 'org.jooq:jooq-codegen:3.19.6'
+    implementation 'org.jooq:jooq-meta:3.19.6'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework:spring-tx'
+
+    jooqCodegen 'org.postgresql:postgresql'
+    runtimeOnly 'org.postgresql:postgresql'
+
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+}
+
+openApiGenerate {
+    generatorName.set("kotlin-spring")
+    inputSpecRootDirectory.set("${project.rootDir}/src/main/resources/api")
+    outputDir.set("${buildDir.path}/generated")
+    additionalProperties.set([
+            "serializationLibrary"             : "jackson",
+            "apiPackage"                       : "emented.api",
+            "modelPackage"                     : "emented.model",
+            "invokerPackage"                   : "emented",
+            "useSpringBoot3"                   : true,
+            "idea"                             : true,
+            "delegatePattern"                  : true,
+            "useTags"                          : true,
+            "sortModelPropertiesByRequiredFlag": true,
+            "sortParamsByRequiredFlag"         : true,
+            "useBeanValidation"                : true,
+    ])
+}
+
+sourceSets.main.kotlin.srcDirs += "${buildDir.path}/generated/src/main/kotlin"
+
+jooq {
+    configuration {
+        jdbc {
+            driver = "org.postgresql.Driver"
+            url = "jdbc:postgresql://localhost:5432/bpls"
+            user = "postgres"
+            password = "postgres"
+        }
+
+        generator {
+            name = "org.jooq.codegen.KotlinGenerator"
+            database {
+                name = "org.jooq.meta.postgres.PostgresDatabase"
+                inputSchema = "public"
+                includes = ".*"
+            }
+            target {
+                packageName = "emented.jooq"
+                directory = "${project.projectDir}/src/main/kotlin"
+            }
+        }
+    }
+}
+
+tasks.withType(KotlinCompile).configureEach {
+    kotlinOptions {
+        freeCompilerArgs += '-Xjsr305=strict'
+        jvmTarget = '17'
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

@@ -1,0 +1,35 @@
+openapi: 3.0.3
+servers:
+  - url: http://localhost:8080
+info:
+  title: Общий файл спецификаций
+  description: Common specification file
+  version: 1.0.0
+
+tags:
+  - name: ping
+  - name: topic
+  - name: user
+
+paths:
+  /ping:
+    get:
+      operationId: ping
+      tags:
+        - ping
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pingResponse'
+
+
+components:
+  schemas:
+    pingResponse:
+      type: object
+      properties:
+        pong:
+          type: string

@@ -1,0 +1,234 @@
+openapi: 3.0.3
+servers:
+  - url: http://localhost:8080
+info:
+  title: Спецификации топиков
+  description: Topic specs
+  version: 1.0.0
+
+tags:
+  - name: community
+
+paths:
+  /community/create:
+    put:
+      operationId: createCommunity
+      tags:
+        - community
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createCommunityRequest'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createCommunityResponse'
+        400:
+          description: Bad request
+
+
+  /community/{communityId}:
+    get:
+      operationId: getCommunity
+      tags:
+        - community
+      parameters:
+        - name: communityId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/communityResponse'
+        400:
+          description: Bad request
+        404:
+          description: Not found
+
+  /community/block/{communityId}:
+    post:
+      operationId: blockCommunity
+      tags:
+        - community
+      parameters:
+        - name: communityId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/blockCommunityResponse'
+
+  /search/communities:
+    post:
+      operationId: searchCommunities
+      tags:
+        - community
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/searchCommunitiesRequest'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/communityResponse'
+
+  /categories:
+    get:
+      operationId: getCategories
+      tags:
+        - community
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/categoriesResponse'
+
+
+components:
+  schemas:
+    createCommunityRequest:
+      type: object
+      required:
+        - name
+        - address
+        - language
+        - description
+        - isForChildren
+        - category
+      properties:
+        name:
+          type: string
+          minLength: 5
+          maxLength: 64
+        address:
+          type: string
+          minLength: 5
+          maxLength: 64
+        language:
+          $ref: '#/components/schemas/languageDto'
+        description:
+          type: string
+          minLength: 5
+          maxLength: 255
+        isForChildren:
+          type: boolean
+        category:
+          type: string
+          maxLength: 64
+
+    searchCommunitiesRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 64
+        language:
+          $ref: '#/components/schemas/languageDto'
+        isForChildren:
+          type: boolean
+        category:
+          type: string
+          maxLength: 64
+
+    createCommunityResponse:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          format: int64
+
+    blockCommunityResponse:
+      type: object
+      required:
+        - applied
+      properties:
+        applied:
+          type: boolean
+
+    communityResponse:
+      type: object
+      required:
+        - id
+        - name
+        - address
+        - language
+        - description
+        - isForChildren
+        - category
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          minLength: 5
+          maxLength: 64
+        address:
+          type: string
+          minLength: 5
+          maxLength: 64
+        language:
+          $ref: '#/components/schemas/languageDto'
+        description:
+          type: string
+          minLength: 5
+          maxLength: 255
+        isForChildren:
+          type: boolean
+        category:
+          $ref: '#/components/schemas/categoryResponse'
+
+    categoriesResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/categoryResponse'
+
+    languageDto:
+      type: string
+      enum:
+        - RU
+        - EN
+        - KZ
+
+    categoryResponse:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          minLength: 5
+          maxLength: 64

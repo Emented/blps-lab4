@@ -1,0 +1,29 @@
+---
+servers:
+- url: "http://localhost:8080"
+openapi: "3.0.3"
+paths:
+  /login:
+    $ref: "./user.yaml#/paths/~1login"
+  /logout:
+    $ref: "./user.yaml#/paths/~1logout"
+  /refresh:
+    $ref: "./user.yaml#/paths/~1refresh"
+  /community/create:
+    $ref: "./community.yaml#/paths/~1community~1create"
+  /search/communities:
+    $ref: "./community.yaml#/paths/~1search~1communities"
+  /ping:
+    $ref: "./ping.yaml#/paths/~1ping"
+  /community/{communityId}:
+    $ref: "./community.yaml#/paths/~1community~1{communityId}"
+  /register:
+    $ref: "./user.yaml#/paths/~1register"
+  /community/block/{communityId}:
+    $ref: "./community.yaml#/paths/~1community~1block~1{communityId}"
+  /categories:
+    $ref: "./community.yaml#/paths/~1categories"
+info:
+  title: "merged spec"
+  description: "merged spec"
+  version: "1.0.0"

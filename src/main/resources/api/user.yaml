@@ -1,0 +1,189 @@
+openapi: 3.0.3
+servers:
+  - url: http://localhost:8080
+info:
+  title: Пользовательские спецификации
+  description: User specs
+  version: 1.0.0
+
+tags:
+  - name: user
+
+paths:
+  /register:
+    post:
+      operationId: registerUser
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/registrationRequest'
+      responses:
+        200:
+          description: OK
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        409:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+
+  /login:
+    post:
+      operationId: loginUser
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userCredentials'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jwtInfoResponse'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        404:
+          description: Incorrect login or password
+
+  /logout:
+    post:
+      operationId: logoutUser
+      tags:
+        - user
+      responses:
+        200:
+          description: OK
+
+  /refresh:
+    post:
+      operationId: refreshUser
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/refreshRequest'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jwtInfoResponse'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+
+
+components:
+  schemas:
+    userCredentials:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          minLength: 5
+          maxLength: 64
+        password:
+          type: string
+          minLength: 5
+          maxLength: 64
+
+
+    registrationRequest:
+      type: object
+      required:
+       - username
+       - password
+       - roles
+       - email
+       - birthDate
+      properties:
+        username:
+          type: string
+          minLength: 5
+          maxLength: 64
+        password:
+          type: string
+          minLength: 5
+          maxLength: 64
+        roles:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            minLength: 5
+            maxLength: 255
+        email:
+          type: string
+          format: email
+        birthDate:
+          type: string
+          format: date
+
+    jwtInfoResponse:
+      type: object
+      required:
+        - userId
+        - accessToken
+        - refreshToken
+      properties:
+        userId:
+          type: integer
+          format: int64
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+
+    errorResponse:
+      type: object
+      required:
+        - description
+      properties:
+        description:
+          type: string
+
+    refreshRequest:
+      type: object
+      required:
+        - refreshToken
+      properties:
+        refreshToken:
+          type: string
+          minLength: 5
+
+
