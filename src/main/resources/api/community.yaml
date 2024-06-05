@@ -20,7 +20,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/createCommunityRequest'
+              $ref: '#/components/schemas/communityRequest'
       responses:
         200:
           description: OK
@@ -76,6 +76,52 @@ paths:
               schema:
                 $ref: '#/components/schemas/blockCommunityResponse'
 
+  /community/moderate/{communityId}:
+    post:
+      operationId: addModerationInfo
+      tags:
+        - community
+      parameters:
+        - name: communityId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addModerationRequest'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addModerationResponse'
+
+  /community/unarchive/{communityId}:
+    post:
+      operationId: unarchiveCommunity
+      tags:
+        - community
+      parameters:
+        - name: communityId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unarchiveCommunityResponse'
+
   /search/communities:
     post:
       operationId: searchCommunities
@@ -110,10 +156,37 @@ paths:
               schema:
                 $ref: '#/components/schemas/categoriesResponse'
 
+  /community/interest-rate/{communityId}:
+    post:
+      operationId: increaseCommunityInterestRate
+      tags:
+        - community
+      parameters:
+        - name: communityId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: rate
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+            min: 1
+      responses:
+        200:
+          description: OK
+        400:
+          description: Bad request
+        404:
+          description: Not found
+
 
 components:
   schemas:
-    createCommunityRequest:
+    communityRequest:
       type: object
       required:
         - name
@@ -142,6 +215,19 @@ components:
         category:
           type: string
           maxLength: 64
+
+    addModerationRequest:
+      type: object
+      required:
+        - moderationResult
+        - moderationMessage
+      properties:
+        moderationResult:
+          $ref: '#/components/schemas/moderationResult'
+        moderationMessage:
+          type: string
+          minLength: 5
+          maxLength: 255
 
     searchCommunitiesRequest:
       type: object
@@ -174,6 +260,30 @@ components:
         applied:
           type: boolean
 
+    unarchiveCommunityResponse:
+      type: object
+      required:
+        - applied
+      properties:
+        applied:
+          type: boolean
+
+    addModerationResponse:
+      type: object
+      required:
+        - applied
+      properties:
+        applied:
+          type: boolean
+
+    updateCommunityResponse:
+      type: object
+      required:
+        - applied
+      properties:
+        applied:
+          type: boolean
+
     communityResponse:
       type: object
       required:
@@ -183,6 +293,8 @@ components:
         - language
         - description
         - isForChildren
+        - isBlocked
+        - interest
         - category
       properties:
         id:
@@ -202,6 +314,11 @@ components:
           type: string
           minLength: 5
           maxLength: 255
+        isBlocked:
+          type: boolean
+        interestRate:
+          type: integer
+          format: int64
         isForChildren:
           type: boolean
         category:
@@ -218,6 +335,13 @@ components:
         - RU
         - EN
         - KZ
+
+    moderationResult:
+      type: string
+      enum:
+        - PENDING
+        - PASSED
+        - FAILED
 
     categoryResponse:
       type: object

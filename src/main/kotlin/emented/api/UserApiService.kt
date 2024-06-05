@@ -2,6 +2,7 @@ package emented.api
 
 import emented.extensions.toModel
 import emented.extensions.toResponse
+import emented.model.IsAdminResponse
 import emented.model.JwtInfoResponse
 import emented.model.RefreshRequest
 import emented.model.RegistrationRequest
@@ -20,12 +21,6 @@ class UserApiService(
         )
     }
 
-    override fun logoutUser(): ResponseEntity<Unit> {
-        userService.logoutUser()
-
-        return ResponseEntity.ok().build()
-    }
-
     override fun refreshUser(refreshRequest: RefreshRequest): ResponseEntity<JwtInfoResponse> {
         return ResponseEntity.ok(userService.refreshUser(refreshRequest.refreshToken).toResponse())
     }
@@ -34,5 +29,15 @@ class UserApiService(
         userService.registerUser(registrationRequest.toModel())
 
         return ResponseEntity.ok().build()
+    }
+
+    override fun increaseUserActivity(userId: Long, activity: Long): ResponseEntity<Unit> {
+        userService.increaseUserActivity(userId, activity)
+
+        return ResponseEntity.ok().build()
+    }
+
+    override fun isUserAdmin(userId: Long): ResponseEntity<IsAdminResponse> {
+        return ResponseEntity.ok(IsAdminResponse(userService.isUserAdmin(userId)))
     }
 }

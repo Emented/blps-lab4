@@ -12,5 +12,7 @@ fun Community.toResponse(): CommunityResponse {
         description = this.description,
         isForChildren = this.isForChildren,
         category = this.category.toResponse(),
+        isBlocked = this.isBlocked,
+        interestRate = this.interestRate,
     )
 }

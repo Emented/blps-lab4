@@ -64,15 +64,6 @@ paths:
         404:
           description: Incorrect login or password
 
-  /logout:
-    post:
-      operationId: logoutUser
-      tags:
-        - user
-      responses:
-        200:
-          description: OK
-
   /refresh:
     post:
       operationId: refreshUser
@@ -103,6 +94,73 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorResponse'
+  /user/admin/{userId}:
+    get:
+      operationId: isUserAdmin
+      tags:
+        - user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/isAdminResponse'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        404:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+
+  /user/activity/{userId}:
+    post:
+      operationId: increaseUserActivity
+      tags:
+        - user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: activity
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+            min: 1
+      responses:
+        200:
+          description: OK
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+
 
 
 components:
@@ -168,6 +226,14 @@ components:
           type: string
         refreshToken:
           type: string
+
+    isAdminResponse:
+      type: object
+      required:
+        - isAdmin
+      properties:
+        isAdmin:
+          type: boolean
 
     errorResponse:
       type: object

@@ -11,6 +11,7 @@ fun RegistrationInfo.toDomainModel(encodingFunction: (CharSequence) -> String): 
         password = encodingFunction.invoke(this.password),
         email = this.email,
         birthDate = this.birthDate,
+        activity = 0,
         roles = this.roles.map { Role(id = null, name = it) },
     )
 }

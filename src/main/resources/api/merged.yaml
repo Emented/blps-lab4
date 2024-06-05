@@ -5,24 +5,32 @@ openapi: "3.0.3"
 paths:
   /login:
     $ref: "./user.yaml#/paths/~1login"
-  /logout:
-    $ref: "./user.yaml#/paths/~1logout"
+  /user/admin/{userId}:
+    $ref: "./user.yaml#/paths/~1user~1admin~1{userId}"
   /refresh:
     $ref: "./user.yaml#/paths/~1refresh"
-  /community/create:
-    $ref: "./community.yaml#/paths/~1community~1create"
+  /user/activity/{userId}:
+    $ref: "./user.yaml#/paths/~1user~1activity~1{userId}"
+  /community/moderate/{communityId}:
+    $ref: "./community.yaml#/paths/~1community~1moderate~1{communityId}"
   /search/communities:
     $ref: "./community.yaml#/paths/~1search~1communities"
   /ping:
     $ref: "./ping.yaml#/paths/~1ping"
   /community/{communityId}:
     $ref: "./community.yaml#/paths/~1community~1{communityId}"
-  /register:
-    $ref: "./user.yaml#/paths/~1register"
+  /community/unarchive/{communityId}:
+    $ref: "./community.yaml#/paths/~1community~1unarchive~1{communityId}"
   /community/block/{communityId}:
     $ref: "./community.yaml#/paths/~1community~1block~1{communityId}"
   /categories:
     $ref: "./community.yaml#/paths/~1categories"
+  /community/interest-rate/{communityId}:
+    $ref: "./community.yaml#/paths/~1community~1interest-rate~1{communityId}"
+  /community/create:
+    $ref: "./community.yaml#/paths/~1community~1create"
+  /register:
+    $ref: "./user.yaml#/paths/~1register"
 info:
   title: "merged spec"
   description: "merged spec"

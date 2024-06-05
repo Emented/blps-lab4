@@ -8,5 +8,6 @@ data class User(
     val password: String,
     val email: String,
     val birthDate: LocalDate,
+    val activity: Long,
     val roles: List<Role>,
 )

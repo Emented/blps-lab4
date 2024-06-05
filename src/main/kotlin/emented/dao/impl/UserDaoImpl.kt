@@ -2,11 +2,11 @@ package emented.dao.impl
 
 import emented.dao.UserDao
 import emented.exception.InvalidRoleException
-import emented.jooq.tables.records.RoleRecord
-import emented.jooq.tables.records.UserRecord
-import emented.jooq.tables.references.ROLE
-import emented.jooq.tables.references.ROLE_USER_RELATION
-import emented.jooq.tables.references.USER
+import emented.jooq.main.tables.records.RoleRecord
+import emented.jooq.main.tables.records.UserRecord
+import emented.jooq.main.tables.references.ROLE
+import emented.jooq.main.tables.references.ROLE_USER_RELATION
+import emented.jooq.main.tables.references.USER
 import emented.model.domain.Role
 import emented.model.domain.User
 import org.jooq.DSLContext
@@ -16,26 +16,27 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class UserDaoImpl(
-    private val dslContext: DSLContext,
+    private val mainDslContext: DSLContext,
 ) : UserDao {
     override fun create(user: User): User? {
-        val persistedUser = dslContext.insertInto(USER)
+        val persistedUser = mainDslContext.insertInto(USER)
             .set(USER.USERNAME, user.username)
             .set(USER.PASSWORD, user.password)
             .set(USER.EMAIL, user.email)
             .set(USER.BIRTH_DATE, user.birthDate)
+            .set(USER.ACTIVITY, user.activity)
             .onConflictDoNothing()
             .returning(userFields)
             .fetchOne(UserDaoImpl::mapUser) ?: return null
 
         for (role in user.roles) {
-            dslContext.insertInto(
+            mainDslContext.insertInto(
                 ROLE_USER_RELATION,
                 ROLE_USER_RELATION.ROLE_ID,
                 ROLE_USER_RELATION.USER_ID
             )
                 .values(
-                    dslContext.select(ROLE.ID)
+                    mainDslContext.select(ROLE.ID)
                         .from(ROLE)
                         .where(ROLE.NAME.eq(role.name))
                         .fetchOne()?.get(ROLE.ID) ?: throw InvalidRoleException("Role doesn't exist"),
@@ -50,7 +51,7 @@ class UserDaoImpl(
     }
 
     override fun getById(userId: Long): User? {
-        val mapResult = dslContext.select()
+        val mapResult = mainDslContext.select()
             .from(USER)
             .join(ROLE_USER_RELATION).on(USER.ID.eq(ROLE_USER_RELATION.USER_ID))
             .join(ROLE).on(ROLE_USER_RELATION.ROLE_ID.eq(ROLE.ID))
@@ -61,7 +62,7 @@ class UserDaoImpl(
     }
 
     override fun getByUsername(username: String): User? {
-        val mapResult = dslContext.select()
+        val mapResult = mainDslContext.select()
             .from(USER)
             .join(ROLE_USER_RELATION).on(USER.ID.eq(ROLE_USER_RELATION.USER_ID))
             .join(ROLE).on(ROLE_USER_RELATION.ROLE_ID.eq(ROLE.ID))
@@ -71,8 +72,19 @@ class UserDaoImpl(
         return mapResult.entries.firstOrNull()?.let { mapEntry(it) }
     }
 
+    override fun increaseActivity(incrementValue: Long, userId: Long) {
+        val isUpdated = mainDslContext.update(USER)
+            .set(USER.ACTIVITY, USER.ACTIVITY.plus(incrementValue))
+            .where(USER.ID.eq(userId))
+            .execute() > 0
+
+        if (!isUpdated) {
+            error("Failed to increase activity of user with id: $userId")
+        }
+    }
+
     override fun deleteById(userId: Long) {
-        dslContext.deleteFrom(USER)
+        mainDslContext.deleteFrom(USER)
             .where(USER.ID.eq(userId))
             .execute()
     }
@@ -84,6 +96,7 @@ class UserDaoImpl(
             USER.PASSWORD,
             USER.EMAIL,
             USER.BIRTH_DATE,
+            USER.ACTIVITY,
         )
 
         fun mapUser(record: Record): User {
@@ -93,6 +106,7 @@ class UserDaoImpl(
                 password = record.get(USER.PASSWORD)!!,
                 email = record.get(USER.EMAIL)!!,
                 birthDate = record.get(USER.BIRTH_DATE)!!,
+                activity = record.get(USER.ACTIVITY)!!,
                 roles = listOf()
             )
         }
@@ -104,6 +118,7 @@ class UserDaoImpl(
                 password = entry.key.password!!,
                 email = entry.key.email!!,
                 birthDate = entry.key.birthDate!!,
+                activity = entry.key.activity!!,
                 roles = entry.value.map {
                     Role(
                         id = it.id!!,

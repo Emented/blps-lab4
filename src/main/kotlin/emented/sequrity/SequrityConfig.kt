@@ -65,6 +65,7 @@ class SequrityConfig(
             }
             .authorizeHttpRequests {
                 it.requestMatchers(
+                    "/**",
                     "/login",
                     "/register",
                     "/refresh",
@@ -73,6 +74,14 @@ class SequrityConfig(
                     "/v3/api-docs**",
                     "/swagger-ui**",
                     "/swagger-ui/**",
+                    "/community/moderate**",
+                    "/community/moderate/**",
+                    "/community/interest-rate/**",
+                    "/community/interest-rate**",
+                    "/user/activity/**",
+                    "/user/activity**",
+                    "/user/admin/**",
+                    "/user/admin**",
                 ).permitAll().anyRequest().authenticated()
             }
             .exceptionHandling {

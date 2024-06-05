@@ -1,7 +1,7 @@
 package emented.dao.impl
 
 import emented.dao.CategoryDao
-import emented.jooq.tables.references.CATEGORY
+import emented.jooq.main.tables.references.CATEGORY
 import emented.model.domain.Category
 import org.jooq.DSLContext
 import org.jooq.Record
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class CategoryDaoImpl(
-    private val dslContext: DSLContext,
+    private val mainDslContext: DSLContext,
 ) : CategoryDao {
     override fun getCategories(): List<Category> {
-        return dslContext.select(selectFields)
+        return mainDslContext.select(selectFields)
             .from(CATEGORY)
             .fetch(CategoryDaoImpl::mapCategory)
     }

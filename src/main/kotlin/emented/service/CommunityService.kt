@@ -2,6 +2,7 @@ package emented.service
 
 import emented.model.CommunityInfo
 import emented.model.Language
+import emented.model.ModerationInfo
 import emented.model.domain.Category
 import emented.model.domain.Community
 
@@ -16,4 +17,7 @@ interface CommunityService {
         isForChildren: Boolean?,
     ): List<Community>
     fun blockCommunity(communityId: Long): Boolean
+    fun unarchiveCommunity(communityId: Long): Boolean
+    fun addModeration(communityId: Long, toModel: ModerationInfo): Boolean
+    fun increaseCommunityInterestRate(communityId: Long, rate: Long)
 }
