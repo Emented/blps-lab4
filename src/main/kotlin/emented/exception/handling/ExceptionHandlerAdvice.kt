@@ -8,7 +8,6 @@ import emented.model.ErrorResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
-import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -45,12 +44,6 @@ class ExceptionHandlerAdvice {
     private fun handleInvalidRoleException(e: InvalidRoleException): ResponseEntity<ErrorResponse> {
         val errorDTO = ErrorResponse(e.message ?: "Role is invalid")
         return ResponseEntity(errorDTO, HttpStatus.BAD_REQUEST)
-    }
-
-    @ExceptionHandler(value = [BadCredentialsException::class])
-    private fun handleBadCredentialsException(e: BadCredentialsException): ResponseEntity<ErrorResponse> {
-        val errorDTO = ErrorResponse("Bad credentials!")
-        return ResponseEntity(errorDTO, HttpStatus.UNAUTHORIZED)
     }
 
     @ExceptionHandler(value = [UserAlreadyExistsException::class])

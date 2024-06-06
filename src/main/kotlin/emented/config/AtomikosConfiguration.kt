@@ -11,8 +11,10 @@ import org.springframework.context.annotation.DependsOn
 import org.springframework.context.annotation.Primary
 import org.springframework.core.annotation.Order
 import org.springframework.transaction.PlatformTransactionManager
+import org.springframework.transaction.TransactionDefinition
 import org.springframework.transaction.annotation.EnableTransactionManagement
 import org.springframework.transaction.jta.JtaTransactionManager
+import org.springframework.transaction.support.TransactionTemplate
 import javax.sql.DataSource
 
 @Configuration
@@ -31,19 +33,7 @@ class AtomikosConfiguration {
         dataSource.xaProperties.setProperty("databaseName", "blps-main")
         dataSource.xaProperties.setProperty("user", "postgres")
         dataSource.xaProperties.setProperty("password", "postgres")
-        return dataSource
-    }
-
-    @Bean("archiveDataSource")
-    fun archiveDataSource(): DataSource {
-        val dataSource = AtomikosDataSourceBean()
-        dataSource.uniqueResourceName = "xads2-archive-db"
-        dataSource.xaDataSourceClassName = "org.postgresql.xa.PGXADataSource"
-        dataSource.xaProperties.setProperty("serverName", "localhost")
-        dataSource.xaProperties.setProperty("portNumber", "5432")
-        dataSource.xaProperties.setProperty("databaseName", "blps-archive")
-        dataSource.xaProperties.setProperty("user", "postgres")
-        dataSource.xaProperties.setProperty("password", "postgres")
+        dataSource.setPoolSize(5)
         return dataSource
     }
 
@@ -69,6 +59,17 @@ class AtomikosConfiguration {
     fun transactionManager(): PlatformTransactionManager {
         val userTransaction = userTransaction()
         val atomikosTransactionManager = atomikosTransactionManager()
-        return JtaTransactionManager(userTransaction, atomikosTransactionManager)
+        val result = JtaTransactionManager(userTransaction, atomikosTransactionManager)
+        result.setAllowCustomIsolationLevels(true)
+        return result
+    }
+
+    @Bean
+    @Primary
+    fun transactionTemplate(): TransactionTemplate {
+        val template = TransactionTemplate(transactionManager())
+        template.isolationLevel = TransactionDefinition.ISOLATION_REPEATABLE_READ
+        template.propagationBehavior = TransactionDefinition.PROPAGATION_REQUIRES_NEW
+        return template
     }
 }

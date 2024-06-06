@@ -52,14 +52,12 @@ class CommunityEventDaoImpl(
             .execute()
     }
 
-    override fun getNotSentForUpdate(limit: Int): List<CommunityEvent> {
+    override fun getNotSent(limit: Int): List<CommunityEvent> {
         return mainDslContext.select(communityEventFields)
             .from(COMMUNITY_EVENT)
             .join(CATEGORY).on(COMMUNITY_EVENT.CATEGORY_ID.eq(CATEGORY.ID))
             .where(COMMUNITY_EVENT.IS_SENT.isFalse)
             .limit(limit)
-            .forUpdate()
-            .skipLocked()
             .fetch(CommunityEventDaoImpl::mapCommunityEvent)
     }
 

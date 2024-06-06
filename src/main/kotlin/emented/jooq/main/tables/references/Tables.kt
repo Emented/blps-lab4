@@ -3,11 +3,60 @@
  */
 package emented.jooq.main.tables.references
 
-
+import emented.jooq.main.tables.ActGeBytearray
+import emented.jooq.main.tables.ActGeProperty
+import emented.jooq.main.tables.ActGeSchemaLog
+import emented.jooq.main.tables.ActHiActinst
+import emented.jooq.main.tables.ActHiAttachment
+import emented.jooq.main.tables.ActHiBatch
+import emented.jooq.main.tables.ActHiCaseactinst
+import emented.jooq.main.tables.ActHiCaseinst
+import emented.jooq.main.tables.ActHiComment
+import emented.jooq.main.tables.ActHiDecIn
+import emented.jooq.main.tables.ActHiDecOut
+import emented.jooq.main.tables.ActHiDecinst
+import emented.jooq.main.tables.ActHiDetail
+import emented.jooq.main.tables.ActHiExtTaskLog
+import emented.jooq.main.tables.ActHiIdentitylink
+import emented.jooq.main.tables.ActHiIncident
+import emented.jooq.main.tables.ActHiJobLog
+import emented.jooq.main.tables.ActHiOpLog
+import emented.jooq.main.tables.ActHiProcinst
+import emented.jooq.main.tables.ActHiTaskinst
+import emented.jooq.main.tables.ActHiVarinst
+import emented.jooq.main.tables.ActIdGroup
+import emented.jooq.main.tables.ActIdInfo
+import emented.jooq.main.tables.ActIdMembership
+import emented.jooq.main.tables.ActIdTenant
+import emented.jooq.main.tables.ActIdTenantMember
+import emented.jooq.main.tables.ActIdUser
+import emented.jooq.main.tables.ActReCamformdef
+import emented.jooq.main.tables.ActReCaseDef
+import emented.jooq.main.tables.ActReDecisionDef
+import emented.jooq.main.tables.ActReDecisionReqDef
+import emented.jooq.main.tables.ActReDeployment
+import emented.jooq.main.tables.ActReProcdef
+import emented.jooq.main.tables.ActRuAuthorization
+import emented.jooq.main.tables.ActRuBatch
+import emented.jooq.main.tables.ActRuCaseExecution
+import emented.jooq.main.tables.ActRuCaseSentryPart
+import emented.jooq.main.tables.ActRuEventSubscr
+import emented.jooq.main.tables.ActRuExecution
+import emented.jooq.main.tables.ActRuExtTask
+import emented.jooq.main.tables.ActRuFilter
+import emented.jooq.main.tables.ActRuIdentitylink
+import emented.jooq.main.tables.ActRuIncident
+import emented.jooq.main.tables.ActRuJob
+import emented.jooq.main.tables.ActRuJobdef
+import emented.jooq.main.tables.ActRuMeterLog
+import emented.jooq.main.tables.ActRuTask
+import emented.jooq.main.tables.ActRuTaskMeterLog
+import emented.jooq.main.tables.ActRuVariable
 import emented.jooq.main.tables.Category
 import emented.jooq.main.tables.Comment
 import emented.jooq.main.tables.Community
 import emented.jooq.main.tables.CommunityEvent
+import emented.jooq.main.tables.Films
 import emented.jooq.main.tables.QrtzBlobTriggers
 import emented.jooq.main.tables.QrtzCalendars
 import emented.jooq.main.tables.QrtzCronTriggers
@@ -19,11 +68,252 @@ import emented.jooq.main.tables.QrtzSchedulerState
 import emented.jooq.main.tables.QrtzSimpleTriggers
 import emented.jooq.main.tables.QrtzSimpropTriggers
 import emented.jooq.main.tables.QrtzTriggers
-import emented.jooq.main.tables.Role
-import emented.jooq.main.tables.RoleUserRelation
-import emented.jooq.main.tables.User
+import emented.jooq.main.tables.Reviews
 
+/**
+ * The table <code>public.act_ge_bytearray</code>.
+ */
+val ACT_GE_BYTEARRAY: ActGeBytearray = ActGeBytearray.ACT_GE_BYTEARRAY
 
+/**
+ * The table <code>public.act_ge_property</code>.
+ */
+val ACT_GE_PROPERTY: ActGeProperty = ActGeProperty.ACT_GE_PROPERTY
+
+/**
+ * The table <code>public.act_ge_schema_log</code>.
+ */
+val ACT_GE_SCHEMA_LOG: ActGeSchemaLog = ActGeSchemaLog.ACT_GE_SCHEMA_LOG
+
+/**
+ * The table <code>public.act_hi_actinst</code>.
+ */
+val ACT_HI_ACTINST: ActHiActinst = ActHiActinst.ACT_HI_ACTINST
+
+/**
+ * The table <code>public.act_hi_attachment</code>.
+ */
+val ACT_HI_ATTACHMENT: ActHiAttachment = ActHiAttachment.ACT_HI_ATTACHMENT
+
+/**
+ * The table <code>public.act_hi_batch</code>.
+ */
+val ACT_HI_BATCH: ActHiBatch = ActHiBatch.ACT_HI_BATCH
+
+/**
+ * The table <code>public.act_hi_caseactinst</code>.
+ */
+val ACT_HI_CASEACTINST: ActHiCaseactinst = ActHiCaseactinst.ACT_HI_CASEACTINST
+
+/**
+ * The table <code>public.act_hi_caseinst</code>.
+ */
+val ACT_HI_CASEINST: ActHiCaseinst = ActHiCaseinst.ACT_HI_CASEINST
+
+/**
+ * The table <code>public.act_hi_comment</code>.
+ */
+val ACT_HI_COMMENT: ActHiComment = ActHiComment.ACT_HI_COMMENT
+
+/**
+ * The table <code>public.act_hi_dec_in</code>.
+ */
+val ACT_HI_DEC_IN: ActHiDecIn = ActHiDecIn.ACT_HI_DEC_IN
+
+/**
+ * The table <code>public.act_hi_dec_out</code>.
+ */
+val ACT_HI_DEC_OUT: ActHiDecOut = ActHiDecOut.ACT_HI_DEC_OUT
+
+/**
+ * The table <code>public.act_hi_decinst</code>.
+ */
+val ACT_HI_DECINST: ActHiDecinst = ActHiDecinst.ACT_HI_DECINST
+
+/**
+ * The table <code>public.act_hi_detail</code>.
+ */
+val ACT_HI_DETAIL: ActHiDetail = ActHiDetail.ACT_HI_DETAIL
+
+/**
+ * The table <code>public.act_hi_ext_task_log</code>.
+ */
+val ACT_HI_EXT_TASK_LOG: ActHiExtTaskLog = ActHiExtTaskLog.ACT_HI_EXT_TASK_LOG
+
+/**
+ * The table <code>public.act_hi_identitylink</code>.
+ */
+val ACT_HI_IDENTITYLINK: ActHiIdentitylink = ActHiIdentitylink.ACT_HI_IDENTITYLINK
+
+/**
+ * The table <code>public.act_hi_incident</code>.
+ */
+val ACT_HI_INCIDENT: ActHiIncident = ActHiIncident.ACT_HI_INCIDENT
+
+/**
+ * The table <code>public.act_hi_job_log</code>.
+ */
+val ACT_HI_JOB_LOG: ActHiJobLog = ActHiJobLog.ACT_HI_JOB_LOG
+
+/**
+ * The table <code>public.act_hi_op_log</code>.
+ */
+val ACT_HI_OP_LOG: ActHiOpLog = ActHiOpLog.ACT_HI_OP_LOG
+
+/**
+ * The table <code>public.act_hi_procinst</code>.
+ */
+val ACT_HI_PROCINST: ActHiProcinst = ActHiProcinst.ACT_HI_PROCINST
+
+/**
+ * The table <code>public.act_hi_taskinst</code>.
+ */
+val ACT_HI_TASKINST: ActHiTaskinst = ActHiTaskinst.ACT_HI_TASKINST
+
+/**
+ * The table <code>public.act_hi_varinst</code>.
+ */
+val ACT_HI_VARINST: ActHiVarinst = ActHiVarinst.ACT_HI_VARINST
+
+/**
+ * The table <code>public.act_id_group</code>.
+ */
+val ACT_ID_GROUP: ActIdGroup = ActIdGroup.ACT_ID_GROUP
+
+/**
+ * The table <code>public.act_id_info</code>.
+ */
+val ACT_ID_INFO: ActIdInfo = ActIdInfo.ACT_ID_INFO
+
+/**
+ * The table <code>public.act_id_membership</code>.
+ */
+val ACT_ID_MEMBERSHIP: ActIdMembership = ActIdMembership.ACT_ID_MEMBERSHIP
+
+/**
+ * The table <code>public.act_id_tenant</code>.
+ */
+val ACT_ID_TENANT: ActIdTenant = ActIdTenant.ACT_ID_TENANT
+
+/**
+ * The table <code>public.act_id_tenant_member</code>.
+ */
+val ACT_ID_TENANT_MEMBER: ActIdTenantMember = ActIdTenantMember.ACT_ID_TENANT_MEMBER
+
+/**
+ * The table <code>public.act_id_user</code>.
+ */
+val ACT_ID_USER: ActIdUser = ActIdUser.ACT_ID_USER
+
+/**
+ * The table <code>public.act_re_camformdef</code>.
+ */
+val ACT_RE_CAMFORMDEF: ActReCamformdef = ActReCamformdef.ACT_RE_CAMFORMDEF
+
+/**
+ * The table <code>public.act_re_case_def</code>.
+ */
+val ACT_RE_CASE_DEF: ActReCaseDef = ActReCaseDef.ACT_RE_CASE_DEF
+
+/**
+ * The table <code>public.act_re_decision_def</code>.
+ */
+val ACT_RE_DECISION_DEF: ActReDecisionDef = ActReDecisionDef.ACT_RE_DECISION_DEF
+
+/**
+ * The table <code>public.act_re_decision_req_def</code>.
+ */
+val ACT_RE_DECISION_REQ_DEF: ActReDecisionReqDef = ActReDecisionReqDef.ACT_RE_DECISION_REQ_DEF
+
+/**
+ * The table <code>public.act_re_deployment</code>.
+ */
+val ACT_RE_DEPLOYMENT: ActReDeployment = ActReDeployment.ACT_RE_DEPLOYMENT
+
+/**
+ * The table <code>public.act_re_procdef</code>.
+ */
+val ACT_RE_PROCDEF: ActReProcdef = ActReProcdef.ACT_RE_PROCDEF
+
+/**
+ * The table <code>public.act_ru_authorization</code>.
+ */
+val ACT_RU_AUTHORIZATION: ActRuAuthorization = ActRuAuthorization.ACT_RU_AUTHORIZATION
+
+/**
+ * The table <code>public.act_ru_batch</code>.
+ */
+val ACT_RU_BATCH: ActRuBatch = ActRuBatch.ACT_RU_BATCH
+
+/**
+ * The table <code>public.act_ru_case_execution</code>.
+ */
+val ACT_RU_CASE_EXECUTION: ActRuCaseExecution = ActRuCaseExecution.ACT_RU_CASE_EXECUTION
+
+/**
+ * The table <code>public.act_ru_case_sentry_part</code>.
+ */
+val ACT_RU_CASE_SENTRY_PART: ActRuCaseSentryPart = ActRuCaseSentryPart.ACT_RU_CASE_SENTRY_PART
+
+/**
+ * The table <code>public.act_ru_event_subscr</code>.
+ */
+val ACT_RU_EVENT_SUBSCR: ActRuEventSubscr = ActRuEventSubscr.ACT_RU_EVENT_SUBSCR
+
+/**
+ * The table <code>public.act_ru_execution</code>.
+ */
+val ACT_RU_EXECUTION: ActRuExecution = ActRuExecution.ACT_RU_EXECUTION
+
+/**
+ * The table <code>public.act_ru_ext_task</code>.
+ */
+val ACT_RU_EXT_TASK: ActRuExtTask = ActRuExtTask.ACT_RU_EXT_TASK
+
+/**
+ * The table <code>public.act_ru_filter</code>.
+ */
+val ACT_RU_FILTER: ActRuFilter = ActRuFilter.ACT_RU_FILTER
+
+/**
+ * The table <code>public.act_ru_identitylink</code>.
+ */
+val ACT_RU_IDENTITYLINK: ActRuIdentitylink = ActRuIdentitylink.ACT_RU_IDENTITYLINK
+
+/**
+ * The table <code>public.act_ru_incident</code>.
+ */
+val ACT_RU_INCIDENT: ActRuIncident = ActRuIncident.ACT_RU_INCIDENT
+
+/**
+ * The table <code>public.act_ru_job</code>.
+ */
+val ACT_RU_JOB: ActRuJob = ActRuJob.ACT_RU_JOB
+
+/**
+ * The table <code>public.act_ru_jobdef</code>.
+ */
+val ACT_RU_JOBDEF: ActRuJobdef = ActRuJobdef.ACT_RU_JOBDEF
+
+/**
+ * The table <code>public.act_ru_meter_log</code>.
+ */
+val ACT_RU_METER_LOG: ActRuMeterLog = ActRuMeterLog.ACT_RU_METER_LOG
+
+/**
+ * The table <code>public.act_ru_task</code>.
+ */
+val ACT_RU_TASK: ActRuTask = ActRuTask.ACT_RU_TASK
+
+/**
+ * The table <code>public.act_ru_task_meter_log</code>.
+ */
+val ACT_RU_TASK_METER_LOG: ActRuTaskMeterLog = ActRuTaskMeterLog.ACT_RU_TASK_METER_LOG
+
+/**
+ * The table <code>public.act_ru_variable</code>.
+ */
+val ACT_RU_VARIABLE: ActRuVariable = ActRuVariable.ACT_RU_VARIABLE
 
 /**
  * The table <code>public.category</code>.
@@ -44,6 +334,11 @@ val COMMUNITY: Community = Community.COMMUNITY
  * The table <code>public.community_event</code>.
  */
 val COMMUNITY_EVENT: CommunityEvent = CommunityEvent.COMMUNITY_EVENT
+
+/**
+ * The table <code>public.films</code>.
+ */
+val FILMS: Films = Films.FILMS
 
 /**
  * The table <code>public.qrtz_blob_triggers</code>.
@@ -101,16 +396,6 @@ val QRTZ_SIMPROP_TRIGGERS: QrtzSimpropTriggers = QrtzSimpropTriggers.QRTZ_SIMPRO
 val QRTZ_TRIGGERS: QrtzTriggers = QrtzTriggers.QRTZ_TRIGGERS
 
 /**
- * The table <code>public.role</code>.
+ * The table <code>public.reviews</code>.
  */
-val ROLE: Role = Role.ROLE
-
-/**
- * The table <code>public.role_user_relation</code>.
- */
-val ROLE_USER_RELATION: RoleUserRelation = RoleUserRelation.ROLE_USER_RELATION
-
-/**
- * The table <code>public.user</code>.
- */
-val USER: User = User.USER
+val REVIEWS: Reviews = Reviews.REVIEWS

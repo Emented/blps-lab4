@@ -3,11 +3,60 @@
  */
 package emented.jooq.main.keys
 
-
+import emented.jooq.main.tables.ActGeBytearray
+import emented.jooq.main.tables.ActGeProperty
+import emented.jooq.main.tables.ActGeSchemaLog
+import emented.jooq.main.tables.ActHiActinst
+import emented.jooq.main.tables.ActHiAttachment
+import emented.jooq.main.tables.ActHiBatch
+import emented.jooq.main.tables.ActHiCaseactinst
+import emented.jooq.main.tables.ActHiCaseinst
+import emented.jooq.main.tables.ActHiComment
+import emented.jooq.main.tables.ActHiDecIn
+import emented.jooq.main.tables.ActHiDecOut
+import emented.jooq.main.tables.ActHiDecinst
+import emented.jooq.main.tables.ActHiDetail
+import emented.jooq.main.tables.ActHiExtTaskLog
+import emented.jooq.main.tables.ActHiIdentitylink
+import emented.jooq.main.tables.ActHiIncident
+import emented.jooq.main.tables.ActHiJobLog
+import emented.jooq.main.tables.ActHiOpLog
+import emented.jooq.main.tables.ActHiProcinst
+import emented.jooq.main.tables.ActHiTaskinst
+import emented.jooq.main.tables.ActHiVarinst
+import emented.jooq.main.tables.ActIdGroup
+import emented.jooq.main.tables.ActIdInfo
+import emented.jooq.main.tables.ActIdMembership
+import emented.jooq.main.tables.ActIdTenant
+import emented.jooq.main.tables.ActIdTenantMember
+import emented.jooq.main.tables.ActIdUser
+import emented.jooq.main.tables.ActReCamformdef
+import emented.jooq.main.tables.ActReCaseDef
+import emented.jooq.main.tables.ActReDecisionDef
+import emented.jooq.main.tables.ActReDecisionReqDef
+import emented.jooq.main.tables.ActReDeployment
+import emented.jooq.main.tables.ActReProcdef
+import emented.jooq.main.tables.ActRuAuthorization
+import emented.jooq.main.tables.ActRuBatch
+import emented.jooq.main.tables.ActRuCaseExecution
+import emented.jooq.main.tables.ActRuCaseSentryPart
+import emented.jooq.main.tables.ActRuEventSubscr
+import emented.jooq.main.tables.ActRuExecution
+import emented.jooq.main.tables.ActRuExtTask
+import emented.jooq.main.tables.ActRuFilter
+import emented.jooq.main.tables.ActRuIdentitylink
+import emented.jooq.main.tables.ActRuIncident
+import emented.jooq.main.tables.ActRuJob
+import emented.jooq.main.tables.ActRuJobdef
+import emented.jooq.main.tables.ActRuMeterLog
+import emented.jooq.main.tables.ActRuTask
+import emented.jooq.main.tables.ActRuTaskMeterLog
+import emented.jooq.main.tables.ActRuVariable
 import emented.jooq.main.tables.Category
 import emented.jooq.main.tables.Comment
 import emented.jooq.main.tables.Community
 import emented.jooq.main.tables.CommunityEvent
+import emented.jooq.main.tables.Films
 import emented.jooq.main.tables.QrtzBlobTriggers
 import emented.jooq.main.tables.QrtzCalendars
 import emented.jooq.main.tables.QrtzCronTriggers
@@ -19,13 +68,61 @@ import emented.jooq.main.tables.QrtzSchedulerState
 import emented.jooq.main.tables.QrtzSimpleTriggers
 import emented.jooq.main.tables.QrtzSimpropTriggers
 import emented.jooq.main.tables.QrtzTriggers
-import emented.jooq.main.tables.Role
-import emented.jooq.main.tables.RoleUserRelation
-import emented.jooq.main.tables.User
+import emented.jooq.main.tables.Reviews
+import emented.jooq.main.tables.records.ActGeBytearrayRecord
+import emented.jooq.main.tables.records.ActGePropertyRecord
+import emented.jooq.main.tables.records.ActGeSchemaLogRecord
+import emented.jooq.main.tables.records.ActHiActinstRecord
+import emented.jooq.main.tables.records.ActHiAttachmentRecord
+import emented.jooq.main.tables.records.ActHiBatchRecord
+import emented.jooq.main.tables.records.ActHiCaseactinstRecord
+import emented.jooq.main.tables.records.ActHiCaseinstRecord
+import emented.jooq.main.tables.records.ActHiCommentRecord
+import emented.jooq.main.tables.records.ActHiDecInRecord
+import emented.jooq.main.tables.records.ActHiDecOutRecord
+import emented.jooq.main.tables.records.ActHiDecinstRecord
+import emented.jooq.main.tables.records.ActHiDetailRecord
+import emented.jooq.main.tables.records.ActHiExtTaskLogRecord
+import emented.jooq.main.tables.records.ActHiIdentitylinkRecord
+import emented.jooq.main.tables.records.ActHiIncidentRecord
+import emented.jooq.main.tables.records.ActHiJobLogRecord
+import emented.jooq.main.tables.records.ActHiOpLogRecord
+import emented.jooq.main.tables.records.ActHiProcinstRecord
+import emented.jooq.main.tables.records.ActHiTaskinstRecord
+import emented.jooq.main.tables.records.ActHiVarinstRecord
+import emented.jooq.main.tables.records.ActIdGroupRecord
+import emented.jooq.main.tables.records.ActIdInfoRecord
+import emented.jooq.main.tables.records.ActIdMembershipRecord
+import emented.jooq.main.tables.records.ActIdTenantMemberRecord
+import emented.jooq.main.tables.records.ActIdTenantRecord
+import emented.jooq.main.tables.records.ActIdUserRecord
+import emented.jooq.main.tables.records.ActReCamformdefRecord
+import emented.jooq.main.tables.records.ActReCaseDefRecord
+import emented.jooq.main.tables.records.ActReDecisionDefRecord
+import emented.jooq.main.tables.records.ActReDecisionReqDefRecord
+import emented.jooq.main.tables.records.ActReDeploymentRecord
+import emented.jooq.main.tables.records.ActReProcdefRecord
+import emented.jooq.main.tables.records.ActRuAuthorizationRecord
+import emented.jooq.main.tables.records.ActRuBatchRecord
+import emented.jooq.main.tables.records.ActRuCaseExecutionRecord
+import emented.jooq.main.tables.records.ActRuCaseSentryPartRecord
+import emented.jooq.main.tables.records.ActRuEventSubscrRecord
+import emented.jooq.main.tables.records.ActRuExecutionRecord
+import emented.jooq.main.tables.records.ActRuExtTaskRecord
+import emented.jooq.main.tables.records.ActRuFilterRecord
+import emented.jooq.main.tables.records.ActRuIdentitylinkRecord
+import emented.jooq.main.tables.records.ActRuIncidentRecord
+import emented.jooq.main.tables.records.ActRuJobRecord
+import emented.jooq.main.tables.records.ActRuJobdefRecord
+import emented.jooq.main.tables.records.ActRuMeterLogRecord
+import emented.jooq.main.tables.records.ActRuTaskMeterLogRecord
+import emented.jooq.main.tables.records.ActRuTaskRecord
+import emented.jooq.main.tables.records.ActRuVariableRecord
 import emented.jooq.main.tables.records.CategoryRecord
 import emented.jooq.main.tables.records.CommentRecord
 import emented.jooq.main.tables.records.CommunityEventRecord
 import emented.jooq.main.tables.records.CommunityRecord
+import emented.jooq.main.tables.records.FilmsRecord
 import emented.jooq.main.tables.records.QrtzBlobTriggersRecord
 import emented.jooq.main.tables.records.QrtzCalendarsRecord
 import emented.jooq.main.tables.records.QrtzCronTriggersRecord
@@ -37,59 +134,966 @@ import emented.jooq.main.tables.records.QrtzSchedulerStateRecord
 import emented.jooq.main.tables.records.QrtzSimpleTriggersRecord
 import emented.jooq.main.tables.records.QrtzSimpropTriggersRecord
 import emented.jooq.main.tables.records.QrtzTriggersRecord
-import emented.jooq.main.tables.records.RoleRecord
-import emented.jooq.main.tables.records.RoleUserRelationRecord
-import emented.jooq.main.tables.records.UserRecord
+import emented.jooq.main.tables.records.ReviewsRecord
 
 import org.jooq.ForeignKey
 import org.jooq.UniqueKey
 import org.jooq.impl.DSL
 import org.jooq.impl.Internal
 
-
-
 // -------------------------------------------------------------------------
 // UNIQUE and PRIMARY KEY definitions
 // -------------------------------------------------------------------------
 
-val CATEGORY_PKEY: UniqueKey<CategoryRecord> = Internal.createUniqueKey(Category.CATEGORY, DSL.name("category_pkey"), arrayOf(Category.CATEGORY.ID), true)
-val COMMENT_PKEY: UniqueKey<CommentRecord> = Internal.createUniqueKey(Comment.COMMENT, DSL.name("comment_pkey"), arrayOf(Comment.COMMENT.ID), true)
-val COMMUNITY_ADDRESS_KEY: UniqueKey<CommunityRecord> = Internal.createUniqueKey(Community.COMMUNITY, DSL.name("community_address_key"), arrayOf(Community.COMMUNITY.ADDRESS), true)
-val COMMUNITY_PKEY: UniqueKey<CommunityRecord> = Internal.createUniqueKey(Community.COMMUNITY, DSL.name("community_pkey"), arrayOf(Community.COMMUNITY.ID), true)
-val COMMUNITY_EVENT_ADDRESS_KEY: UniqueKey<CommunityEventRecord> = Internal.createUniqueKey(CommunityEvent.COMMUNITY_EVENT, DSL.name("community_event_address_key"), arrayOf(CommunityEvent.COMMUNITY_EVENT.ADDRESS), true)
-val COMMUNITY_EVENT_PKEY: UniqueKey<CommunityEventRecord> = Internal.createUniqueKey(CommunityEvent.COMMUNITY_EVENT, DSL.name("community_event_pkey"), arrayOf(CommunityEvent.COMMUNITY_EVENT.ID), true)
-val QRTZ_BLOB_TRIGGERS_PKEY: UniqueKey<QrtzBlobTriggersRecord> = Internal.createUniqueKey(QrtzBlobTriggers.QRTZ_BLOB_TRIGGERS, DSL.name("qrtz_blob_triggers_pkey"), arrayOf(QrtzBlobTriggers.QRTZ_BLOB_TRIGGERS.SCHED_NAME, QrtzBlobTriggers.QRTZ_BLOB_TRIGGERS.TRIGGER_NAME, QrtzBlobTriggers.QRTZ_BLOB_TRIGGERS.TRIGGER_GROUP), true)
-val QRTZ_CALENDARS_PKEY: UniqueKey<QrtzCalendarsRecord> = Internal.createUniqueKey(QrtzCalendars.QRTZ_CALENDARS, DSL.name("qrtz_calendars_pkey"), arrayOf(QrtzCalendars.QRTZ_CALENDARS.SCHED_NAME, QrtzCalendars.QRTZ_CALENDARS.CALENDAR_NAME), true)
-val QRTZ_CRON_TRIGGERS_PKEY: UniqueKey<QrtzCronTriggersRecord> = Internal.createUniqueKey(QrtzCronTriggers.QRTZ_CRON_TRIGGERS, DSL.name("qrtz_cron_triggers_pkey"), arrayOf(QrtzCronTriggers.QRTZ_CRON_TRIGGERS.SCHED_NAME, QrtzCronTriggers.QRTZ_CRON_TRIGGERS.TRIGGER_NAME, QrtzCronTriggers.QRTZ_CRON_TRIGGERS.TRIGGER_GROUP), true)
-val QRTZ_FIRED_TRIGGERS_PKEY: UniqueKey<QrtzFiredTriggersRecord> = Internal.createUniqueKey(QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS, DSL.name("qrtz_fired_triggers_pkey"), arrayOf(QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.SCHED_NAME, QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.ENTRY_ID), true)
-val QRTZ_JOB_DETAILS_PKEY: UniqueKey<QrtzJobDetailsRecord> = Internal.createUniqueKey(QrtzJobDetails.QRTZ_JOB_DETAILS, DSL.name("qrtz_job_details_pkey"), arrayOf(QrtzJobDetails.QRTZ_JOB_DETAILS.SCHED_NAME, QrtzJobDetails.QRTZ_JOB_DETAILS.JOB_NAME, QrtzJobDetails.QRTZ_JOB_DETAILS.JOB_GROUP), true)
-val QRTZ_LOCKS_PKEY: UniqueKey<QrtzLocksRecord> = Internal.createUniqueKey(QrtzLocks.QRTZ_LOCKS, DSL.name("qrtz_locks_pkey"), arrayOf(QrtzLocks.QRTZ_LOCKS.SCHED_NAME, QrtzLocks.QRTZ_LOCKS.LOCK_NAME), true)
-val QRTZ_PAUSED_TRIGGER_GRPS_PKEY: UniqueKey<QrtzPausedTriggerGrpsRecord> = Internal.createUniqueKey(QrtzPausedTriggerGrps.QRTZ_PAUSED_TRIGGER_GRPS, DSL.name("qrtz_paused_trigger_grps_pkey"), arrayOf(QrtzPausedTriggerGrps.QRTZ_PAUSED_TRIGGER_GRPS.SCHED_NAME, QrtzPausedTriggerGrps.QRTZ_PAUSED_TRIGGER_GRPS.TRIGGER_GROUP), true)
-val QRTZ_SCHEDULER_STATE_PKEY: UniqueKey<QrtzSchedulerStateRecord> = Internal.createUniqueKey(QrtzSchedulerState.QRTZ_SCHEDULER_STATE, DSL.name("qrtz_scheduler_state_pkey"), arrayOf(QrtzSchedulerState.QRTZ_SCHEDULER_STATE.SCHED_NAME, QrtzSchedulerState.QRTZ_SCHEDULER_STATE.INSTANCE_NAME), true)
-val QRTZ_SIMPLE_TRIGGERS_PKEY: UniqueKey<QrtzSimpleTriggersRecord> = Internal.createUniqueKey(QrtzSimpleTriggers.QRTZ_SIMPLE_TRIGGERS, DSL.name("qrtz_simple_triggers_pkey"), arrayOf(QrtzSimpleTriggers.QRTZ_SIMPLE_TRIGGERS.SCHED_NAME, QrtzSimpleTriggers.QRTZ_SIMPLE_TRIGGERS.TRIGGER_NAME, QrtzSimpleTriggers.QRTZ_SIMPLE_TRIGGERS.TRIGGER_GROUP), true)
-val QRTZ_SIMPROP_TRIGGERS_PKEY: UniqueKey<QrtzSimpropTriggersRecord> = Internal.createUniqueKey(QrtzSimpropTriggers.QRTZ_SIMPROP_TRIGGERS, DSL.name("qrtz_simprop_triggers_pkey"), arrayOf(QrtzSimpropTriggers.QRTZ_SIMPROP_TRIGGERS.SCHED_NAME, QrtzSimpropTriggers.QRTZ_SIMPROP_TRIGGERS.TRIGGER_NAME, QrtzSimpropTriggers.QRTZ_SIMPROP_TRIGGERS.TRIGGER_GROUP), true)
-val QRTZ_TRIGGERS_PKEY: UniqueKey<QrtzTriggersRecord> = Internal.createUniqueKey(QrtzTriggers.QRTZ_TRIGGERS, DSL.name("qrtz_triggers_pkey"), arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_NAME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_GROUP), true)
-val ROLE_NAME_KEY: UniqueKey<RoleRecord> = Internal.createUniqueKey(Role.ROLE, DSL.name("role_name_key"), arrayOf(Role.ROLE.NAME), true)
-val ROLE_PKEY: UniqueKey<RoleRecord> = Internal.createUniqueKey(Role.ROLE, DSL.name("role_pkey"), arrayOf(Role.ROLE.ID), true)
-val ROLE_USER_RELATION_USER_ID_ROLE_ID_KEY: UniqueKey<RoleUserRelationRecord> = Internal.createUniqueKey(RoleUserRelation.ROLE_USER_RELATION, DSL.name("role_user_relation_user_id_role_id_key"), arrayOf(RoleUserRelation.ROLE_USER_RELATION.USER_ID, RoleUserRelation.ROLE_USER_RELATION.ROLE_ID), true)
-val USER_EMAIL_KEY: UniqueKey<UserRecord> = Internal.createUniqueKey(User.USER, DSL.name("user_email_key"), arrayOf(User.USER.EMAIL), true)
-val USER_PKEY: UniqueKey<UserRecord> = Internal.createUniqueKey(User.USER, DSL.name("user_pkey"), arrayOf(User.USER.ID), true)
-val USER_USERNAME_KEY: UniqueKey<UserRecord> = Internal.createUniqueKey(User.USER, DSL.name("user_username_key"), arrayOf(User.USER.USERNAME), true)
+val ACT_GE_BYTEARRAY_PKEY: UniqueKey<ActGeBytearrayRecord> = Internal.createUniqueKey(
+    ActGeBytearray.ACT_GE_BYTEARRAY,
+    DSL.name("act_ge_bytearray_pkey"),
+    arrayOf(ActGeBytearray.ACT_GE_BYTEARRAY.ID_),
+    true
+)
+val ACT_GE_PROPERTY_PKEY: UniqueKey<ActGePropertyRecord> = Internal.createUniqueKey(
+    ActGeProperty.ACT_GE_PROPERTY,
+    DSL.name("act_ge_property_pkey"),
+    arrayOf(ActGeProperty.ACT_GE_PROPERTY.NAME_),
+    true
+)
+val ACT_GE_SCHEMA_LOG_PKEY: UniqueKey<ActGeSchemaLogRecord> = Internal.createUniqueKey(
+    ActGeSchemaLog.ACT_GE_SCHEMA_LOG,
+    DSL.name("act_ge_schema_log_pkey"),
+    arrayOf(ActGeSchemaLog.ACT_GE_SCHEMA_LOG.ID_),
+    true
+)
+val ACT_HI_ACTINST_PKEY: UniqueKey<ActHiActinstRecord> = Internal.createUniqueKey(
+    ActHiActinst.ACT_HI_ACTINST,
+    DSL.name("act_hi_actinst_pkey"),
+    arrayOf(ActHiActinst.ACT_HI_ACTINST.ID_),
+    true
+)
+val ACT_HI_ATTACHMENT_PKEY: UniqueKey<ActHiAttachmentRecord> = Internal.createUniqueKey(
+    ActHiAttachment.ACT_HI_ATTACHMENT,
+    DSL.name("act_hi_attachment_pkey"),
+    arrayOf(ActHiAttachment.ACT_HI_ATTACHMENT.ID_),
+    true
+)
+val ACT_HI_BATCH_PKEY: UniqueKey<ActHiBatchRecord> = Internal.createUniqueKey(
+    ActHiBatch.ACT_HI_BATCH,
+    DSL.name("act_hi_batch_pkey"),
+    arrayOf(ActHiBatch.ACT_HI_BATCH.ID_),
+    true
+)
+val ACT_HI_CASEACTINST_PKEY: UniqueKey<ActHiCaseactinstRecord> = Internal.createUniqueKey(
+    ActHiCaseactinst.ACT_HI_CASEACTINST,
+    DSL.name("act_hi_caseactinst_pkey"),
+    arrayOf(ActHiCaseactinst.ACT_HI_CASEACTINST.ID_),
+    true
+)
+val ACT_HI_CASEINST_CASE_INST_ID__KEY: UniqueKey<ActHiCaseinstRecord> = Internal.createUniqueKey(
+    ActHiCaseinst.ACT_HI_CASEINST,
+    DSL.name("act_hi_caseinst_case_inst_id__key"),
+    arrayOf(ActHiCaseinst.ACT_HI_CASEINST.CASE_INST_ID_),
+    true
+)
+val ACT_HI_CASEINST_PKEY: UniqueKey<ActHiCaseinstRecord> = Internal.createUniqueKey(
+    ActHiCaseinst.ACT_HI_CASEINST,
+    DSL.name("act_hi_caseinst_pkey"),
+    arrayOf(ActHiCaseinst.ACT_HI_CASEINST.ID_),
+    true
+)
+val ACT_HI_COMMENT_PKEY: UniqueKey<ActHiCommentRecord> = Internal.createUniqueKey(
+    ActHiComment.ACT_HI_COMMENT,
+    DSL.name("act_hi_comment_pkey"),
+    arrayOf(ActHiComment.ACT_HI_COMMENT.ID_),
+    true
+)
+val ACT_HI_DEC_IN_PKEY: UniqueKey<ActHiDecInRecord> = Internal.createUniqueKey(
+    ActHiDecIn.ACT_HI_DEC_IN,
+    DSL.name("act_hi_dec_in_pkey"),
+    arrayOf(ActHiDecIn.ACT_HI_DEC_IN.ID_),
+    true
+)
+val ACT_HI_DEC_OUT_PKEY: UniqueKey<ActHiDecOutRecord> = Internal.createUniqueKey(
+    ActHiDecOut.ACT_HI_DEC_OUT,
+    DSL.name("act_hi_dec_out_pkey"),
+    arrayOf(ActHiDecOut.ACT_HI_DEC_OUT.ID_),
+    true
+)
+val ACT_HI_DECINST_PKEY: UniqueKey<ActHiDecinstRecord> = Internal.createUniqueKey(
+    ActHiDecinst.ACT_HI_DECINST,
+    DSL.name("act_hi_decinst_pkey"),
+    arrayOf(ActHiDecinst.ACT_HI_DECINST.ID_),
+    true
+)
+val ACT_HI_DETAIL_PKEY: UniqueKey<ActHiDetailRecord> = Internal.createUniqueKey(
+    ActHiDetail.ACT_HI_DETAIL,
+    DSL.name("act_hi_detail_pkey"),
+    arrayOf(ActHiDetail.ACT_HI_DETAIL.ID_),
+    true
+)
+val ACT_HI_EXT_TASK_LOG_PKEY: UniqueKey<ActHiExtTaskLogRecord> = Internal.createUniqueKey(
+    ActHiExtTaskLog.ACT_HI_EXT_TASK_LOG,
+    DSL.name("act_hi_ext_task_log_pkey"),
+    arrayOf(ActHiExtTaskLog.ACT_HI_EXT_TASK_LOG.ID_),
+    true
+)
+val ACT_HI_IDENTITYLINK_PKEY: UniqueKey<ActHiIdentitylinkRecord> = Internal.createUniqueKey(
+    ActHiIdentitylink.ACT_HI_IDENTITYLINK,
+    DSL.name("act_hi_identitylink_pkey"),
+    arrayOf(ActHiIdentitylink.ACT_HI_IDENTITYLINK.ID_),
+    true
+)
+val ACT_HI_INCIDENT_PKEY: UniqueKey<ActHiIncidentRecord> = Internal.createUniqueKey(
+    ActHiIncident.ACT_HI_INCIDENT,
+    DSL.name("act_hi_incident_pkey"),
+    arrayOf(ActHiIncident.ACT_HI_INCIDENT.ID_),
+    true
+)
+val ACT_HI_JOB_LOG_PKEY: UniqueKey<ActHiJobLogRecord> = Internal.createUniqueKey(
+    ActHiJobLog.ACT_HI_JOB_LOG,
+    DSL.name("act_hi_job_log_pkey"),
+    arrayOf(ActHiJobLog.ACT_HI_JOB_LOG.ID_),
+    true
+)
+val ACT_HI_OP_LOG_PKEY: UniqueKey<ActHiOpLogRecord> = Internal.createUniqueKey(
+    ActHiOpLog.ACT_HI_OP_LOG,
+    DSL.name("act_hi_op_log_pkey"),
+    arrayOf(ActHiOpLog.ACT_HI_OP_LOG.ID_),
+    true
+)
+val ACT_HI_PROCINST_PKEY: UniqueKey<ActHiProcinstRecord> = Internal.createUniqueKey(
+    ActHiProcinst.ACT_HI_PROCINST,
+    DSL.name("act_hi_procinst_pkey"),
+    arrayOf(ActHiProcinst.ACT_HI_PROCINST.ID_),
+    true
+)
+val ACT_HI_PROCINST_PROC_INST_ID__KEY: UniqueKey<ActHiProcinstRecord> = Internal.createUniqueKey(
+    ActHiProcinst.ACT_HI_PROCINST,
+    DSL.name("act_hi_procinst_proc_inst_id__key"),
+    arrayOf(ActHiProcinst.ACT_HI_PROCINST.PROC_INST_ID_),
+    true
+)
+val ACT_HI_TASKINST_PKEY: UniqueKey<ActHiTaskinstRecord> = Internal.createUniqueKey(
+    ActHiTaskinst.ACT_HI_TASKINST,
+    DSL.name("act_hi_taskinst_pkey"),
+    arrayOf(ActHiTaskinst.ACT_HI_TASKINST.ID_),
+    true
+)
+val ACT_HI_VARINST_PKEY: UniqueKey<ActHiVarinstRecord> = Internal.createUniqueKey(
+    ActHiVarinst.ACT_HI_VARINST,
+    DSL.name("act_hi_varinst_pkey"),
+    arrayOf(ActHiVarinst.ACT_HI_VARINST.ID_),
+    true
+)
+val ACT_ID_GROUP_PKEY: UniqueKey<ActIdGroupRecord> = Internal.createUniqueKey(
+    ActIdGroup.ACT_ID_GROUP,
+    DSL.name("act_id_group_pkey"),
+    arrayOf(ActIdGroup.ACT_ID_GROUP.ID_),
+    true
+)
+val ACT_ID_INFO_PKEY: UniqueKey<ActIdInfoRecord> = Internal.createUniqueKey(
+    ActIdInfo.ACT_ID_INFO,
+    DSL.name("act_id_info_pkey"),
+    arrayOf(ActIdInfo.ACT_ID_INFO.ID_),
+    true
+)
+val ACT_ID_MEMBERSHIP_PKEY: UniqueKey<ActIdMembershipRecord> = Internal.createUniqueKey(
+    ActIdMembership.ACT_ID_MEMBERSHIP,
+    DSL.name("act_id_membership_pkey"),
+    arrayOf(ActIdMembership.ACT_ID_MEMBERSHIP.USER_ID_, ActIdMembership.ACT_ID_MEMBERSHIP.GROUP_ID_),
+    true
+)
+val ACT_ID_TENANT_PKEY: UniqueKey<ActIdTenantRecord> = Internal.createUniqueKey(
+    ActIdTenant.ACT_ID_TENANT,
+    DSL.name("act_id_tenant_pkey"),
+    arrayOf(ActIdTenant.ACT_ID_TENANT.ID_),
+    true
+)
+val ACT_ID_TENANT_MEMBER_PKEY: UniqueKey<ActIdTenantMemberRecord> = Internal.createUniqueKey(
+    ActIdTenantMember.ACT_ID_TENANT_MEMBER,
+    DSL.name("act_id_tenant_member_pkey"),
+    arrayOf(ActIdTenantMember.ACT_ID_TENANT_MEMBER.ID_),
+    true
+)
+val ACT_UNIQ_TENANT_MEMB_GROUP: UniqueKey<ActIdTenantMemberRecord> = Internal.createUniqueKey(
+    ActIdTenantMember.ACT_ID_TENANT_MEMBER,
+    DSL.name("act_uniq_tenant_memb_group"),
+    arrayOf(ActIdTenantMember.ACT_ID_TENANT_MEMBER.TENANT_ID_, ActIdTenantMember.ACT_ID_TENANT_MEMBER.GROUP_ID_),
+    true
+)
+val ACT_UNIQ_TENANT_MEMB_USER: UniqueKey<ActIdTenantMemberRecord> = Internal.createUniqueKey(
+    ActIdTenantMember.ACT_ID_TENANT_MEMBER,
+    DSL.name("act_uniq_tenant_memb_user"),
+    arrayOf(ActIdTenantMember.ACT_ID_TENANT_MEMBER.TENANT_ID_, ActIdTenantMember.ACT_ID_TENANT_MEMBER.USER_ID_),
+    true
+)
+val ACT_ID_USER_PKEY: UniqueKey<ActIdUserRecord> = Internal.createUniqueKey(
+    ActIdUser.ACT_ID_USER,
+    DSL.name("act_id_user_pkey"),
+    arrayOf(ActIdUser.ACT_ID_USER.ID_),
+    true
+)
+val ACT_RE_CAMFORMDEF_PKEY: UniqueKey<ActReCamformdefRecord> = Internal.createUniqueKey(
+    ActReCamformdef.ACT_RE_CAMFORMDEF,
+    DSL.name("act_re_camformdef_pkey"),
+    arrayOf(ActReCamformdef.ACT_RE_CAMFORMDEF.ID_),
+    true
+)
+val ACT_RE_CASE_DEF_PKEY: UniqueKey<ActReCaseDefRecord> = Internal.createUniqueKey(
+    ActReCaseDef.ACT_RE_CASE_DEF,
+    DSL.name("act_re_case_def_pkey"),
+    arrayOf(ActReCaseDef.ACT_RE_CASE_DEF.ID_),
+    true
+)
+val ACT_RE_DECISION_DEF_PKEY: UniqueKey<ActReDecisionDefRecord> = Internal.createUniqueKey(
+    ActReDecisionDef.ACT_RE_DECISION_DEF,
+    DSL.name("act_re_decision_def_pkey"),
+    arrayOf(ActReDecisionDef.ACT_RE_DECISION_DEF.ID_),
+    true
+)
+val ACT_RE_DECISION_REQ_DEF_PKEY: UniqueKey<ActReDecisionReqDefRecord> = Internal.createUniqueKey(
+    ActReDecisionReqDef.ACT_RE_DECISION_REQ_DEF,
+    DSL.name("act_re_decision_req_def_pkey"),
+    arrayOf(ActReDecisionReqDef.ACT_RE_DECISION_REQ_DEF.ID_),
+    true
+)
+val ACT_RE_DEPLOYMENT_PKEY: UniqueKey<ActReDeploymentRecord> = Internal.createUniqueKey(
+    ActReDeployment.ACT_RE_DEPLOYMENT,
+    DSL.name("act_re_deployment_pkey"),
+    arrayOf(ActReDeployment.ACT_RE_DEPLOYMENT.ID_),
+    true
+)
+val ACT_RE_PROCDEF_PKEY: UniqueKey<ActReProcdefRecord> = Internal.createUniqueKey(
+    ActReProcdef.ACT_RE_PROCDEF,
+    DSL.name("act_re_procdef_pkey"),
+    arrayOf(ActReProcdef.ACT_RE_PROCDEF.ID_),
+    true
+)
+val ACT_RU_AUTHORIZATION_PKEY: UniqueKey<ActRuAuthorizationRecord> = Internal.createUniqueKey(
+    ActRuAuthorization.ACT_RU_AUTHORIZATION,
+    DSL.name("act_ru_authorization_pkey"),
+    arrayOf(ActRuAuthorization.ACT_RU_AUTHORIZATION.ID_),
+    true
+)
+val ACT_UNIQ_AUTH_GROUP: UniqueKey<ActRuAuthorizationRecord> = Internal.createUniqueKey(
+    ActRuAuthorization.ACT_RU_AUTHORIZATION,
+    DSL.name("act_uniq_auth_group"),
+    arrayOf(
+        ActRuAuthorization.ACT_RU_AUTHORIZATION.TYPE_,
+        ActRuAuthorization.ACT_RU_AUTHORIZATION.GROUP_ID_,
+        ActRuAuthorization.ACT_RU_AUTHORIZATION.RESOURCE_TYPE_,
+        ActRuAuthorization.ACT_RU_AUTHORIZATION.RESOURCE_ID_
+    ),
+    true
+)
+val ACT_UNIQ_AUTH_USER: UniqueKey<ActRuAuthorizationRecord> = Internal.createUniqueKey(
+    ActRuAuthorization.ACT_RU_AUTHORIZATION,
+    DSL.name("act_uniq_auth_user"),
+    arrayOf(
+        ActRuAuthorization.ACT_RU_AUTHORIZATION.TYPE_,
+        ActRuAuthorization.ACT_RU_AUTHORIZATION.USER_ID_,
+        ActRuAuthorization.ACT_RU_AUTHORIZATION.RESOURCE_TYPE_,
+        ActRuAuthorization.ACT_RU_AUTHORIZATION.RESOURCE_ID_
+    ),
+    true
+)
+val ACT_RU_BATCH_PKEY: UniqueKey<ActRuBatchRecord> = Internal.createUniqueKey(
+    ActRuBatch.ACT_RU_BATCH,
+    DSL.name("act_ru_batch_pkey"),
+    arrayOf(ActRuBatch.ACT_RU_BATCH.ID_),
+    true
+)
+val ACT_RU_CASE_EXECUTION_PKEY: UniqueKey<ActRuCaseExecutionRecord> = Internal.createUniqueKey(
+    ActRuCaseExecution.ACT_RU_CASE_EXECUTION,
+    DSL.name("act_ru_case_execution_pkey"),
+    arrayOf(ActRuCaseExecution.ACT_RU_CASE_EXECUTION.ID_),
+    true
+)
+val ACT_RU_CASE_SENTRY_PART_PKEY: UniqueKey<ActRuCaseSentryPartRecord> = Internal.createUniqueKey(
+    ActRuCaseSentryPart.ACT_RU_CASE_SENTRY_PART,
+    DSL.name("act_ru_case_sentry_part_pkey"),
+    arrayOf(ActRuCaseSentryPart.ACT_RU_CASE_SENTRY_PART.ID_),
+    true
+)
+val ACT_RU_EVENT_SUBSCR_PKEY: UniqueKey<ActRuEventSubscrRecord> = Internal.createUniqueKey(
+    ActRuEventSubscr.ACT_RU_EVENT_SUBSCR,
+    DSL.name("act_ru_event_subscr_pkey"),
+    arrayOf(ActRuEventSubscr.ACT_RU_EVENT_SUBSCR.ID_),
+    true
+)
+val ACT_RU_EXECUTION_PKEY: UniqueKey<ActRuExecutionRecord> = Internal.createUniqueKey(
+    ActRuExecution.ACT_RU_EXECUTION,
+    DSL.name("act_ru_execution_pkey"),
+    arrayOf(ActRuExecution.ACT_RU_EXECUTION.ID_),
+    true
+)
+val ACT_RU_EXT_TASK_PKEY: UniqueKey<ActRuExtTaskRecord> = Internal.createUniqueKey(
+    ActRuExtTask.ACT_RU_EXT_TASK,
+    DSL.name("act_ru_ext_task_pkey"),
+    arrayOf(ActRuExtTask.ACT_RU_EXT_TASK.ID_),
+    true
+)
+val ACT_RU_FILTER_PKEY: UniqueKey<ActRuFilterRecord> = Internal.createUniqueKey(
+    ActRuFilter.ACT_RU_FILTER,
+    DSL.name("act_ru_filter_pkey"),
+    arrayOf(ActRuFilter.ACT_RU_FILTER.ID_),
+    true
+)
+val ACT_RU_IDENTITYLINK_PKEY: UniqueKey<ActRuIdentitylinkRecord> = Internal.createUniqueKey(
+    ActRuIdentitylink.ACT_RU_IDENTITYLINK,
+    DSL.name("act_ru_identitylink_pkey"),
+    arrayOf(ActRuIdentitylink.ACT_RU_IDENTITYLINK.ID_),
+    true
+)
+val ACT_RU_INCIDENT_PKEY: UniqueKey<ActRuIncidentRecord> = Internal.createUniqueKey(
+    ActRuIncident.ACT_RU_INCIDENT,
+    DSL.name("act_ru_incident_pkey"),
+    arrayOf(ActRuIncident.ACT_RU_INCIDENT.ID_),
+    true
+)
+val ACT_RU_JOB_PKEY: UniqueKey<ActRuJobRecord> =
+    Internal.createUniqueKey(ActRuJob.ACT_RU_JOB, DSL.name("act_ru_job_pkey"), arrayOf(ActRuJob.ACT_RU_JOB.ID_), true)
+val ACT_RU_JOBDEF_PKEY: UniqueKey<ActRuJobdefRecord> = Internal.createUniqueKey(
+    ActRuJobdef.ACT_RU_JOBDEF,
+    DSL.name("act_ru_jobdef_pkey"),
+    arrayOf(ActRuJobdef.ACT_RU_JOBDEF.ID_),
+    true
+)
+val ACT_RU_METER_LOG_PKEY: UniqueKey<ActRuMeterLogRecord> = Internal.createUniqueKey(
+    ActRuMeterLog.ACT_RU_METER_LOG,
+    DSL.name("act_ru_meter_log_pkey"),
+    arrayOf(ActRuMeterLog.ACT_RU_METER_LOG.ID_),
+    true
+)
+val ACT_RU_TASK_PKEY: UniqueKey<ActRuTaskRecord> = Internal.createUniqueKey(
+    ActRuTask.ACT_RU_TASK,
+    DSL.name("act_ru_task_pkey"),
+    arrayOf(ActRuTask.ACT_RU_TASK.ID_),
+    true
+)
+val ACT_RU_TASK_METER_LOG_PKEY: UniqueKey<ActRuTaskMeterLogRecord> = Internal.createUniqueKey(
+    ActRuTaskMeterLog.ACT_RU_TASK_METER_LOG,
+    DSL.name("act_ru_task_meter_log_pkey"),
+    arrayOf(ActRuTaskMeterLog.ACT_RU_TASK_METER_LOG.ID_),
+    true
+)
+val ACT_RU_VARIABLE_PKEY: UniqueKey<ActRuVariableRecord> = Internal.createUniqueKey(
+    ActRuVariable.ACT_RU_VARIABLE,
+    DSL.name("act_ru_variable_pkey"),
+    arrayOf(ActRuVariable.ACT_RU_VARIABLE.ID_),
+    true
+)
+val ACT_UNIQ_VARIABLE: UniqueKey<ActRuVariableRecord> = Internal.createUniqueKey(
+    ActRuVariable.ACT_RU_VARIABLE,
+    DSL.name("act_uniq_variable"),
+    arrayOf(ActRuVariable.ACT_RU_VARIABLE.VAR_SCOPE_, ActRuVariable.ACT_RU_VARIABLE.NAME_),
+    true
+)
+val CATEGORY_PKEY: UniqueKey<CategoryRecord> =
+    Internal.createUniqueKey(Category.CATEGORY, DSL.name("category_pkey"), arrayOf(Category.CATEGORY.ID), true)
+val COMMENT_PKEY: UniqueKey<CommentRecord> =
+    Internal.createUniqueKey(Comment.COMMENT, DSL.name("comment_pkey"), arrayOf(Comment.COMMENT.ID), true)
+val COMMUNITY_ADDRESS_KEY: UniqueKey<CommunityRecord> = Internal.createUniqueKey(
+    Community.COMMUNITY,
+    DSL.name("community_address_key"),
+    arrayOf(Community.COMMUNITY.ADDRESS),
+    true
+)
+val COMMUNITY_PKEY: UniqueKey<CommunityRecord> =
+    Internal.createUniqueKey(Community.COMMUNITY, DSL.name("community_pkey"), arrayOf(Community.COMMUNITY.ID), true)
+val COMMUNITY_EVENT_ADDRESS_KEY: UniqueKey<CommunityEventRecord> = Internal.createUniqueKey(
+    CommunityEvent.COMMUNITY_EVENT,
+    DSL.name("community_event_address_key"),
+    arrayOf(CommunityEvent.COMMUNITY_EVENT.ADDRESS),
+    true
+)
+val COMMUNITY_EVENT_PKEY: UniqueKey<CommunityEventRecord> = Internal.createUniqueKey(
+    CommunityEvent.COMMUNITY_EVENT,
+    DSL.name("community_event_pkey"),
+    arrayOf(CommunityEvent.COMMUNITY_EVENT.ID),
+    true
+)
+val FILMS_PKEY: UniqueKey<FilmsRecord> =
+    Internal.createUniqueKey(Films.FILMS, DSL.name("films_pkey"), arrayOf(Films.FILMS.ID), true)
+val QRTZ_BLOB_TRIGGERS_PKEY: UniqueKey<QrtzBlobTriggersRecord> = Internal.createUniqueKey(
+    QrtzBlobTriggers.QRTZ_BLOB_TRIGGERS,
+    DSL.name("qrtz_blob_triggers_pkey"),
+    arrayOf(
+        QrtzBlobTriggers.QRTZ_BLOB_TRIGGERS.SCHED_NAME,
+        QrtzBlobTriggers.QRTZ_BLOB_TRIGGERS.TRIGGER_NAME,
+        QrtzBlobTriggers.QRTZ_BLOB_TRIGGERS.TRIGGER_GROUP
+    ),
+    true
+)
+val QRTZ_CALENDARS_PKEY: UniqueKey<QrtzCalendarsRecord> = Internal.createUniqueKey(
+    QrtzCalendars.QRTZ_CALENDARS,
+    DSL.name("qrtz_calendars_pkey"),
+    arrayOf(QrtzCalendars.QRTZ_CALENDARS.SCHED_NAME, QrtzCalendars.QRTZ_CALENDARS.CALENDAR_NAME),
+    true
+)
+val QRTZ_CRON_TRIGGERS_PKEY: UniqueKey<QrtzCronTriggersRecord> = Internal.createUniqueKey(
+    QrtzCronTriggers.QRTZ_CRON_TRIGGERS,
+    DSL.name("qrtz_cron_triggers_pkey"),
+    arrayOf(
+        QrtzCronTriggers.QRTZ_CRON_TRIGGERS.SCHED_NAME,
+        QrtzCronTriggers.QRTZ_CRON_TRIGGERS.TRIGGER_NAME,
+        QrtzCronTriggers.QRTZ_CRON_TRIGGERS.TRIGGER_GROUP
+    ),
+    true
+)
+val QRTZ_FIRED_TRIGGERS_PKEY: UniqueKey<QrtzFiredTriggersRecord> = Internal.createUniqueKey(
+    QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS,
+    DSL.name("qrtz_fired_triggers_pkey"),
+    arrayOf(QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.SCHED_NAME, QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.ENTRY_ID),
+    true
+)
+val QRTZ_JOB_DETAILS_PKEY: UniqueKey<QrtzJobDetailsRecord> = Internal.createUniqueKey(
+    QrtzJobDetails.QRTZ_JOB_DETAILS,
+    DSL.name("qrtz_job_details_pkey"),
+    arrayOf(
+        QrtzJobDetails.QRTZ_JOB_DETAILS.SCHED_NAME,
+        QrtzJobDetails.QRTZ_JOB_DETAILS.JOB_NAME,
+        QrtzJobDetails.QRTZ_JOB_DETAILS.JOB_GROUP
+    ),
+    true
+)
+val QRTZ_LOCKS_PKEY: UniqueKey<QrtzLocksRecord> = Internal.createUniqueKey(
+    QrtzLocks.QRTZ_LOCKS,
+    DSL.name("qrtz_locks_pkey"),
+    arrayOf(QrtzLocks.QRTZ_LOCKS.SCHED_NAME, QrtzLocks.QRTZ_LOCKS.LOCK_NAME),
+    true
+)
+val QRTZ_PAUSED_TRIGGER_GRPS_PKEY: UniqueKey<QrtzPausedTriggerGrpsRecord> = Internal.createUniqueKey(
+    QrtzPausedTriggerGrps.QRTZ_PAUSED_TRIGGER_GRPS,
+    DSL.name("qrtz_paused_trigger_grps_pkey"),
+    arrayOf(
+        QrtzPausedTriggerGrps.QRTZ_PAUSED_TRIGGER_GRPS.SCHED_NAME,
+        QrtzPausedTriggerGrps.QRTZ_PAUSED_TRIGGER_GRPS.TRIGGER_GROUP
+    ),
+    true
+)
+val QRTZ_SCHEDULER_STATE_PKEY: UniqueKey<QrtzSchedulerStateRecord> = Internal.createUniqueKey(
+    QrtzSchedulerState.QRTZ_SCHEDULER_STATE,
+    DSL.name("qrtz_scheduler_state_pkey"),
+    arrayOf(QrtzSchedulerState.QRTZ_SCHEDULER_STATE.SCHED_NAME, QrtzSchedulerState.QRTZ_SCHEDULER_STATE.INSTANCE_NAME),
+    true
+)
+val QRTZ_SIMPLE_TRIGGERS_PKEY: UniqueKey<QrtzSimpleTriggersRecord> = Internal.createUniqueKey(
+    QrtzSimpleTriggers.QRTZ_SIMPLE_TRIGGERS,
+    DSL.name("qrtz_simple_triggers_pkey"),
+    arrayOf(
+        QrtzSimpleTriggers.QRTZ_SIMPLE_TRIGGERS.SCHED_NAME,
+        QrtzSimpleTriggers.QRTZ_SIMPLE_TRIGGERS.TRIGGER_NAME,
+        QrtzSimpleTriggers.QRTZ_SIMPLE_TRIGGERS.TRIGGER_GROUP
+    ),
+    true
+)
+val QRTZ_SIMPROP_TRIGGERS_PKEY: UniqueKey<QrtzSimpropTriggersRecord> = Internal.createUniqueKey(
+    QrtzSimpropTriggers.QRTZ_SIMPROP_TRIGGERS,
+    DSL.name("qrtz_simprop_triggers_pkey"),
+    arrayOf(
+        QrtzSimpropTriggers.QRTZ_SIMPROP_TRIGGERS.SCHED_NAME,
+        QrtzSimpropTriggers.QRTZ_SIMPROP_TRIGGERS.TRIGGER_NAME,
+        QrtzSimpropTriggers.QRTZ_SIMPROP_TRIGGERS.TRIGGER_GROUP
+    ),
+    true
+)
+val QRTZ_TRIGGERS_PKEY: UniqueKey<QrtzTriggersRecord> = Internal.createUniqueKey(
+    QrtzTriggers.QRTZ_TRIGGERS,
+    DSL.name("qrtz_triggers_pkey"),
+    arrayOf(
+        QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME,
+        QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_NAME,
+        QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_GROUP
+    ),
+    true
+)
+val REVIEWS_PKEY: UniqueKey<ReviewsRecord> =
+    Internal.createUniqueKey(Reviews.REVIEWS, DSL.name("reviews_pkey"), arrayOf(Reviews.REVIEWS.ID), true)
 
 // -------------------------------------------------------------------------
 // FOREIGN KEY definitions
 // -------------------------------------------------------------------------
 
-val COMMENT__COMMENT_COMMUNITY_ID_FKEY: ForeignKey<CommentRecord, CommunityRecord> = Internal.createForeignKey(Comment.COMMENT, DSL.name("comment_community_id_fkey"), arrayOf(Comment.COMMENT.COMMUNITY_ID), emented.jooq.main.keys.COMMUNITY_PKEY, arrayOf(Community.COMMUNITY.ID), true)
-val COMMENT__COMMENT_USER_ID_FKEY: ForeignKey<CommentRecord, UserRecord> = Internal.createForeignKey(Comment.COMMENT, DSL.name("comment_user_id_fkey"), arrayOf(Comment.COMMENT.USER_ID), emented.jooq.main.keys.USER_PKEY, arrayOf(User.USER.ID), true)
-val COMMUNITY__COMMUNITY_CATEGORY_ID_FKEY: ForeignKey<CommunityRecord, CategoryRecord> = Internal.createForeignKey(Community.COMMUNITY, DSL.name("community_category_id_fkey"), arrayOf(Community.COMMUNITY.CATEGORY_ID), emented.jooq.main.keys.CATEGORY_PKEY, arrayOf(Category.CATEGORY.ID), true)
-val COMMUNITY__COMMUNITY_USER_ID_FKEY: ForeignKey<CommunityRecord, UserRecord> = Internal.createForeignKey(Community.COMMUNITY, DSL.name("community_user_id_fkey"), arrayOf(Community.COMMUNITY.USER_ID), emented.jooq.main.keys.USER_PKEY, arrayOf(User.USER.ID), true)
-val COMMUNITY_EVENT__COMMUNITY_EVENT_CATEGORY_ID_FKEY: ForeignKey<CommunityEventRecord, CategoryRecord> = Internal.createForeignKey(CommunityEvent.COMMUNITY_EVENT, DSL.name("community_event_category_id_fkey"), arrayOf(CommunityEvent.COMMUNITY_EVENT.CATEGORY_ID), emented.jooq.main.keys.CATEGORY_PKEY, arrayOf(Category.CATEGORY.ID), true)
-val COMMUNITY_EVENT__COMMUNITY_EVENT_USER_ID_FKEY: ForeignKey<CommunityEventRecord, UserRecord> = Internal.createForeignKey(CommunityEvent.COMMUNITY_EVENT, DSL.name("community_event_user_id_fkey"), arrayOf(CommunityEvent.COMMUNITY_EVENT.USER_ID), emented.jooq.main.keys.USER_PKEY, arrayOf(User.USER.ID), true)
-val QRTZ_BLOB_TRIGGERS__QRTZ_BLOB_TRIGGERS_SCHED_NAME_TRIGGER_NAME_TRIGGER_GROUP_FKEY: ForeignKey<QrtzBlobTriggersRecord, QrtzTriggersRecord> = Internal.createForeignKey(QrtzBlobTriggers.QRTZ_BLOB_TRIGGERS, DSL.name("qrtz_blob_triggers_sched_name_trigger_name_trigger_group_fkey"), arrayOf(QrtzBlobTriggers.QRTZ_BLOB_TRIGGERS.SCHED_NAME, QrtzBlobTriggers.QRTZ_BLOB_TRIGGERS.TRIGGER_NAME, QrtzBlobTriggers.QRTZ_BLOB_TRIGGERS.TRIGGER_GROUP), emented.jooq.main.keys.QRTZ_TRIGGERS_PKEY, arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_NAME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_GROUP), true)
-val QRTZ_CRON_TRIGGERS__QRTZ_CRON_TRIGGERS_SCHED_NAME_TRIGGER_NAME_TRIGGER_GROUP_FKEY: ForeignKey<QrtzCronTriggersRecord, QrtzTriggersRecord> = Internal.createForeignKey(QrtzCronTriggers.QRTZ_CRON_TRIGGERS, DSL.name("qrtz_cron_triggers_sched_name_trigger_name_trigger_group_fkey"), arrayOf(QrtzCronTriggers.QRTZ_CRON_TRIGGERS.SCHED_NAME, QrtzCronTriggers.QRTZ_CRON_TRIGGERS.TRIGGER_NAME, QrtzCronTriggers.QRTZ_CRON_TRIGGERS.TRIGGER_GROUP), emented.jooq.main.keys.QRTZ_TRIGGERS_PKEY, arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_NAME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_GROUP), true)
-val QRTZ_SIMPLE_TRIGGERS__QRTZ_SIMPLE_TRIGGERS_SCHED_NAME_TRIGGER_NAME_TRIGGER_GROUP_FKEY: ForeignKey<QrtzSimpleTriggersRecord, QrtzTriggersRecord> = Internal.createForeignKey(QrtzSimpleTriggers.QRTZ_SIMPLE_TRIGGERS, DSL.name("qrtz_simple_triggers_sched_name_trigger_name_trigger_group_fkey"), arrayOf(QrtzSimpleTriggers.QRTZ_SIMPLE_TRIGGERS.SCHED_NAME, QrtzSimpleTriggers.QRTZ_SIMPLE_TRIGGERS.TRIGGER_NAME, QrtzSimpleTriggers.QRTZ_SIMPLE_TRIGGERS.TRIGGER_GROUP), emented.jooq.main.keys.QRTZ_TRIGGERS_PKEY, arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_NAME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_GROUP), true)
-val QRTZ_SIMPROP_TRIGGERS__QRTZ_SIMPROP_TRIGGERS_SCHED_NAME_TRIGGER_NAME_TRIGGER_GROU_FKEY: ForeignKey<QrtzSimpropTriggersRecord, QrtzTriggersRecord> = Internal.createForeignKey(QrtzSimpropTriggers.QRTZ_SIMPROP_TRIGGERS, DSL.name("qrtz_simprop_triggers_sched_name_trigger_name_trigger_grou_fkey"), arrayOf(QrtzSimpropTriggers.QRTZ_SIMPROP_TRIGGERS.SCHED_NAME, QrtzSimpropTriggers.QRTZ_SIMPROP_TRIGGERS.TRIGGER_NAME, QrtzSimpropTriggers.QRTZ_SIMPROP_TRIGGERS.TRIGGER_GROUP), emented.jooq.main.keys.QRTZ_TRIGGERS_PKEY, arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_NAME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_GROUP), true)
-val QRTZ_TRIGGERS__QRTZ_TRIGGERS_SCHED_NAME_JOB_NAME_JOB_GROUP_FKEY: ForeignKey<QrtzTriggersRecord, QrtzJobDetailsRecord> = Internal.createForeignKey(QrtzTriggers.QRTZ_TRIGGERS, DSL.name("qrtz_triggers_sched_name_job_name_job_group_fkey"), arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.JOB_NAME, QrtzTriggers.QRTZ_TRIGGERS.JOB_GROUP), emented.jooq.main.keys.QRTZ_JOB_DETAILS_PKEY, arrayOf(QrtzJobDetails.QRTZ_JOB_DETAILS.SCHED_NAME, QrtzJobDetails.QRTZ_JOB_DETAILS.JOB_NAME, QrtzJobDetails.QRTZ_JOB_DETAILS.JOB_GROUP), true)
-val ROLE_USER_RELATION__FK_ROLE_USER_RELATION_ROLE_ID: ForeignKey<RoleUserRelationRecord, RoleRecord> = Internal.createForeignKey(RoleUserRelation.ROLE_USER_RELATION, DSL.name("fk_role_user_relation_role_id"), arrayOf(RoleUserRelation.ROLE_USER_RELATION.ROLE_ID), emented.jooq.main.keys.ROLE_PKEY, arrayOf(Role.ROLE.ID), true)
-val ROLE_USER_RELATION__FK_ROLE_USER_RELATION_USER_ID: ForeignKey<RoleUserRelationRecord, UserRecord> = Internal.createForeignKey(RoleUserRelation.ROLE_USER_RELATION, DSL.name("fk_role_user_relation_user_id"), arrayOf(RoleUserRelation.ROLE_USER_RELATION.USER_ID), emented.jooq.main.keys.USER_PKEY, arrayOf(User.USER.ID), true)
+val ACT_GE_BYTEARRAY__ACT_FK_BYTEARR_DEPL: ForeignKey<ActGeBytearrayRecord, ActReDeploymentRecord> =
+    Internal.createForeignKey(
+        ActGeBytearray.ACT_GE_BYTEARRAY,
+        DSL.name("act_fk_bytearr_depl"),
+        arrayOf(ActGeBytearray.ACT_GE_BYTEARRAY.DEPLOYMENT_ID_),
+        ACT_RE_DEPLOYMENT_PKEY,
+        arrayOf(ActReDeployment.ACT_RE_DEPLOYMENT.ID_),
+        true
+    )
+val ACT_ID_MEMBERSHIP__ACT_FK_MEMB_GROUP: ForeignKey<ActIdMembershipRecord, ActIdGroupRecord> =
+    Internal.createForeignKey(
+        ActIdMembership.ACT_ID_MEMBERSHIP,
+        DSL.name("act_fk_memb_group"),
+        arrayOf(ActIdMembership.ACT_ID_MEMBERSHIP.GROUP_ID_),
+        ACT_ID_GROUP_PKEY,
+        arrayOf(ActIdGroup.ACT_ID_GROUP.ID_),
+        true
+    )
+val ACT_ID_MEMBERSHIP__ACT_FK_MEMB_USER: ForeignKey<ActIdMembershipRecord, ActIdUserRecord> = Internal.createForeignKey(
+    ActIdMembership.ACT_ID_MEMBERSHIP,
+    DSL.name("act_fk_memb_user"),
+    arrayOf(ActIdMembership.ACT_ID_MEMBERSHIP.USER_ID_),
+    ACT_ID_USER_PKEY,
+    arrayOf(ActIdUser.ACT_ID_USER.ID_),
+    true
+)
+val ACT_ID_TENANT_MEMBER__ACT_FK_TENANT_MEMB: ForeignKey<ActIdTenantMemberRecord, ActIdTenantRecord> =
+    Internal.createForeignKey(
+        ActIdTenantMember.ACT_ID_TENANT_MEMBER,
+        DSL.name("act_fk_tenant_memb"),
+        arrayOf(ActIdTenantMember.ACT_ID_TENANT_MEMBER.TENANT_ID_),
+        ACT_ID_TENANT_PKEY,
+        arrayOf(ActIdTenant.ACT_ID_TENANT.ID_),
+        true
+    )
+val ACT_ID_TENANT_MEMBER__ACT_FK_TENANT_MEMB_GROUP: ForeignKey<ActIdTenantMemberRecord, ActIdGroupRecord> =
+    Internal.createForeignKey(
+        ActIdTenantMember.ACT_ID_TENANT_MEMBER,
+        DSL.name("act_fk_tenant_memb_group"),
+        arrayOf(ActIdTenantMember.ACT_ID_TENANT_MEMBER.GROUP_ID_),
+        ACT_ID_GROUP_PKEY,
+        arrayOf(ActIdGroup.ACT_ID_GROUP.ID_),
+        true
+    )
+val ACT_ID_TENANT_MEMBER__ACT_FK_TENANT_MEMB_USER: ForeignKey<ActIdTenantMemberRecord, ActIdUserRecord> =
+    Internal.createForeignKey(
+        ActIdTenantMember.ACT_ID_TENANT_MEMBER,
+        DSL.name("act_fk_tenant_memb_user"),
+        arrayOf(ActIdTenantMember.ACT_ID_TENANT_MEMBER.USER_ID_),
+        ACT_ID_USER_PKEY,
+        arrayOf(ActIdUser.ACT_ID_USER.ID_),
+        true
+    )
+val ACT_RE_DECISION_DEF__ACT_FK_DEC_REQ: ForeignKey<ActReDecisionDefRecord, ActReDecisionReqDefRecord> =
+    Internal.createForeignKey(
+        ActReDecisionDef.ACT_RE_DECISION_DEF,
+        DSL.name("act_fk_dec_req"),
+        arrayOf(ActReDecisionDef.ACT_RE_DECISION_DEF.DEC_REQ_ID_),
+        ACT_RE_DECISION_REQ_DEF_PKEY,
+        arrayOf(ActReDecisionReqDef.ACT_RE_DECISION_REQ_DEF.ID_),
+        true
+    )
+val ACT_RU_BATCH__ACT_FK_BATCH_JOB_DEF: ForeignKey<ActRuBatchRecord, ActRuJobdefRecord> = Internal.createForeignKey(
+    ActRuBatch.ACT_RU_BATCH,
+    DSL.name("act_fk_batch_job_def"),
+    arrayOf(ActRuBatch.ACT_RU_BATCH.BATCH_JOB_DEF_ID_),
+    ACT_RU_JOBDEF_PKEY,
+    arrayOf(ActRuJobdef.ACT_RU_JOBDEF.ID_),
+    true
+)
+val ACT_RU_BATCH__ACT_FK_BATCH_MONITOR_JOB_DEF: ForeignKey<ActRuBatchRecord, ActRuJobdefRecord> =
+    Internal.createForeignKey(
+        ActRuBatch.ACT_RU_BATCH,
+        DSL.name("act_fk_batch_monitor_job_def"),
+        arrayOf(ActRuBatch.ACT_RU_BATCH.MONITOR_JOB_DEF_ID_),
+        ACT_RU_JOBDEF_PKEY,
+        arrayOf(ActRuJobdef.ACT_RU_JOBDEF.ID_),
+        true
+    )
+val ACT_RU_BATCH__ACT_FK_BATCH_SEED_JOB_DEF: ForeignKey<ActRuBatchRecord, ActRuJobdefRecord> =
+    Internal.createForeignKey(
+        ActRuBatch.ACT_RU_BATCH,
+        DSL.name("act_fk_batch_seed_job_def"),
+        arrayOf(ActRuBatch.ACT_RU_BATCH.SEED_JOB_DEF_ID_),
+        ACT_RU_JOBDEF_PKEY,
+        arrayOf(ActRuJobdef.ACT_RU_JOBDEF.ID_),
+        true
+    )
+val ACT_RU_CASE_EXECUTION__ACT_FK_CASE_EXE_CASE_DEF: ForeignKey<ActRuCaseExecutionRecord, ActReCaseDefRecord> =
+    Internal.createForeignKey(
+        ActRuCaseExecution.ACT_RU_CASE_EXECUTION,
+        DSL.name("act_fk_case_exe_case_def"),
+        arrayOf(ActRuCaseExecution.ACT_RU_CASE_EXECUTION.CASE_DEF_ID_),
+        ACT_RE_CASE_DEF_PKEY,
+        arrayOf(ActReCaseDef.ACT_RE_CASE_DEF.ID_),
+        true
+    )
+val ACT_RU_CASE_EXECUTION__ACT_FK_CASE_EXE_CASE_INST: ForeignKey<ActRuCaseExecutionRecord, ActRuCaseExecutionRecord> =
+    Internal.createForeignKey(
+        ActRuCaseExecution.ACT_RU_CASE_EXECUTION,
+        DSL.name("act_fk_case_exe_case_inst"),
+        arrayOf(ActRuCaseExecution.ACT_RU_CASE_EXECUTION.CASE_INST_ID_),
+        ACT_RU_CASE_EXECUTION_PKEY,
+        arrayOf(ActRuCaseExecution.ACT_RU_CASE_EXECUTION.ID_),
+        true
+    )
+val ACT_RU_CASE_EXECUTION__ACT_FK_CASE_EXE_PARENT: ForeignKey<ActRuCaseExecutionRecord, ActRuCaseExecutionRecord> =
+    Internal.createForeignKey(
+        ActRuCaseExecution.ACT_RU_CASE_EXECUTION,
+        DSL.name("act_fk_case_exe_parent"),
+        arrayOf(ActRuCaseExecution.ACT_RU_CASE_EXECUTION.PARENT_ID_),
+        ACT_RU_CASE_EXECUTION_PKEY,
+        arrayOf(ActRuCaseExecution.ACT_RU_CASE_EXECUTION.ID_),
+        true
+    )
+val ACT_RU_CASE_SENTRY_PART__ACT_FK_CASE_SENTRY_CASE_EXEC: ForeignKey<ActRuCaseSentryPartRecord, ActRuCaseExecutionRecord> =
+    Internal.createForeignKey(
+        ActRuCaseSentryPart.ACT_RU_CASE_SENTRY_PART,
+        DSL.name("act_fk_case_sentry_case_exec"),
+        arrayOf(ActRuCaseSentryPart.ACT_RU_CASE_SENTRY_PART.CASE_EXEC_ID_),
+        ACT_RU_CASE_EXECUTION_PKEY,
+        arrayOf(ActRuCaseExecution.ACT_RU_CASE_EXECUTION.ID_),
+        true
+    )
+val ACT_RU_CASE_SENTRY_PART__ACT_FK_CASE_SENTRY_CASE_INST: ForeignKey<ActRuCaseSentryPartRecord, ActRuCaseExecutionRecord> =
+    Internal.createForeignKey(
+        ActRuCaseSentryPart.ACT_RU_CASE_SENTRY_PART,
+        DSL.name("act_fk_case_sentry_case_inst"),
+        arrayOf(ActRuCaseSentryPart.ACT_RU_CASE_SENTRY_PART.CASE_INST_ID_),
+        ACT_RU_CASE_EXECUTION_PKEY,
+        arrayOf(ActRuCaseExecution.ACT_RU_CASE_EXECUTION.ID_),
+        true
+    )
+val ACT_RU_EVENT_SUBSCR__ACT_FK_EVENT_EXEC: ForeignKey<ActRuEventSubscrRecord, ActRuExecutionRecord> =
+    Internal.createForeignKey(
+        ActRuEventSubscr.ACT_RU_EVENT_SUBSCR,
+        DSL.name("act_fk_event_exec"),
+        arrayOf(ActRuEventSubscr.ACT_RU_EVENT_SUBSCR.EXECUTION_ID_),
+        ACT_RU_EXECUTION_PKEY,
+        arrayOf(ActRuExecution.ACT_RU_EXECUTION.ID_),
+        true
+    )
+val ACT_RU_EXECUTION__ACT_FK_EXE_PARENT: ForeignKey<ActRuExecutionRecord, ActRuExecutionRecord> =
+    Internal.createForeignKey(
+        ActRuExecution.ACT_RU_EXECUTION,
+        DSL.name("act_fk_exe_parent"),
+        arrayOf(ActRuExecution.ACT_RU_EXECUTION.PARENT_ID_),
+        ACT_RU_EXECUTION_PKEY,
+        arrayOf(ActRuExecution.ACT_RU_EXECUTION.ID_),
+        true
+    )
+val ACT_RU_EXECUTION__ACT_FK_EXE_PROCDEF: ForeignKey<ActRuExecutionRecord, ActReProcdefRecord> =
+    Internal.createForeignKey(
+        ActRuExecution.ACT_RU_EXECUTION,
+        DSL.name("act_fk_exe_procdef"),
+        arrayOf(ActRuExecution.ACT_RU_EXECUTION.PROC_DEF_ID_),
+        ACT_RE_PROCDEF_PKEY,
+        arrayOf(ActReProcdef.ACT_RE_PROCDEF.ID_),
+        true
+    )
+val ACT_RU_EXECUTION__ACT_FK_EXE_PROCINST: ForeignKey<ActRuExecutionRecord, ActRuExecutionRecord> =
+    Internal.createForeignKey(
+        ActRuExecution.ACT_RU_EXECUTION,
+        DSL.name("act_fk_exe_procinst"),
+        arrayOf(ActRuExecution.ACT_RU_EXECUTION.PROC_INST_ID_),
+        ACT_RU_EXECUTION_PKEY,
+        arrayOf(ActRuExecution.ACT_RU_EXECUTION.ID_),
+        true
+    )
+val ACT_RU_EXECUTION__ACT_FK_EXE_SUPER: ForeignKey<ActRuExecutionRecord, ActRuExecutionRecord> =
+    Internal.createForeignKey(
+        ActRuExecution.ACT_RU_EXECUTION,
+        DSL.name("act_fk_exe_super"),
+        arrayOf(ActRuExecution.ACT_RU_EXECUTION.SUPER_EXEC_),
+        ACT_RU_EXECUTION_PKEY,
+        arrayOf(ActRuExecution.ACT_RU_EXECUTION.ID_),
+        true
+    )
+val ACT_RU_EXT_TASK__ACT_FK_EXT_TASK_ERROR_DETAILS: ForeignKey<ActRuExtTaskRecord, ActGeBytearrayRecord> =
+    Internal.createForeignKey(
+        ActRuExtTask.ACT_RU_EXT_TASK,
+        DSL.name("act_fk_ext_task_error_details"),
+        arrayOf(ActRuExtTask.ACT_RU_EXT_TASK.ERROR_DETAILS_ID_),
+        ACT_GE_BYTEARRAY_PKEY,
+        arrayOf(ActGeBytearray.ACT_GE_BYTEARRAY.ID_),
+        true
+    )
+val ACT_RU_EXT_TASK__ACT_FK_EXT_TASK_EXE: ForeignKey<ActRuExtTaskRecord, ActRuExecutionRecord> =
+    Internal.createForeignKey(
+        ActRuExtTask.ACT_RU_EXT_TASK,
+        DSL.name("act_fk_ext_task_exe"),
+        arrayOf(ActRuExtTask.ACT_RU_EXT_TASK.EXECUTION_ID_),
+        ACT_RU_EXECUTION_PKEY,
+        arrayOf(ActRuExecution.ACT_RU_EXECUTION.ID_),
+        true
+    )
+val ACT_RU_IDENTITYLINK__ACT_FK_ATHRZ_PROCEDEF: ForeignKey<ActRuIdentitylinkRecord, ActReProcdefRecord> =
+    Internal.createForeignKey(
+        ActRuIdentitylink.ACT_RU_IDENTITYLINK,
+        DSL.name("act_fk_athrz_procedef"),
+        arrayOf(ActRuIdentitylink.ACT_RU_IDENTITYLINK.PROC_DEF_ID_),
+        ACT_RE_PROCDEF_PKEY,
+        arrayOf(ActReProcdef.ACT_RE_PROCDEF.ID_),
+        true
+    )
+val ACT_RU_IDENTITYLINK__ACT_FK_TSKASS_TASK: ForeignKey<ActRuIdentitylinkRecord, ActRuTaskRecord> =
+    Internal.createForeignKey(
+        ActRuIdentitylink.ACT_RU_IDENTITYLINK,
+        DSL.name("act_fk_tskass_task"),
+        arrayOf(ActRuIdentitylink.ACT_RU_IDENTITYLINK.TASK_ID_),
+        ACT_RU_TASK_PKEY,
+        arrayOf(ActRuTask.ACT_RU_TASK.ID_),
+        true
+    )
+val ACT_RU_INCIDENT__ACT_FK_INC_CAUSE: ForeignKey<ActRuIncidentRecord, ActRuIncidentRecord> = Internal.createForeignKey(
+    ActRuIncident.ACT_RU_INCIDENT,
+    DSL.name("act_fk_inc_cause"),
+    arrayOf(ActRuIncident.ACT_RU_INCIDENT.CAUSE_INCIDENT_ID_),
+    ACT_RU_INCIDENT_PKEY,
+    arrayOf(ActRuIncident.ACT_RU_INCIDENT.ID_),
+    true
+)
+val ACT_RU_INCIDENT__ACT_FK_INC_EXE: ForeignKey<ActRuIncidentRecord, ActRuExecutionRecord> = Internal.createForeignKey(
+    ActRuIncident.ACT_RU_INCIDENT,
+    DSL.name("act_fk_inc_exe"),
+    arrayOf(ActRuIncident.ACT_RU_INCIDENT.EXECUTION_ID_),
+    ACT_RU_EXECUTION_PKEY,
+    arrayOf(ActRuExecution.ACT_RU_EXECUTION.ID_),
+    true
+)
+val ACT_RU_INCIDENT__ACT_FK_INC_JOB_DEF: ForeignKey<ActRuIncidentRecord, ActRuJobdefRecord> = Internal.createForeignKey(
+    ActRuIncident.ACT_RU_INCIDENT,
+    DSL.name("act_fk_inc_job_def"),
+    arrayOf(ActRuIncident.ACT_RU_INCIDENT.JOB_DEF_ID_),
+    ACT_RU_JOBDEF_PKEY,
+    arrayOf(ActRuJobdef.ACT_RU_JOBDEF.ID_),
+    true
+)
+val ACT_RU_INCIDENT__ACT_FK_INC_PROCDEF: ForeignKey<ActRuIncidentRecord, ActReProcdefRecord> =
+    Internal.createForeignKey(
+        ActRuIncident.ACT_RU_INCIDENT,
+        DSL.name("act_fk_inc_procdef"),
+        arrayOf(ActRuIncident.ACT_RU_INCIDENT.PROC_DEF_ID_),
+        ACT_RE_PROCDEF_PKEY,
+        arrayOf(ActReProcdef.ACT_RE_PROCDEF.ID_),
+        true
+    )
+val ACT_RU_INCIDENT__ACT_FK_INC_PROCINST: ForeignKey<ActRuIncidentRecord, ActRuExecutionRecord> =
+    Internal.createForeignKey(
+        ActRuIncident.ACT_RU_INCIDENT,
+        DSL.name("act_fk_inc_procinst"),
+        arrayOf(ActRuIncident.ACT_RU_INCIDENT.PROC_INST_ID_),
+        ACT_RU_EXECUTION_PKEY,
+        arrayOf(ActRuExecution.ACT_RU_EXECUTION.ID_),
+        true
+    )
+val ACT_RU_INCIDENT__ACT_FK_INC_RCAUSE: ForeignKey<ActRuIncidentRecord, ActRuIncidentRecord> =
+    Internal.createForeignKey(
+        ActRuIncident.ACT_RU_INCIDENT,
+        DSL.name("act_fk_inc_rcause"),
+        arrayOf(ActRuIncident.ACT_RU_INCIDENT.ROOT_CAUSE_INCIDENT_ID_),
+        ACT_RU_INCIDENT_PKEY,
+        arrayOf(ActRuIncident.ACT_RU_INCIDENT.ID_),
+        true
+    )
+val ACT_RU_JOB__ACT_FK_JOB_EXCEPTION: ForeignKey<ActRuJobRecord, ActGeBytearrayRecord> = Internal.createForeignKey(
+    ActRuJob.ACT_RU_JOB,
+    DSL.name("act_fk_job_exception"),
+    arrayOf(ActRuJob.ACT_RU_JOB.EXCEPTION_STACK_ID_),
+    ACT_GE_BYTEARRAY_PKEY,
+    arrayOf(ActGeBytearray.ACT_GE_BYTEARRAY.ID_),
+    true
+)
+val ACT_RU_TASK__ACT_FK_TASK_CASE_DEF: ForeignKey<ActRuTaskRecord, ActReCaseDefRecord> = Internal.createForeignKey(
+    ActRuTask.ACT_RU_TASK,
+    DSL.name("act_fk_task_case_def"),
+    arrayOf(ActRuTask.ACT_RU_TASK.CASE_DEF_ID_),
+    ACT_RE_CASE_DEF_PKEY,
+    arrayOf(ActReCaseDef.ACT_RE_CASE_DEF.ID_),
+    true
+)
+val ACT_RU_TASK__ACT_FK_TASK_CASE_EXE: ForeignKey<ActRuTaskRecord, ActRuCaseExecutionRecord> =
+    Internal.createForeignKey(
+        ActRuTask.ACT_RU_TASK,
+        DSL.name("act_fk_task_case_exe"),
+        arrayOf(ActRuTask.ACT_RU_TASK.CASE_EXECUTION_ID_),
+        ACT_RU_CASE_EXECUTION_PKEY,
+        arrayOf(ActRuCaseExecution.ACT_RU_CASE_EXECUTION.ID_),
+        true
+    )
+val ACT_RU_TASK__ACT_FK_TASK_EXE: ForeignKey<ActRuTaskRecord, ActRuExecutionRecord> = Internal.createForeignKey(
+    ActRuTask.ACT_RU_TASK,
+    DSL.name("act_fk_task_exe"),
+    arrayOf(ActRuTask.ACT_RU_TASK.EXECUTION_ID_),
+    ACT_RU_EXECUTION_PKEY,
+    arrayOf(ActRuExecution.ACT_RU_EXECUTION.ID_),
+    true
+)
+val ACT_RU_TASK__ACT_FK_TASK_PROCDEF: ForeignKey<ActRuTaskRecord, ActReProcdefRecord> = Internal.createForeignKey(
+    ActRuTask.ACT_RU_TASK,
+    DSL.name("act_fk_task_procdef"),
+    arrayOf(ActRuTask.ACT_RU_TASK.PROC_DEF_ID_),
+    ACT_RE_PROCDEF_PKEY,
+    arrayOf(ActReProcdef.ACT_RE_PROCDEF.ID_),
+    true
+)
+val ACT_RU_TASK__ACT_FK_TASK_PROCINST: ForeignKey<ActRuTaskRecord, ActRuExecutionRecord> = Internal.createForeignKey(
+    ActRuTask.ACT_RU_TASK,
+    DSL.name("act_fk_task_procinst"),
+    arrayOf(ActRuTask.ACT_RU_TASK.PROC_INST_ID_),
+    ACT_RU_EXECUTION_PKEY,
+    arrayOf(ActRuExecution.ACT_RU_EXECUTION.ID_),
+    true
+)
+val ACT_RU_VARIABLE__ACT_FK_VAR_BATCH: ForeignKey<ActRuVariableRecord, ActRuBatchRecord> = Internal.createForeignKey(
+    ActRuVariable.ACT_RU_VARIABLE,
+    DSL.name("act_fk_var_batch"),
+    arrayOf(ActRuVariable.ACT_RU_VARIABLE.BATCH_ID_),
+    ACT_RU_BATCH_PKEY,
+    arrayOf(ActRuBatch.ACT_RU_BATCH.ID_),
+    true
+)
+val ACT_RU_VARIABLE__ACT_FK_VAR_BYTEARRAY: ForeignKey<ActRuVariableRecord, ActGeBytearrayRecord> =
+    Internal.createForeignKey(
+        ActRuVariable.ACT_RU_VARIABLE,
+        DSL.name("act_fk_var_bytearray"),
+        arrayOf(ActRuVariable.ACT_RU_VARIABLE.BYTEARRAY_ID_),
+        ACT_GE_BYTEARRAY_PKEY,
+        arrayOf(ActGeBytearray.ACT_GE_BYTEARRAY.ID_),
+        true
+    )
+val ACT_RU_VARIABLE__ACT_FK_VAR_CASE_EXE: ForeignKey<ActRuVariableRecord, ActRuCaseExecutionRecord> =
+    Internal.createForeignKey(
+        ActRuVariable.ACT_RU_VARIABLE,
+        DSL.name("act_fk_var_case_exe"),
+        arrayOf(ActRuVariable.ACT_RU_VARIABLE.CASE_EXECUTION_ID_),
+        ACT_RU_CASE_EXECUTION_PKEY,
+        arrayOf(ActRuCaseExecution.ACT_RU_CASE_EXECUTION.ID_),
+        true
+    )
+val ACT_RU_VARIABLE__ACT_FK_VAR_CASE_INST: ForeignKey<ActRuVariableRecord, ActRuCaseExecutionRecord> =
+    Internal.createForeignKey(
+        ActRuVariable.ACT_RU_VARIABLE,
+        DSL.name("act_fk_var_case_inst"),
+        arrayOf(ActRuVariable.ACT_RU_VARIABLE.CASE_INST_ID_),
+        ACT_RU_CASE_EXECUTION_PKEY,
+        arrayOf(ActRuCaseExecution.ACT_RU_CASE_EXECUTION.ID_),
+        true
+    )
+val ACT_RU_VARIABLE__ACT_FK_VAR_EXE: ForeignKey<ActRuVariableRecord, ActRuExecutionRecord> = Internal.createForeignKey(
+    ActRuVariable.ACT_RU_VARIABLE,
+    DSL.name("act_fk_var_exe"),
+    arrayOf(ActRuVariable.ACT_RU_VARIABLE.EXECUTION_ID_),
+    ACT_RU_EXECUTION_PKEY,
+    arrayOf(ActRuExecution.ACT_RU_EXECUTION.ID_),
+    true
+)
+val ACT_RU_VARIABLE__ACT_FK_VAR_PROCINST: ForeignKey<ActRuVariableRecord, ActRuExecutionRecord> =
+    Internal.createForeignKey(
+        ActRuVariable.ACT_RU_VARIABLE,
+        DSL.name("act_fk_var_procinst"),
+        arrayOf(ActRuVariable.ACT_RU_VARIABLE.PROC_INST_ID_),
+        ACT_RU_EXECUTION_PKEY,
+        arrayOf(ActRuExecution.ACT_RU_EXECUTION.ID_),
+        true
+    )
+val COMMENT__COMMENT_COMMUNITY_ID_FKEY: ForeignKey<CommentRecord, CommunityRecord> = Internal.createForeignKey(
+    Comment.COMMENT,
+    DSL.name("comment_community_id_fkey"),
+    arrayOf(Comment.COMMENT.COMMUNITY_ID),
+    COMMUNITY_PKEY,
+    arrayOf(Community.COMMUNITY.ID),
+    true
+)
+val COMMUNITY__COMMUNITY_CATEGORY_ID_FKEY: ForeignKey<CommunityRecord, CategoryRecord> = Internal.createForeignKey(
+    Community.COMMUNITY,
+    DSL.name("community_category_id_fkey"),
+    arrayOf(Community.COMMUNITY.CATEGORY_ID),
+    CATEGORY_PKEY,
+    arrayOf(Category.CATEGORY.ID),
+    true
+)
+val COMMUNITY_EVENT__COMMUNITY_EVENT_CATEGORY_ID_FKEY: ForeignKey<CommunityEventRecord, CategoryRecord> =
+    Internal.createForeignKey(
+        CommunityEvent.COMMUNITY_EVENT,
+        DSL.name("community_event_category_id_fkey"),
+        arrayOf(CommunityEvent.COMMUNITY_EVENT.CATEGORY_ID),
+        CATEGORY_PKEY,
+        arrayOf(Category.CATEGORY.ID),
+        true
+    )
+val QRTZ_BLOB_TRIGGERS__QRTZ_BLOB_TRIGGERS_SCHED_NAME_TRIGGER_NAME_TRIGGER_GROUP_FKEY: ForeignKey<QrtzBlobTriggersRecord, QrtzTriggersRecord> =
+    Internal.createForeignKey(
+        QrtzBlobTriggers.QRTZ_BLOB_TRIGGERS,
+        DSL.name("qrtz_blob_triggers_sched_name_trigger_name_trigger_group_fkey"),
+        arrayOf(
+            QrtzBlobTriggers.QRTZ_BLOB_TRIGGERS.SCHED_NAME,
+            QrtzBlobTriggers.QRTZ_BLOB_TRIGGERS.TRIGGER_NAME,
+            QrtzBlobTriggers.QRTZ_BLOB_TRIGGERS.TRIGGER_GROUP
+        ),
+        QRTZ_TRIGGERS_PKEY,
+        arrayOf(
+            QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME,
+            QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_NAME,
+            QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_GROUP
+        ),
+        true
+    )
+val QRTZ_CRON_TRIGGERS__QRTZ_CRON_TRIGGERS_SCHED_NAME_TRIGGER_NAME_TRIGGER_GROUP_FKEY: ForeignKey<QrtzCronTriggersRecord, QrtzTriggersRecord> =
+    Internal.createForeignKey(
+        QrtzCronTriggers.QRTZ_CRON_TRIGGERS,
+        DSL.name("qrtz_cron_triggers_sched_name_trigger_name_trigger_group_fkey"),
+        arrayOf(
+            QrtzCronTriggers.QRTZ_CRON_TRIGGERS.SCHED_NAME,
+            QrtzCronTriggers.QRTZ_CRON_TRIGGERS.TRIGGER_NAME,
+            QrtzCronTriggers.QRTZ_CRON_TRIGGERS.TRIGGER_GROUP
+        ),
+        QRTZ_TRIGGERS_PKEY,
+        arrayOf(
+            QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME,
+            QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_NAME,
+            QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_GROUP
+        ),
+        true
+    )
+val QRTZ_SIMPLE_TRIGGERS__QRTZ_SIMPLE_TRIGGERS_SCHED_NAME_TRIGGER_NAME_TRIGGER_GROUP_FKEY: ForeignKey<QrtzSimpleTriggersRecord, QrtzTriggersRecord> =
+    Internal.createForeignKey(
+        QrtzSimpleTriggers.QRTZ_SIMPLE_TRIGGERS,
+        DSL.name("qrtz_simple_triggers_sched_name_trigger_name_trigger_group_fkey"),
+        arrayOf(
+            QrtzSimpleTriggers.QRTZ_SIMPLE_TRIGGERS.SCHED_NAME,
+            QrtzSimpleTriggers.QRTZ_SIMPLE_TRIGGERS.TRIGGER_NAME,
+            QrtzSimpleTriggers.QRTZ_SIMPLE_TRIGGERS.TRIGGER_GROUP
+        ),
+        QRTZ_TRIGGERS_PKEY,
+        arrayOf(
+            QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME,
+            QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_NAME,
+            QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_GROUP
+        ),
+        true
+    )
+val QRTZ_SIMPROP_TRIGGERS__QRTZ_SIMPROP_TRIGGERS_SCHED_NAME_TRIGGER_NAME_TRIGGER_GROU_FKEY: ForeignKey<QrtzSimpropTriggersRecord, QrtzTriggersRecord> =
+    Internal.createForeignKey(
+        QrtzSimpropTriggers.QRTZ_SIMPROP_TRIGGERS,
+        DSL.name("qrtz_simprop_triggers_sched_name_trigger_name_trigger_grou_fkey"),
+        arrayOf(
+            QrtzSimpropTriggers.QRTZ_SIMPROP_TRIGGERS.SCHED_NAME,
+            QrtzSimpropTriggers.QRTZ_SIMPROP_TRIGGERS.TRIGGER_NAME,
+            QrtzSimpropTriggers.QRTZ_SIMPROP_TRIGGERS.TRIGGER_GROUP
+        ),
+        QRTZ_TRIGGERS_PKEY,
+        arrayOf(
+            QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME,
+            QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_NAME,
+            QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_GROUP
+        ),
+        true
+    )
+val QRTZ_TRIGGERS__QRTZ_TRIGGERS_SCHED_NAME_JOB_NAME_JOB_GROUP_FKEY: ForeignKey<QrtzTriggersRecord, QrtzJobDetailsRecord> =
+    Internal.createForeignKey(
+        QrtzTriggers.QRTZ_TRIGGERS,
+        DSL.name("qrtz_triggers_sched_name_job_name_job_group_fkey"),
+        arrayOf(
+            QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME,
+            QrtzTriggers.QRTZ_TRIGGERS.JOB_NAME,
+            QrtzTriggers.QRTZ_TRIGGERS.JOB_GROUP
+        ),
+        QRTZ_JOB_DETAILS_PKEY,
+        arrayOf(
+            QrtzJobDetails.QRTZ_JOB_DETAILS.SCHED_NAME,
+            QrtzJobDetails.QRTZ_JOB_DETAILS.JOB_NAME,
+            QrtzJobDetails.QRTZ_JOB_DETAILS.JOB_GROUP
+        ),
+        true
+    )
+val REVIEWS__FK5F8UXXYYMTCDQ1M5M5XNHKC8N: ForeignKey<ReviewsRecord, FilmsRecord> = Internal.createForeignKey(
+    Reviews.REVIEWS,
+    DSL.name("fk5f8uxxyymtcdq1m5m5xnhkc8n"),
+    arrayOf(Reviews.REVIEWS.FILM_ID),
+    FILMS_PKEY,
+    arrayOf(Films.FILMS.ID),
+    true
+)

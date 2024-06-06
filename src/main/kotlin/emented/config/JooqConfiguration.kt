@@ -22,12 +22,6 @@ class JooqConfiguration {
         return DSL.using(mainDataSource, SQLDialect.POSTGRES)
     }
 
-    @Bean("archiveDslContext")
-    @DependsOn("archiveDataSource")
-    fun archiveDslContext(@Qualifier("archiveDataSource") archiveDataSource: DataSource): DSLContext {
-        return DSL.using(archiveDataSource, SQLDialect.POSTGRES)
-    }
-
     @Bean
     @DependsOn("mainDataSource")
     fun jooqConfigUser(mainDataSource: DataSource): DefaultConfiguration {
@@ -36,14 +30,4 @@ class JooqConfiguration {
         config.set(SQLDialect.POSTGRES)
         return config
     }
-
-    @Bean
-    @DependsOn("archiveDataSource")
-    fun jooqConfigAdmin(archiveDataSource: DataSource): DefaultConfiguration {
-        val config = DefaultConfiguration()
-        config.set(DataSourceConnectionProvider(archiveDataSource))
-        config.set(SQLDialect.POSTGRES)
-        return config
-    }
-
 }

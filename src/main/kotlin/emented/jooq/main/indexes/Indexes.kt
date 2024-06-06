@@ -3,7 +3,47 @@
  */
 package emented.jooq.main.indexes
 
-
+import emented.jooq.main.tables.ActGeBytearray
+import emented.jooq.main.tables.ActHiActinst
+import emented.jooq.main.tables.ActHiAttachment
+import emented.jooq.main.tables.ActHiBatch
+import emented.jooq.main.tables.ActHiCaseactinst
+import emented.jooq.main.tables.ActHiCaseinst
+import emented.jooq.main.tables.ActHiComment
+import emented.jooq.main.tables.ActHiDecIn
+import emented.jooq.main.tables.ActHiDecOut
+import emented.jooq.main.tables.ActHiDecinst
+import emented.jooq.main.tables.ActHiDetail
+import emented.jooq.main.tables.ActHiExtTaskLog
+import emented.jooq.main.tables.ActHiIdentitylink
+import emented.jooq.main.tables.ActHiIncident
+import emented.jooq.main.tables.ActHiJobLog
+import emented.jooq.main.tables.ActHiOpLog
+import emented.jooq.main.tables.ActHiProcinst
+import emented.jooq.main.tables.ActHiTaskinst
+import emented.jooq.main.tables.ActHiVarinst
+import emented.jooq.main.tables.ActIdMembership
+import emented.jooq.main.tables.ActIdTenantMember
+import emented.jooq.main.tables.ActReCaseDef
+import emented.jooq.main.tables.ActReDecisionDef
+import emented.jooq.main.tables.ActReDecisionReqDef
+import emented.jooq.main.tables.ActReDeployment
+import emented.jooq.main.tables.ActReProcdef
+import emented.jooq.main.tables.ActRuAuthorization
+import emented.jooq.main.tables.ActRuBatch
+import emented.jooq.main.tables.ActRuCaseExecution
+import emented.jooq.main.tables.ActRuCaseSentryPart
+import emented.jooq.main.tables.ActRuEventSubscr
+import emented.jooq.main.tables.ActRuExecution
+import emented.jooq.main.tables.ActRuExtTask
+import emented.jooq.main.tables.ActRuIdentitylink
+import emented.jooq.main.tables.ActRuIncident
+import emented.jooq.main.tables.ActRuJob
+import emented.jooq.main.tables.ActRuJobdef
+import emented.jooq.main.tables.ActRuMeterLog
+import emented.jooq.main.tables.ActRuTask
+import emented.jooq.main.tables.ActRuTaskMeterLog
+import emented.jooq.main.tables.ActRuVariable
 import emented.jooq.main.tables.QrtzFiredTriggers
 import emented.jooq.main.tables.QrtzJobDetails
 import emented.jooq.main.tables.QrtzTriggers
@@ -12,29 +52,1542 @@ import org.jooq.Index
 import org.jooq.impl.DSL
 import org.jooq.impl.Internal
 
-
-
 // -------------------------------------------------------------------------
 // INDEX definitions
 // -------------------------------------------------------------------------
 
-val IDX_QRTZ_FT_INST_JOB_REQ_RCVRY: Index = Internal.createIndex(DSL.name("idx_qrtz_ft_inst_job_req_rcvry"), QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS, arrayOf(QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.SCHED_NAME, QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.INSTANCE_NAME, QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.REQUESTS_RECOVERY), false)
-val IDX_QRTZ_FT_J_G: Index = Internal.createIndex(DSL.name("idx_qrtz_ft_j_g"), QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS, arrayOf(QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.SCHED_NAME, QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.JOB_NAME, QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.JOB_GROUP), false)
-val IDX_QRTZ_FT_JG: Index = Internal.createIndex(DSL.name("idx_qrtz_ft_jg"), QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS, arrayOf(QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.SCHED_NAME, QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.JOB_GROUP), false)
-val IDX_QRTZ_FT_T_G: Index = Internal.createIndex(DSL.name("idx_qrtz_ft_t_g"), QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS, arrayOf(QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.SCHED_NAME, QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.TRIGGER_NAME, QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.TRIGGER_GROUP), false)
-val IDX_QRTZ_FT_TG: Index = Internal.createIndex(DSL.name("idx_qrtz_ft_tg"), QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS, arrayOf(QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.SCHED_NAME, QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.TRIGGER_GROUP), false)
-val IDX_QRTZ_FT_TRIG_INST_NAME: Index = Internal.createIndex(DSL.name("idx_qrtz_ft_trig_inst_name"), QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS, arrayOf(QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.SCHED_NAME, QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.INSTANCE_NAME), false)
-val IDX_QRTZ_J_GRP: Index = Internal.createIndex(DSL.name("idx_qrtz_j_grp"), QrtzJobDetails.QRTZ_JOB_DETAILS, arrayOf(QrtzJobDetails.QRTZ_JOB_DETAILS.SCHED_NAME, QrtzJobDetails.QRTZ_JOB_DETAILS.JOB_GROUP), false)
-val IDX_QRTZ_J_REQ_RECOVERY: Index = Internal.createIndex(DSL.name("idx_qrtz_j_req_recovery"), QrtzJobDetails.QRTZ_JOB_DETAILS, arrayOf(QrtzJobDetails.QRTZ_JOB_DETAILS.SCHED_NAME, QrtzJobDetails.QRTZ_JOB_DETAILS.REQUESTS_RECOVERY), false)
-val IDX_QRTZ_T_C: Index = Internal.createIndex(DSL.name("idx_qrtz_t_c"), QrtzTriggers.QRTZ_TRIGGERS, arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.CALENDAR_NAME), false)
-val IDX_QRTZ_T_G: Index = Internal.createIndex(DSL.name("idx_qrtz_t_g"), QrtzTriggers.QRTZ_TRIGGERS, arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_GROUP), false)
-val IDX_QRTZ_T_J: Index = Internal.createIndex(DSL.name("idx_qrtz_t_j"), QrtzTriggers.QRTZ_TRIGGERS, arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.JOB_NAME, QrtzTriggers.QRTZ_TRIGGERS.JOB_GROUP), false)
-val IDX_QRTZ_T_JG: Index = Internal.createIndex(DSL.name("idx_qrtz_t_jg"), QrtzTriggers.QRTZ_TRIGGERS, arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.JOB_GROUP), false)
-val IDX_QRTZ_T_N_G_STATE: Index = Internal.createIndex(DSL.name("idx_qrtz_t_n_g_state"), QrtzTriggers.QRTZ_TRIGGERS, arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_GROUP, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_STATE), false)
-val IDX_QRTZ_T_N_STATE: Index = Internal.createIndex(DSL.name("idx_qrtz_t_n_state"), QrtzTriggers.QRTZ_TRIGGERS, arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_NAME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_GROUP, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_STATE), false)
-val IDX_QRTZ_T_NEXT_FIRE_TIME: Index = Internal.createIndex(DSL.name("idx_qrtz_t_next_fire_time"), QrtzTriggers.QRTZ_TRIGGERS, arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.NEXT_FIRE_TIME), false)
-val IDX_QRTZ_T_NFT_MISFIRE: Index = Internal.createIndex(DSL.name("idx_qrtz_t_nft_misfire"), QrtzTriggers.QRTZ_TRIGGERS, arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.MISFIRE_INSTR, QrtzTriggers.QRTZ_TRIGGERS.NEXT_FIRE_TIME), false)
-val IDX_QRTZ_T_NFT_ST: Index = Internal.createIndex(DSL.name("idx_qrtz_t_nft_st"), QrtzTriggers.QRTZ_TRIGGERS, arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_STATE, QrtzTriggers.QRTZ_TRIGGERS.NEXT_FIRE_TIME), false)
-val IDX_QRTZ_T_NFT_ST_MISFIRE: Index = Internal.createIndex(DSL.name("idx_qrtz_t_nft_st_misfire"), QrtzTriggers.QRTZ_TRIGGERS, arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.MISFIRE_INSTR, QrtzTriggers.QRTZ_TRIGGERS.NEXT_FIRE_TIME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_STATE), false)
-val IDX_QRTZ_T_NFT_ST_MISFIRE_GRP: Index = Internal.createIndex(DSL.name("idx_qrtz_t_nft_st_misfire_grp"), QrtzTriggers.QRTZ_TRIGGERS, arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.MISFIRE_INSTR, QrtzTriggers.QRTZ_TRIGGERS.NEXT_FIRE_TIME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_GROUP, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_STATE), false)
-val IDX_QRTZ_T_STATE: Index = Internal.createIndex(DSL.name("idx_qrtz_t_state"), QrtzTriggers.QRTZ_TRIGGERS, arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_STATE), false)
+val ACT_HI_BAT_RM_TIME: Index = Internal.createIndex(
+    DSL.name("act_hi_bat_rm_time"),
+    ActHiBatch.ACT_HI_BATCH,
+    arrayOf(ActHiBatch.ACT_HI_BATCH.REMOVAL_TIME_),
+    false
+)
+val ACT_HI_EXT_TASK_LOG_PROC_DEF_KEY: Index = Internal.createIndex(
+    DSL.name("act_hi_ext_task_log_proc_def_key"),
+    ActHiExtTaskLog.ACT_HI_EXT_TASK_LOG,
+    arrayOf(ActHiExtTaskLog.ACT_HI_EXT_TASK_LOG.PROC_DEF_KEY_),
+    false
+)
+val ACT_HI_EXT_TASK_LOG_PROCDEF: Index = Internal.createIndex(
+    DSL.name("act_hi_ext_task_log_procdef"),
+    ActHiExtTaskLog.ACT_HI_EXT_TASK_LOG,
+    arrayOf(ActHiExtTaskLog.ACT_HI_EXT_TASK_LOG.PROC_DEF_ID_),
+    false
+)
+val ACT_HI_EXT_TASK_LOG_PROCINST: Index = Internal.createIndex(
+    DSL.name("act_hi_ext_task_log_procinst"),
+    ActHiExtTaskLog.ACT_HI_EXT_TASK_LOG,
+    arrayOf(ActHiExtTaskLog.ACT_HI_EXT_TASK_LOG.PROC_INST_ID_),
+    false
+)
+val ACT_HI_EXT_TASK_LOG_RM_TIME: Index = Internal.createIndex(
+    DSL.name("act_hi_ext_task_log_rm_time"),
+    ActHiExtTaskLog.ACT_HI_EXT_TASK_LOG,
+    arrayOf(ActHiExtTaskLog.ACT_HI_EXT_TASK_LOG.REMOVAL_TIME_),
+    false
+)
+val ACT_HI_EXT_TASK_LOG_ROOT_PI: Index = Internal.createIndex(
+    DSL.name("act_hi_ext_task_log_root_pi"),
+    ActHiExtTaskLog.ACT_HI_EXT_TASK_LOG,
+    arrayOf(ActHiExtTaskLog.ACT_HI_EXT_TASK_LOG.ROOT_PROC_INST_ID_),
+    false
+)
+val ACT_HI_EXT_TASK_LOG_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_hi_ext_task_log_tenant_id"),
+    ActHiExtTaskLog.ACT_HI_EXT_TASK_LOG,
+    arrayOf(ActHiExtTaskLog.ACT_HI_EXT_TASK_LOG.TENANT_ID_),
+    false
+)
+val ACT_IDX_ATHRZ_PROCEDEF: Index = Internal.createIndex(
+    DSL.name("act_idx_athrz_procedef"),
+    ActRuIdentitylink.ACT_RU_IDENTITYLINK,
+    arrayOf(ActRuIdentitylink.ACT_RU_IDENTITYLINK.PROC_DEF_ID_),
+    false
+)
+val ACT_IDX_AUTH_GROUP_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_auth_group_id"),
+    ActRuAuthorization.ACT_RU_AUTHORIZATION,
+    arrayOf(ActRuAuthorization.ACT_RU_AUTHORIZATION.GROUP_ID_),
+    false
+)
+val ACT_IDX_AUTH_RESOURCE_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_auth_resource_id"),
+    ActRuAuthorization.ACT_RU_AUTHORIZATION,
+    arrayOf(ActRuAuthorization.ACT_RU_AUTHORIZATION.RESOURCE_ID_),
+    false
+)
+val ACT_IDX_AUTH_RM_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_auth_rm_time"),
+    ActRuAuthorization.ACT_RU_AUTHORIZATION,
+    arrayOf(ActRuAuthorization.ACT_RU_AUTHORIZATION.REMOVAL_TIME_),
+    false
+)
+val ACT_IDX_AUTH_ROOT_PI: Index = Internal.createIndex(
+    DSL.name("act_idx_auth_root_pi"),
+    ActRuAuthorization.ACT_RU_AUTHORIZATION,
+    arrayOf(ActRuAuthorization.ACT_RU_AUTHORIZATION.ROOT_PROC_INST_ID_),
+    false
+)
+val ACT_IDX_BATCH_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_batch_id"),
+    ActRuVariable.ACT_RU_VARIABLE,
+    arrayOf(ActRuVariable.ACT_RU_VARIABLE.BATCH_ID_),
+    false
+)
+val ACT_IDX_BATCH_JOB_DEF: Index = Internal.createIndex(
+    DSL.name("act_idx_batch_job_def"),
+    ActRuBatch.ACT_RU_BATCH,
+    arrayOf(ActRuBatch.ACT_RU_BATCH.BATCH_JOB_DEF_ID_),
+    false
+)
+val ACT_IDX_BATCH_MONITOR_JOB_DEF: Index = Internal.createIndex(
+    DSL.name("act_idx_batch_monitor_job_def"),
+    ActRuBatch.ACT_RU_BATCH,
+    arrayOf(ActRuBatch.ACT_RU_BATCH.MONITOR_JOB_DEF_ID_),
+    false
+)
+val ACT_IDX_BATCH_SEED_JOB_DEF: Index = Internal.createIndex(
+    DSL.name("act_idx_batch_seed_job_def"),
+    ActRuBatch.ACT_RU_BATCH,
+    arrayOf(ActRuBatch.ACT_RU_BATCH.SEED_JOB_DEF_ID_),
+    false
+)
+val ACT_IDX_BYTEAR_DEPL: Index = Internal.createIndex(
+    DSL.name("act_idx_bytear_depl"),
+    ActGeBytearray.ACT_GE_BYTEARRAY,
+    arrayOf(ActGeBytearray.ACT_GE_BYTEARRAY.DEPLOYMENT_ID_),
+    false
+)
+val ACT_IDX_BYTEARRAY_NAME: Index = Internal.createIndex(
+    DSL.name("act_idx_bytearray_name"),
+    ActGeBytearray.ACT_GE_BYTEARRAY,
+    arrayOf(ActGeBytearray.ACT_GE_BYTEARRAY.NAME_),
+    false
+)
+val ACT_IDX_BYTEARRAY_RM_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_bytearray_rm_time"),
+    ActGeBytearray.ACT_GE_BYTEARRAY,
+    arrayOf(ActGeBytearray.ACT_GE_BYTEARRAY.REMOVAL_TIME_),
+    false
+)
+val ACT_IDX_BYTEARRAY_ROOT_PI: Index = Internal.createIndex(
+    DSL.name("act_idx_bytearray_root_pi"),
+    ActGeBytearray.ACT_GE_BYTEARRAY,
+    arrayOf(ActGeBytearray.ACT_GE_BYTEARRAY.ROOT_PROC_INST_ID_),
+    false
+)
+val ACT_IDX_CASE_DEF_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_case_def_tenant_id"),
+    ActReCaseDef.ACT_RE_CASE_DEF,
+    arrayOf(ActReCaseDef.ACT_RE_CASE_DEF.TENANT_ID_),
+    false
+)
+val ACT_IDX_CASE_EXE_CASE_DEF: Index = Internal.createIndex(
+    DSL.name("act_idx_case_exe_case_def"),
+    ActRuCaseExecution.ACT_RU_CASE_EXECUTION,
+    arrayOf(ActRuCaseExecution.ACT_RU_CASE_EXECUTION.CASE_DEF_ID_),
+    false
+)
+val ACT_IDX_CASE_EXE_CASE_INST: Index = Internal.createIndex(
+    DSL.name("act_idx_case_exe_case_inst"),
+    ActRuCaseExecution.ACT_RU_CASE_EXECUTION,
+    arrayOf(ActRuCaseExecution.ACT_RU_CASE_EXECUTION.CASE_INST_ID_),
+    false
+)
+val ACT_IDX_CASE_EXE_PARENT: Index = Internal.createIndex(
+    DSL.name("act_idx_case_exe_parent"),
+    ActRuCaseExecution.ACT_RU_CASE_EXECUTION,
+    arrayOf(ActRuCaseExecution.ACT_RU_CASE_EXECUTION.PARENT_ID_),
+    false
+)
+val ACT_IDX_CASE_EXEC_BUSKEY: Index = Internal.createIndex(
+    DSL.name("act_idx_case_exec_buskey"),
+    ActRuCaseExecution.ACT_RU_CASE_EXECUTION,
+    arrayOf(ActRuCaseExecution.ACT_RU_CASE_EXECUTION.BUSINESS_KEY_),
+    false
+)
+val ACT_IDX_CASE_EXEC_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_case_exec_tenant_id"),
+    ActRuCaseExecution.ACT_RU_CASE_EXECUTION,
+    arrayOf(ActRuCaseExecution.ACT_RU_CASE_EXECUTION.TENANT_ID_),
+    false
+)
+val ACT_IDX_CASE_SENTRY_CASE_EXEC: Index = Internal.createIndex(
+    DSL.name("act_idx_case_sentry_case_exec"),
+    ActRuCaseSentryPart.ACT_RU_CASE_SENTRY_PART,
+    arrayOf(ActRuCaseSentryPart.ACT_RU_CASE_SENTRY_PART.CASE_EXEC_ID_),
+    false
+)
+val ACT_IDX_CASE_SENTRY_CASE_INST: Index = Internal.createIndex(
+    DSL.name("act_idx_case_sentry_case_inst"),
+    ActRuCaseSentryPart.ACT_RU_CASE_SENTRY_PART,
+    arrayOf(ActRuCaseSentryPart.ACT_RU_CASE_SENTRY_PART.CASE_INST_ID_),
+    false
+)
+val ACT_IDX_DEC_DEF_REQ_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_dec_def_req_id"),
+    ActReDecisionDef.ACT_RE_DECISION_DEF,
+    arrayOf(ActReDecisionDef.ACT_RE_DECISION_DEF.DEC_REQ_ID_),
+    false
+)
+val ACT_IDX_DEC_DEF_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_dec_def_tenant_id"),
+    ActReDecisionDef.ACT_RE_DECISION_DEF,
+    arrayOf(ActReDecisionDef.ACT_RE_DECISION_DEF.TENANT_ID_),
+    false
+)
+val ACT_IDX_DEC_REQ_DEF_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_dec_req_def_tenant_id"),
+    ActReDecisionReqDef.ACT_RE_DECISION_REQ_DEF,
+    arrayOf(ActReDecisionReqDef.ACT_RE_DECISION_REQ_DEF.TENANT_ID_),
+    false
+)
+val ACT_IDX_DEPLOYMENT_NAME: Index = Internal.createIndex(
+    DSL.name("act_idx_deployment_name"),
+    ActReDeployment.ACT_RE_DEPLOYMENT,
+    arrayOf(ActReDeployment.ACT_RE_DEPLOYMENT.NAME_),
+    false
+)
+val ACT_IDX_DEPLOYMENT_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_deployment_tenant_id"),
+    ActReDeployment.ACT_RE_DEPLOYMENT,
+    arrayOf(ActReDeployment.ACT_RE_DEPLOYMENT.TENANT_ID_),
+    false
+)
+val ACT_IDX_EVENT_SUBSCR: Index = Internal.createIndex(
+    DSL.name("act_idx_event_subscr"),
+    ActRuEventSubscr.ACT_RU_EVENT_SUBSCR,
+    arrayOf(ActRuEventSubscr.ACT_RU_EVENT_SUBSCR.EXECUTION_ID_),
+    false
+)
+val ACT_IDX_EVENT_SUBSCR_CONFIG_: Index = Internal.createIndex(
+    DSL.name("act_idx_event_subscr_config_"),
+    ActRuEventSubscr.ACT_RU_EVENT_SUBSCR,
+    arrayOf(ActRuEventSubscr.ACT_RU_EVENT_SUBSCR.CONFIGURATION_),
+    false
+)
+val ACT_IDX_EVENT_SUBSCR_EVT_NAME: Index = Internal.createIndex(
+    DSL.name("act_idx_event_subscr_evt_name"),
+    ActRuEventSubscr.ACT_RU_EVENT_SUBSCR,
+    arrayOf(ActRuEventSubscr.ACT_RU_EVENT_SUBSCR.EVENT_NAME_),
+    false
+)
+val ACT_IDX_EVENT_SUBSCR_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_event_subscr_tenant_id"),
+    ActRuEventSubscr.ACT_RU_EVENT_SUBSCR,
+    arrayOf(ActRuEventSubscr.ACT_RU_EVENT_SUBSCR.TENANT_ID_),
+    false
+)
+val ACT_IDX_EXE_PARENT: Index = Internal.createIndex(
+    DSL.name("act_idx_exe_parent"),
+    ActRuExecution.ACT_RU_EXECUTION,
+    arrayOf(ActRuExecution.ACT_RU_EXECUTION.PARENT_ID_),
+    false
+)
+val ACT_IDX_EXE_PROCDEF: Index = Internal.createIndex(
+    DSL.name("act_idx_exe_procdef"),
+    ActRuExecution.ACT_RU_EXECUTION,
+    arrayOf(ActRuExecution.ACT_RU_EXECUTION.PROC_DEF_ID_),
+    false
+)
+val ACT_IDX_EXE_PROCINST: Index = Internal.createIndex(
+    DSL.name("act_idx_exe_procinst"),
+    ActRuExecution.ACT_RU_EXECUTION,
+    arrayOf(ActRuExecution.ACT_RU_EXECUTION.PROC_INST_ID_),
+    false
+)
+val ACT_IDX_EXE_ROOT_PI: Index = Internal.createIndex(
+    DSL.name("act_idx_exe_root_pi"),
+    ActRuExecution.ACT_RU_EXECUTION,
+    arrayOf(ActRuExecution.ACT_RU_EXECUTION.ROOT_PROC_INST_ID_),
+    false
+)
+val ACT_IDX_EXE_SUPER: Index = Internal.createIndex(
+    DSL.name("act_idx_exe_super"),
+    ActRuExecution.ACT_RU_EXECUTION,
+    arrayOf(ActRuExecution.ACT_RU_EXECUTION.SUPER_EXEC_),
+    false
+)
+val ACT_IDX_EXEC_BUSKEY: Index = Internal.createIndex(
+    DSL.name("act_idx_exec_buskey"),
+    ActRuExecution.ACT_RU_EXECUTION,
+    arrayOf(ActRuExecution.ACT_RU_EXECUTION.BUSINESS_KEY_),
+    false
+)
+val ACT_IDX_EXEC_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_exec_tenant_id"),
+    ActRuExecution.ACT_RU_EXECUTION,
+    arrayOf(ActRuExecution.ACT_RU_EXECUTION.TENANT_ID_),
+    false
+)
+val ACT_IDX_EXT_TASK_ERR_DETAILS: Index = Internal.createIndex(
+    DSL.name("act_idx_ext_task_err_details"),
+    ActRuExtTask.ACT_RU_EXT_TASK,
+    arrayOf(ActRuExtTask.ACT_RU_EXT_TASK.ERROR_DETAILS_ID_),
+    false
+)
+val ACT_IDX_EXT_TASK_EXEC: Index = Internal.createIndex(
+    DSL.name("act_idx_ext_task_exec"),
+    ActRuExtTask.ACT_RU_EXT_TASK,
+    arrayOf(ActRuExtTask.ACT_RU_EXT_TASK.EXECUTION_ID_),
+    false
+)
+val ACT_IDX_EXT_TASK_PRIORITY: Index = Internal.createIndex(
+    DSL.name("act_idx_ext_task_priority"),
+    ActRuExtTask.ACT_RU_EXT_TASK,
+    arrayOf(ActRuExtTask.ACT_RU_EXT_TASK.PRIORITY_),
+    false
+)
+val ACT_IDX_EXT_TASK_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_ext_task_tenant_id"),
+    ActRuExtTask.ACT_RU_EXT_TASK,
+    arrayOf(ActRuExtTask.ACT_RU_EXT_TASK.TENANT_ID_),
+    false
+)
+val ACT_IDX_EXT_TASK_TOPIC: Index = Internal.createIndex(
+    DSL.name("act_idx_ext_task_topic"),
+    ActRuExtTask.ACT_RU_EXT_TASK,
+    arrayOf(ActRuExtTask.ACT_RU_EXT_TASK.TOPIC_NAME_),
+    false
+)
+val ACT_IDX_HI_ACT_INST_COMP: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_act_inst_comp"),
+    ActHiActinst.ACT_HI_ACTINST,
+    arrayOf(
+        ActHiActinst.ACT_HI_ACTINST.EXECUTION_ID_,
+        ActHiActinst.ACT_HI_ACTINST.ACT_ID_,
+        ActHiActinst.ACT_HI_ACTINST.END_TIME_,
+        ActHiActinst.ACT_HI_ACTINST.ID_
+    ),
+    false
+)
+val ACT_IDX_HI_ACT_INST_END: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_act_inst_end"),
+    ActHiActinst.ACT_HI_ACTINST,
+    arrayOf(ActHiActinst.ACT_HI_ACTINST.END_TIME_),
+    false
+)
+val ACT_IDX_HI_ACT_INST_PROC_DEF_KEY: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_act_inst_proc_def_key"),
+    ActHiActinst.ACT_HI_ACTINST,
+    arrayOf(ActHiActinst.ACT_HI_ACTINST.PROC_DEF_KEY_),
+    false
+)
+val ACT_IDX_HI_ACT_INST_PROCINST: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_act_inst_procinst"),
+    ActHiActinst.ACT_HI_ACTINST,
+    arrayOf(ActHiActinst.ACT_HI_ACTINST.PROC_INST_ID_, ActHiActinst.ACT_HI_ACTINST.ACT_ID_),
+    false
+)
+val ACT_IDX_HI_ACT_INST_RM_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_act_inst_rm_time"),
+    ActHiActinst.ACT_HI_ACTINST,
+    arrayOf(ActHiActinst.ACT_HI_ACTINST.REMOVAL_TIME_),
+    false
+)
+val ACT_IDX_HI_ACT_INST_START_END: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_act_inst_start_end"),
+    ActHiActinst.ACT_HI_ACTINST,
+    arrayOf(ActHiActinst.ACT_HI_ACTINST.START_TIME_, ActHiActinst.ACT_HI_ACTINST.END_TIME_),
+    false
+)
+val ACT_IDX_HI_ACT_INST_STATS: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_act_inst_stats"),
+    ActHiActinst.ACT_HI_ACTINST,
+    arrayOf(
+        ActHiActinst.ACT_HI_ACTINST.PROC_DEF_ID_,
+        ActHiActinst.ACT_HI_ACTINST.PROC_INST_ID_,
+        ActHiActinst.ACT_HI_ACTINST.ACT_ID_,
+        ActHiActinst.ACT_HI_ACTINST.END_TIME_,
+        ActHiActinst.ACT_HI_ACTINST.ACT_INST_STATE_
+    ),
+    false
+)
+val ACT_IDX_HI_ACT_INST_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_act_inst_tenant_id"),
+    ActHiActinst.ACT_HI_ACTINST,
+    arrayOf(ActHiActinst.ACT_HI_ACTINST.TENANT_ID_),
+    false
+)
+val ACT_IDX_HI_ACTINST_ROOT_PI: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_actinst_root_pi"),
+    ActHiActinst.ACT_HI_ACTINST,
+    arrayOf(ActHiActinst.ACT_HI_ACTINST.ROOT_PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_AI_PDEFID_END_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_ai_pdefid_end_time"),
+    ActHiActinst.ACT_HI_ACTINST,
+    arrayOf(ActHiActinst.ACT_HI_ACTINST.PROC_DEF_ID_, ActHiActinst.ACT_HI_ACTINST.END_TIME_),
+    false
+)
+val ACT_IDX_HI_ATTACHMENT_CONTENT: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_attachment_content"),
+    ActHiAttachment.ACT_HI_ATTACHMENT,
+    arrayOf(ActHiAttachment.ACT_HI_ATTACHMENT.CONTENT_ID_),
+    false
+)
+val ACT_IDX_HI_ATTACHMENT_PROCINST: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_attachment_procinst"),
+    ActHiAttachment.ACT_HI_ATTACHMENT,
+    arrayOf(ActHiAttachment.ACT_HI_ATTACHMENT.PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_ATTACHMENT_RM_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_attachment_rm_time"),
+    ActHiAttachment.ACT_HI_ATTACHMENT,
+    arrayOf(ActHiAttachment.ACT_HI_ATTACHMENT.REMOVAL_TIME_),
+    false
+)
+val ACT_IDX_HI_ATTACHMENT_ROOT_PI: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_attachment_root_pi"),
+    ActHiAttachment.ACT_HI_ATTACHMENT,
+    arrayOf(ActHiAttachment.ACT_HI_ATTACHMENT.ROOT_PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_ATTACHMENT_TASK: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_attachment_task"),
+    ActHiAttachment.ACT_HI_ATTACHMENT,
+    arrayOf(ActHiAttachment.ACT_HI_ATTACHMENT.TASK_ID_),
+    false
+)
+val ACT_IDX_HI_CAS_A_I_COMP: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_cas_a_i_comp"),
+    ActHiCaseactinst.ACT_HI_CASEACTINST,
+    arrayOf(
+        ActHiCaseactinst.ACT_HI_CASEACTINST.CASE_ACT_ID_,
+        ActHiCaseactinst.ACT_HI_CASEACTINST.END_TIME_,
+        ActHiCaseactinst.ACT_HI_CASEACTINST.ID_
+    ),
+    false
+)
+val ACT_IDX_HI_CAS_A_I_CREATE: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_cas_a_i_create"),
+    ActHiCaseactinst.ACT_HI_CASEACTINST,
+    arrayOf(ActHiCaseactinst.ACT_HI_CASEACTINST.CREATE_TIME_),
+    false
+)
+val ACT_IDX_HI_CAS_A_I_END: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_cas_a_i_end"),
+    ActHiCaseactinst.ACT_HI_CASEACTINST,
+    arrayOf(ActHiCaseactinst.ACT_HI_CASEACTINST.END_TIME_),
+    false
+)
+val ACT_IDX_HI_CAS_A_I_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_cas_a_i_tenant_id"),
+    ActHiCaseactinst.ACT_HI_CASEACTINST,
+    arrayOf(ActHiCaseactinst.ACT_HI_CASEACTINST.TENANT_ID_),
+    false
+)
+val ACT_IDX_HI_CAS_I_BUSKEY: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_cas_i_buskey"),
+    ActHiCaseinst.ACT_HI_CASEINST,
+    arrayOf(ActHiCaseinst.ACT_HI_CASEINST.BUSINESS_KEY_),
+    false
+)
+val ACT_IDX_HI_CAS_I_CLOSE: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_cas_i_close"),
+    ActHiCaseinst.ACT_HI_CASEINST,
+    arrayOf(ActHiCaseinst.ACT_HI_CASEINST.CLOSE_TIME_),
+    false
+)
+val ACT_IDX_HI_CAS_I_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_cas_i_tenant_id"),
+    ActHiCaseinst.ACT_HI_CASEINST,
+    arrayOf(ActHiCaseinst.ACT_HI_CASEINST.TENANT_ID_),
+    false
+)
+val ACT_IDX_HI_CASEVAR_CASE_INST: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_casevar_case_inst"),
+    ActHiVarinst.ACT_HI_VARINST,
+    arrayOf(ActHiVarinst.ACT_HI_VARINST.CASE_INST_ID_),
+    false
+)
+val ACT_IDX_HI_COMMENT_PROCINST: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_comment_procinst"),
+    ActHiComment.ACT_HI_COMMENT,
+    arrayOf(ActHiComment.ACT_HI_COMMENT.PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_COMMENT_RM_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_comment_rm_time"),
+    ActHiComment.ACT_HI_COMMENT,
+    arrayOf(ActHiComment.ACT_HI_COMMENT.REMOVAL_TIME_),
+    false
+)
+val ACT_IDX_HI_COMMENT_ROOT_PI: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_comment_root_pi"),
+    ActHiComment.ACT_HI_COMMENT,
+    arrayOf(ActHiComment.ACT_HI_COMMENT.ROOT_PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_COMMENT_TASK: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_comment_task"),
+    ActHiComment.ACT_HI_COMMENT,
+    arrayOf(ActHiComment.ACT_HI_COMMENT.TASK_ID_),
+    false
+)
+val ACT_IDX_HI_DEC_IN_CLAUSE: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_in_clause"),
+    ActHiDecIn.ACT_HI_DEC_IN,
+    arrayOf(ActHiDecIn.ACT_HI_DEC_IN.DEC_INST_ID_, ActHiDecIn.ACT_HI_DEC_IN.CLAUSE_ID_),
+    false
+)
+val ACT_IDX_HI_DEC_IN_INST: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_in_inst"),
+    ActHiDecIn.ACT_HI_DEC_IN,
+    arrayOf(ActHiDecIn.ACT_HI_DEC_IN.DEC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_DEC_IN_RM_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_in_rm_time"),
+    ActHiDecIn.ACT_HI_DEC_IN,
+    arrayOf(ActHiDecIn.ACT_HI_DEC_IN.REMOVAL_TIME_),
+    false
+)
+val ACT_IDX_HI_DEC_IN_ROOT_PI: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_in_root_pi"),
+    ActHiDecIn.ACT_HI_DEC_IN,
+    arrayOf(ActHiDecIn.ACT_HI_DEC_IN.ROOT_PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_DEC_INST_ACT: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_inst_act"),
+    ActHiDecinst.ACT_HI_DECINST,
+    arrayOf(ActHiDecinst.ACT_HI_DECINST.ACT_ID_),
+    false
+)
+val ACT_IDX_HI_DEC_INST_ACT_INST: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_inst_act_inst"),
+    ActHiDecinst.ACT_HI_DECINST,
+    arrayOf(ActHiDecinst.ACT_HI_DECINST.ACT_INST_ID_),
+    false
+)
+val ACT_IDX_HI_DEC_INST_CI: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_inst_ci"),
+    ActHiDecinst.ACT_HI_DECINST,
+    arrayOf(ActHiDecinst.ACT_HI_DECINST.CASE_INST_ID_),
+    false
+)
+val ACT_IDX_HI_DEC_INST_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_inst_id"),
+    ActHiDecinst.ACT_HI_DECINST,
+    arrayOf(ActHiDecinst.ACT_HI_DECINST.DEC_DEF_ID_),
+    false
+)
+val ACT_IDX_HI_DEC_INST_KEY: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_inst_key"),
+    ActHiDecinst.ACT_HI_DECINST,
+    arrayOf(ActHiDecinst.ACT_HI_DECINST.DEC_DEF_KEY_),
+    false
+)
+val ACT_IDX_HI_DEC_INST_PI: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_inst_pi"),
+    ActHiDecinst.ACT_HI_DECINST,
+    arrayOf(ActHiDecinst.ACT_HI_DECINST.PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_DEC_INST_REQ_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_inst_req_id"),
+    ActHiDecinst.ACT_HI_DECINST,
+    arrayOf(ActHiDecinst.ACT_HI_DECINST.DEC_REQ_ID_),
+    false
+)
+val ACT_IDX_HI_DEC_INST_REQ_KEY: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_inst_req_key"),
+    ActHiDecinst.ACT_HI_DECINST,
+    arrayOf(ActHiDecinst.ACT_HI_DECINST.DEC_REQ_KEY_),
+    false
+)
+val ACT_IDX_HI_DEC_INST_RM_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_inst_rm_time"),
+    ActHiDecinst.ACT_HI_DECINST,
+    arrayOf(ActHiDecinst.ACT_HI_DECINST.REMOVAL_TIME_),
+    false
+)
+val ACT_IDX_HI_DEC_INST_ROOT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_inst_root_id"),
+    ActHiDecinst.ACT_HI_DECINST,
+    arrayOf(ActHiDecinst.ACT_HI_DECINST.ROOT_DEC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_DEC_INST_ROOT_PI: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_inst_root_pi"),
+    ActHiDecinst.ACT_HI_DECINST,
+    arrayOf(ActHiDecinst.ACT_HI_DECINST.ROOT_PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_DEC_INST_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_inst_tenant_id"),
+    ActHiDecinst.ACT_HI_DECINST,
+    arrayOf(ActHiDecinst.ACT_HI_DECINST.TENANT_ID_),
+    false
+)
+val ACT_IDX_HI_DEC_INST_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_inst_time"),
+    ActHiDecinst.ACT_HI_DECINST,
+    arrayOf(ActHiDecinst.ACT_HI_DECINST.EVAL_TIME_),
+    false
+)
+val ACT_IDX_HI_DEC_OUT_INST: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_out_inst"),
+    ActHiDecOut.ACT_HI_DEC_OUT,
+    arrayOf(ActHiDecOut.ACT_HI_DEC_OUT.DEC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_DEC_OUT_RM_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_out_rm_time"),
+    ActHiDecOut.ACT_HI_DEC_OUT,
+    arrayOf(ActHiDecOut.ACT_HI_DEC_OUT.REMOVAL_TIME_),
+    false
+)
+val ACT_IDX_HI_DEC_OUT_ROOT_PI: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_out_root_pi"),
+    ActHiDecOut.ACT_HI_DEC_OUT,
+    arrayOf(ActHiDecOut.ACT_HI_DEC_OUT.ROOT_PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_DEC_OUT_RULE: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_dec_out_rule"),
+    ActHiDecOut.ACT_HI_DEC_OUT,
+    arrayOf(ActHiDecOut.ACT_HI_DEC_OUT.RULE_ORDER_, ActHiDecOut.ACT_HI_DEC_OUT.CLAUSE_ID_),
+    false
+)
+val ACT_IDX_HI_DETAIL_ACT_INST: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_detail_act_inst"),
+    ActHiDetail.ACT_HI_DETAIL,
+    arrayOf(ActHiDetail.ACT_HI_DETAIL.ACT_INST_ID_),
+    false
+)
+val ACT_IDX_HI_DETAIL_BYTEAR: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_detail_bytear"),
+    ActHiDetail.ACT_HI_DETAIL,
+    arrayOf(ActHiDetail.ACT_HI_DETAIL.BYTEARRAY_ID_),
+    false
+)
+val ACT_IDX_HI_DETAIL_CASE_EXEC: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_detail_case_exec"),
+    ActHiDetail.ACT_HI_DETAIL,
+    arrayOf(ActHiDetail.ACT_HI_DETAIL.CASE_EXECUTION_ID_),
+    false
+)
+val ACT_IDX_HI_DETAIL_CASE_INST: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_detail_case_inst"),
+    ActHiDetail.ACT_HI_DETAIL,
+    arrayOf(ActHiDetail.ACT_HI_DETAIL.CASE_INST_ID_),
+    false
+)
+val ACT_IDX_HI_DETAIL_NAME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_detail_name"),
+    ActHiDetail.ACT_HI_DETAIL,
+    arrayOf(ActHiDetail.ACT_HI_DETAIL.NAME_),
+    false
+)
+val ACT_IDX_HI_DETAIL_PROC_DEF_KEY: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_detail_proc_def_key"),
+    ActHiDetail.ACT_HI_DETAIL,
+    arrayOf(ActHiDetail.ACT_HI_DETAIL.PROC_DEF_KEY_),
+    false
+)
+val ACT_IDX_HI_DETAIL_PROC_INST: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_detail_proc_inst"),
+    ActHiDetail.ACT_HI_DETAIL,
+    arrayOf(ActHiDetail.ACT_HI_DETAIL.PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_DETAIL_RM_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_detail_rm_time"),
+    ActHiDetail.ACT_HI_DETAIL,
+    arrayOf(ActHiDetail.ACT_HI_DETAIL.REMOVAL_TIME_),
+    false
+)
+val ACT_IDX_HI_DETAIL_ROOT_PI: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_detail_root_pi"),
+    ActHiDetail.ACT_HI_DETAIL,
+    arrayOf(ActHiDetail.ACT_HI_DETAIL.ROOT_PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_DETAIL_TASK_BYTEAR: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_detail_task_bytear"),
+    ActHiDetail.ACT_HI_DETAIL,
+    arrayOf(ActHiDetail.ACT_HI_DETAIL.BYTEARRAY_ID_, ActHiDetail.ACT_HI_DETAIL.TASK_ID_),
+    false
+)
+val ACT_IDX_HI_DETAIL_TASK_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_detail_task_id"),
+    ActHiDetail.ACT_HI_DETAIL,
+    arrayOf(ActHiDetail.ACT_HI_DETAIL.TASK_ID_),
+    false
+)
+val ACT_IDX_HI_DETAIL_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_detail_tenant_id"),
+    ActHiDetail.ACT_HI_DETAIL,
+    arrayOf(ActHiDetail.ACT_HI_DETAIL.TENANT_ID_),
+    false
+)
+val ACT_IDX_HI_DETAIL_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_detail_time"),
+    ActHiDetail.ACT_HI_DETAIL,
+    arrayOf(ActHiDetail.ACT_HI_DETAIL.TIME_),
+    false
+)
+val ACT_IDX_HI_DETAIL_VAR_INST_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_detail_var_inst_id"),
+    ActHiDetail.ACT_HI_DETAIL,
+    arrayOf(ActHiDetail.ACT_HI_DETAIL.VAR_INST_ID_),
+    false
+)
+val ACT_IDX_HI_EXTTASKLOG_ERRORDET: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_exttasklog_errordet"),
+    ActHiExtTaskLog.ACT_HI_EXT_TASK_LOG,
+    arrayOf(ActHiExtTaskLog.ACT_HI_EXT_TASK_LOG.ERROR_DETAILS_ID_),
+    false
+)
+val ACT_IDX_HI_IDENT_LINK_RM_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_ident_link_rm_time"),
+    ActHiIdentitylink.ACT_HI_IDENTITYLINK,
+    arrayOf(ActHiIdentitylink.ACT_HI_IDENTITYLINK.REMOVAL_TIME_),
+    false
+)
+val ACT_IDX_HI_IDENT_LINK_TASK: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_ident_link_task"),
+    ActHiIdentitylink.ACT_HI_IDENTITYLINK,
+    arrayOf(ActHiIdentitylink.ACT_HI_IDENTITYLINK.TASK_ID_),
+    false
+)
+val ACT_IDX_HI_IDENT_LNK_GROUP: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_ident_lnk_group"),
+    ActHiIdentitylink.ACT_HI_IDENTITYLINK,
+    arrayOf(ActHiIdentitylink.ACT_HI_IDENTITYLINK.GROUP_ID_),
+    false
+)
+val ACT_IDX_HI_IDENT_LNK_PROC_DEF_KEY: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_ident_lnk_proc_def_key"),
+    ActHiIdentitylink.ACT_HI_IDENTITYLINK,
+    arrayOf(ActHiIdentitylink.ACT_HI_IDENTITYLINK.PROC_DEF_KEY_),
+    false
+)
+val ACT_IDX_HI_IDENT_LNK_ROOT_PI: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_ident_lnk_root_pi"),
+    ActHiIdentitylink.ACT_HI_IDENTITYLINK,
+    arrayOf(ActHiIdentitylink.ACT_HI_IDENTITYLINK.ROOT_PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_IDENT_LNK_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_ident_lnk_tenant_id"),
+    ActHiIdentitylink.ACT_HI_IDENTITYLINK,
+    arrayOf(ActHiIdentitylink.ACT_HI_IDENTITYLINK.TENANT_ID_),
+    false
+)
+val ACT_IDX_HI_IDENT_LNK_TIMESTAMP: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_ident_lnk_timestamp"),
+    ActHiIdentitylink.ACT_HI_IDENTITYLINK,
+    arrayOf(ActHiIdentitylink.ACT_HI_IDENTITYLINK.TIMESTAMP_),
+    false
+)
+val ACT_IDX_HI_IDENT_LNK_USER: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_ident_lnk_user"),
+    ActHiIdentitylink.ACT_HI_IDENTITYLINK,
+    arrayOf(ActHiIdentitylink.ACT_HI_IDENTITYLINK.USER_ID_),
+    false
+)
+val ACT_IDX_HI_INCIDENT_CREATE_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_incident_create_time"),
+    ActHiIncident.ACT_HI_INCIDENT,
+    arrayOf(ActHiIncident.ACT_HI_INCIDENT.CREATE_TIME_),
+    false
+)
+val ACT_IDX_HI_INCIDENT_END_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_incident_end_time"),
+    ActHiIncident.ACT_HI_INCIDENT,
+    arrayOf(ActHiIncident.ACT_HI_INCIDENT.END_TIME_),
+    false
+)
+val ACT_IDX_HI_INCIDENT_PROC_DEF_KEY: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_incident_proc_def_key"),
+    ActHiIncident.ACT_HI_INCIDENT,
+    arrayOf(ActHiIncident.ACT_HI_INCIDENT.PROC_DEF_KEY_),
+    false
+)
+val ACT_IDX_HI_INCIDENT_PROCINST: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_incident_procinst"),
+    ActHiIncident.ACT_HI_INCIDENT,
+    arrayOf(ActHiIncident.ACT_HI_INCIDENT.PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_INCIDENT_RM_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_incident_rm_time"),
+    ActHiIncident.ACT_HI_INCIDENT,
+    arrayOf(ActHiIncident.ACT_HI_INCIDENT.REMOVAL_TIME_),
+    false
+)
+val ACT_IDX_HI_INCIDENT_ROOT_PI: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_incident_root_pi"),
+    ActHiIncident.ACT_HI_INCIDENT,
+    arrayOf(ActHiIncident.ACT_HI_INCIDENT.ROOT_PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_INCIDENT_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_incident_tenant_id"),
+    ActHiIncident.ACT_HI_INCIDENT,
+    arrayOf(ActHiIncident.ACT_HI_INCIDENT.TENANT_ID_),
+    false
+)
+val ACT_IDX_HI_JOB_LOG_EX_STACK: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_job_log_ex_stack"),
+    ActHiJobLog.ACT_HI_JOB_LOG,
+    arrayOf(ActHiJobLog.ACT_HI_JOB_LOG.JOB_EXCEPTION_STACK_ID_),
+    false
+)
+val ACT_IDX_HI_JOB_LOG_JOB_CONF: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_job_log_job_conf"),
+    ActHiJobLog.ACT_HI_JOB_LOG,
+    arrayOf(ActHiJobLog.ACT_HI_JOB_LOG.JOB_DEF_CONFIGURATION_),
+    false
+)
+val ACT_IDX_HI_JOB_LOG_JOB_DEF_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_job_log_job_def_id"),
+    ActHiJobLog.ACT_HI_JOB_LOG,
+    arrayOf(ActHiJobLog.ACT_HI_JOB_LOG.JOB_DEF_ID_),
+    false
+)
+val ACT_IDX_HI_JOB_LOG_PROC_DEF_KEY: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_job_log_proc_def_key"),
+    ActHiJobLog.ACT_HI_JOB_LOG,
+    arrayOf(ActHiJobLog.ACT_HI_JOB_LOG.PROCESS_DEF_KEY_),
+    false
+)
+val ACT_IDX_HI_JOB_LOG_PROCDEF: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_job_log_procdef"),
+    ActHiJobLog.ACT_HI_JOB_LOG,
+    arrayOf(ActHiJobLog.ACT_HI_JOB_LOG.PROCESS_DEF_ID_),
+    false
+)
+val ACT_IDX_HI_JOB_LOG_PROCINST: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_job_log_procinst"),
+    ActHiJobLog.ACT_HI_JOB_LOG,
+    arrayOf(ActHiJobLog.ACT_HI_JOB_LOG.PROCESS_INSTANCE_ID_),
+    false
+)
+val ACT_IDX_HI_JOB_LOG_RM_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_job_log_rm_time"),
+    ActHiJobLog.ACT_HI_JOB_LOG,
+    arrayOf(ActHiJobLog.ACT_HI_JOB_LOG.REMOVAL_TIME_),
+    false
+)
+val ACT_IDX_HI_JOB_LOG_ROOT_PI: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_job_log_root_pi"),
+    ActHiJobLog.ACT_HI_JOB_LOG,
+    arrayOf(ActHiJobLog.ACT_HI_JOB_LOG.ROOT_PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_JOB_LOG_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_job_log_tenant_id"),
+    ActHiJobLog.ACT_HI_JOB_LOG,
+    arrayOf(ActHiJobLog.ACT_HI_JOB_LOG.TENANT_ID_),
+    false
+)
+val ACT_IDX_HI_OP_LOG_ENTITY_TYPE: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_op_log_entity_type"),
+    ActHiOpLog.ACT_HI_OP_LOG,
+    arrayOf(ActHiOpLog.ACT_HI_OP_LOG.ENTITY_TYPE_),
+    false
+)
+val ACT_IDX_HI_OP_LOG_OP_TYPE: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_op_log_op_type"),
+    ActHiOpLog.ACT_HI_OP_LOG,
+    arrayOf(ActHiOpLog.ACT_HI_OP_LOG.OPERATION_TYPE_),
+    false
+)
+val ACT_IDX_HI_OP_LOG_PROCDEF: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_op_log_procdef"),
+    ActHiOpLog.ACT_HI_OP_LOG,
+    arrayOf(ActHiOpLog.ACT_HI_OP_LOG.PROC_DEF_ID_),
+    false
+)
+val ACT_IDX_HI_OP_LOG_PROCINST: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_op_log_procinst"),
+    ActHiOpLog.ACT_HI_OP_LOG,
+    arrayOf(ActHiOpLog.ACT_HI_OP_LOG.PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_OP_LOG_RM_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_op_log_rm_time"),
+    ActHiOpLog.ACT_HI_OP_LOG,
+    arrayOf(ActHiOpLog.ACT_HI_OP_LOG.REMOVAL_TIME_),
+    false
+)
+val ACT_IDX_HI_OP_LOG_ROOT_PI: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_op_log_root_pi"),
+    ActHiOpLog.ACT_HI_OP_LOG,
+    arrayOf(ActHiOpLog.ACT_HI_OP_LOG.ROOT_PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_OP_LOG_TASK: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_op_log_task"),
+    ActHiOpLog.ACT_HI_OP_LOG,
+    arrayOf(ActHiOpLog.ACT_HI_OP_LOG.TASK_ID_),
+    false
+)
+val ACT_IDX_HI_OP_LOG_TIMESTAMP: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_op_log_timestamp"),
+    ActHiOpLog.ACT_HI_OP_LOG,
+    arrayOf(ActHiOpLog.ACT_HI_OP_LOG.TIMESTAMP_),
+    false
+)
+val ACT_IDX_HI_OP_LOG_USER_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_op_log_user_id"),
+    ActHiOpLog.ACT_HI_OP_LOG,
+    arrayOf(ActHiOpLog.ACT_HI_OP_LOG.USER_ID_),
+    false
+)
+val ACT_IDX_HI_PI_PDEFID_END_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_pi_pdefid_end_time"),
+    ActHiProcinst.ACT_HI_PROCINST,
+    arrayOf(ActHiProcinst.ACT_HI_PROCINST.PROC_DEF_ID_, ActHiProcinst.ACT_HI_PROCINST.END_TIME_),
+    false
+)
+val ACT_IDX_HI_PRO_I_BUSKEY: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_pro_i_buskey"),
+    ActHiProcinst.ACT_HI_PROCINST,
+    arrayOf(ActHiProcinst.ACT_HI_PROCINST.BUSINESS_KEY_),
+    false
+)
+val ACT_IDX_HI_PRO_INST_END: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_pro_inst_end"),
+    ActHiProcinst.ACT_HI_PROCINST,
+    arrayOf(ActHiProcinst.ACT_HI_PROCINST.END_TIME_),
+    false
+)
+val ACT_IDX_HI_PRO_INST_PROC_DEF_KEY: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_pro_inst_proc_def_key"),
+    ActHiProcinst.ACT_HI_PROCINST,
+    arrayOf(ActHiProcinst.ACT_HI_PROCINST.PROC_DEF_KEY_),
+    false
+)
+val ACT_IDX_HI_PRO_INST_PROC_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_pro_inst_proc_time"),
+    ActHiProcinst.ACT_HI_PROCINST,
+    arrayOf(ActHiProcinst.ACT_HI_PROCINST.START_TIME_, ActHiProcinst.ACT_HI_PROCINST.END_TIME_),
+    false
+)
+val ACT_IDX_HI_PRO_INST_RM_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_pro_inst_rm_time"),
+    ActHiProcinst.ACT_HI_PROCINST,
+    arrayOf(ActHiProcinst.ACT_HI_PROCINST.REMOVAL_TIME_),
+    false
+)
+val ACT_IDX_HI_PRO_INST_ROOT_PI: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_pro_inst_root_pi"),
+    ActHiProcinst.ACT_HI_PROCINST,
+    arrayOf(ActHiProcinst.ACT_HI_PROCINST.ROOT_PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_PRO_INST_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_pro_inst_tenant_id"),
+    ActHiProcinst.ACT_HI_PROCINST,
+    arrayOf(ActHiProcinst.ACT_HI_PROCINST.TENANT_ID_),
+    false
+)
+val ACT_IDX_HI_PROCVAR_NAME_TYPE: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_procvar_name_type"),
+    ActHiVarinst.ACT_HI_VARINST,
+    arrayOf(ActHiVarinst.ACT_HI_VARINST.NAME_, ActHiVarinst.ACT_HI_VARINST.VAR_TYPE_),
+    false
+)
+val ACT_IDX_HI_PROCVAR_PROC_INST: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_procvar_proc_inst"),
+    ActHiVarinst.ACT_HI_VARINST,
+    arrayOf(ActHiVarinst.ACT_HI_VARINST.PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_TASK_INST_END: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_task_inst_end"),
+    ActHiTaskinst.ACT_HI_TASKINST,
+    arrayOf(ActHiTaskinst.ACT_HI_TASKINST.END_TIME_),
+    false
+)
+val ACT_IDX_HI_TASK_INST_PROC_DEF_KEY: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_task_inst_proc_def_key"),
+    ActHiTaskinst.ACT_HI_TASKINST,
+    arrayOf(ActHiTaskinst.ACT_HI_TASKINST.PROC_DEF_KEY_),
+    false
+)
+val ACT_IDX_HI_TASK_INST_RM_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_task_inst_rm_time"),
+    ActHiTaskinst.ACT_HI_TASKINST,
+    arrayOf(ActHiTaskinst.ACT_HI_TASKINST.REMOVAL_TIME_),
+    false
+)
+val ACT_IDX_HI_TASK_INST_START: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_task_inst_start"),
+    ActHiTaskinst.ACT_HI_TASKINST,
+    arrayOf(ActHiTaskinst.ACT_HI_TASKINST.START_TIME_),
+    false
+)
+val ACT_IDX_HI_TASK_INST_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_task_inst_tenant_id"),
+    ActHiTaskinst.ACT_HI_TASKINST,
+    arrayOf(ActHiTaskinst.ACT_HI_TASKINST.TENANT_ID_),
+    false
+)
+val ACT_IDX_HI_TASKINST_PROCINST: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_taskinst_procinst"),
+    ActHiTaskinst.ACT_HI_TASKINST,
+    arrayOf(ActHiTaskinst.ACT_HI_TASKINST.PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_TASKINST_ROOT_PI: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_taskinst_root_pi"),
+    ActHiTaskinst.ACT_HI_TASKINST,
+    arrayOf(ActHiTaskinst.ACT_HI_TASKINST.ROOT_PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_TASKINSTID_PROCINST: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_taskinstid_procinst"),
+    ActHiTaskinst.ACT_HI_TASKINST,
+    arrayOf(ActHiTaskinst.ACT_HI_TASKINST.ID_, ActHiTaskinst.ACT_HI_TASKINST.PROC_INST_ID_),
+    false
+)
+val ACT_IDX_HI_VAR_INST_PROC_DEF_KEY: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_var_inst_proc_def_key"),
+    ActHiVarinst.ACT_HI_VARINST,
+    arrayOf(ActHiVarinst.ACT_HI_VARINST.PROC_DEF_KEY_),
+    false
+)
+val ACT_IDX_HI_VAR_INST_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_var_inst_tenant_id"),
+    ActHiVarinst.ACT_HI_VARINST,
+    arrayOf(ActHiVarinst.ACT_HI_VARINST.TENANT_ID_),
+    false
+)
+val ACT_IDX_HI_VAR_PI_NAME_TYPE: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_var_pi_name_type"),
+    ActHiVarinst.ACT_HI_VARINST,
+    arrayOf(
+        ActHiVarinst.ACT_HI_VARINST.PROC_INST_ID_,
+        ActHiVarinst.ACT_HI_VARINST.NAME_,
+        ActHiVarinst.ACT_HI_VARINST.VAR_TYPE_
+    ),
+    false
+)
+val ACT_IDX_HI_VARINST_ACT_INST_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_varinst_act_inst_id"),
+    ActHiVarinst.ACT_HI_VARINST,
+    arrayOf(ActHiVarinst.ACT_HI_VARINST.ACT_INST_ID_),
+    false
+)
+val ACT_IDX_HI_VARINST_BYTEAR: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_varinst_bytear"),
+    ActHiVarinst.ACT_HI_VARINST,
+    arrayOf(ActHiVarinst.ACT_HI_VARINST.BYTEARRAY_ID_),
+    false
+)
+val ACT_IDX_HI_VARINST_NAME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_varinst_name"),
+    ActHiVarinst.ACT_HI_VARINST,
+    arrayOf(ActHiVarinst.ACT_HI_VARINST.NAME_),
+    false
+)
+val ACT_IDX_HI_VARINST_RM_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_varinst_rm_time"),
+    ActHiVarinst.ACT_HI_VARINST,
+    arrayOf(ActHiVarinst.ACT_HI_VARINST.REMOVAL_TIME_),
+    false
+)
+val ACT_IDX_HI_VARINST_ROOT_PI: Index = Internal.createIndex(
+    DSL.name("act_idx_hi_varinst_root_pi"),
+    ActHiVarinst.ACT_HI_VARINST,
+    arrayOf(ActHiVarinst.ACT_HI_VARINST.ROOT_PROC_INST_ID_),
+    false
+)
+val ACT_IDX_IDENT_LNK_GROUP: Index = Internal.createIndex(
+    DSL.name("act_idx_ident_lnk_group"),
+    ActRuIdentitylink.ACT_RU_IDENTITYLINK,
+    arrayOf(ActRuIdentitylink.ACT_RU_IDENTITYLINK.GROUP_ID_),
+    false
+)
+val ACT_IDX_IDENT_LNK_USER: Index = Internal.createIndex(
+    DSL.name("act_idx_ident_lnk_user"),
+    ActRuIdentitylink.ACT_RU_IDENTITYLINK,
+    arrayOf(ActRuIdentitylink.ACT_RU_IDENTITYLINK.USER_ID_),
+    false
+)
+val ACT_IDX_INC_CAUSEINCID: Index = Internal.createIndex(
+    DSL.name("act_idx_inc_causeincid"),
+    ActRuIncident.ACT_RU_INCIDENT,
+    arrayOf(ActRuIncident.ACT_RU_INCIDENT.CAUSE_INCIDENT_ID_),
+    false
+)
+val ACT_IDX_INC_CONFIGURATION: Index = Internal.createIndex(
+    DSL.name("act_idx_inc_configuration"),
+    ActRuIncident.ACT_RU_INCIDENT,
+    arrayOf(ActRuIncident.ACT_RU_INCIDENT.CONFIGURATION_),
+    false
+)
+val ACT_IDX_INC_EXID: Index = Internal.createIndex(
+    DSL.name("act_idx_inc_exid"),
+    ActRuIncident.ACT_RU_INCIDENT,
+    arrayOf(ActRuIncident.ACT_RU_INCIDENT.EXECUTION_ID_),
+    false
+)
+val ACT_IDX_INC_JOB_DEF: Index = Internal.createIndex(
+    DSL.name("act_idx_inc_job_def"),
+    ActRuIncident.ACT_RU_INCIDENT,
+    arrayOf(ActRuIncident.ACT_RU_INCIDENT.JOB_DEF_ID_),
+    false
+)
+val ACT_IDX_INC_PROCDEFID: Index = Internal.createIndex(
+    DSL.name("act_idx_inc_procdefid"),
+    ActRuIncident.ACT_RU_INCIDENT,
+    arrayOf(ActRuIncident.ACT_RU_INCIDENT.PROC_DEF_ID_),
+    false
+)
+val ACT_IDX_INC_PROCINSTID: Index = Internal.createIndex(
+    DSL.name("act_idx_inc_procinstid"),
+    ActRuIncident.ACT_RU_INCIDENT,
+    arrayOf(ActRuIncident.ACT_RU_INCIDENT.PROC_INST_ID_),
+    false
+)
+val ACT_IDX_INC_ROOTCAUSEINCID: Index = Internal.createIndex(
+    DSL.name("act_idx_inc_rootcauseincid"),
+    ActRuIncident.ACT_RU_INCIDENT,
+    arrayOf(ActRuIncident.ACT_RU_INCIDENT.ROOT_CAUSE_INCIDENT_ID_),
+    false
+)
+val ACT_IDX_INC_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_inc_tenant_id"),
+    ActRuIncident.ACT_RU_INCIDENT,
+    arrayOf(ActRuIncident.ACT_RU_INCIDENT.TENANT_ID_),
+    false
+)
+val ACT_IDX_JOB_EXCEPTION: Index = Internal.createIndex(
+    DSL.name("act_idx_job_exception"),
+    ActRuJob.ACT_RU_JOB,
+    arrayOf(ActRuJob.ACT_RU_JOB.EXCEPTION_STACK_ID_),
+    false
+)
+val ACT_IDX_JOB_EXECUTION_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_job_execution_id"),
+    ActRuJob.ACT_RU_JOB,
+    arrayOf(ActRuJob.ACT_RU_JOB.EXECUTION_ID_),
+    false
+)
+val ACT_IDX_JOB_HANDLER: Index = Internal.createIndex(
+    DSL.name("act_idx_job_handler"),
+    ActRuJob.ACT_RU_JOB,
+    arrayOf(ActRuJob.ACT_RU_JOB.HANDLER_TYPE_, ActRuJob.ACT_RU_JOB.HANDLER_CFG_),
+    false
+)
+val ACT_IDX_JOB_HANDLER_TYPE: Index = Internal.createIndex(
+    DSL.name("act_idx_job_handler_type"),
+    ActRuJob.ACT_RU_JOB,
+    arrayOf(ActRuJob.ACT_RU_JOB.HANDLER_TYPE_),
+    false
+)
+val ACT_IDX_JOB_JOB_DEF_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_job_job_def_id"),
+    ActRuJob.ACT_RU_JOB,
+    arrayOf(ActRuJob.ACT_RU_JOB.JOB_DEF_ID_),
+    false
+)
+val ACT_IDX_JOB_PROCINST: Index = Internal.createIndex(
+    DSL.name("act_idx_job_procinst"),
+    ActRuJob.ACT_RU_JOB,
+    arrayOf(ActRuJob.ACT_RU_JOB.PROCESS_INSTANCE_ID_),
+    false
+)
+val ACT_IDX_JOB_ROOT_PROCINST: Index = Internal.createIndex(
+    DSL.name("act_idx_job_root_procinst"),
+    ActRuJob.ACT_RU_JOB,
+    arrayOf(ActRuJob.ACT_RU_JOB.ROOT_PROC_INST_ID_),
+    false
+)
+val ACT_IDX_JOB_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_job_tenant_id"),
+    ActRuJob.ACT_RU_JOB,
+    arrayOf(ActRuJob.ACT_RU_JOB.TENANT_ID_),
+    false
+)
+val ACT_IDX_JOBDEF_PROC_DEF_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_jobdef_proc_def_id"),
+    ActRuJobdef.ACT_RU_JOBDEF,
+    arrayOf(ActRuJobdef.ACT_RU_JOBDEF.PROC_DEF_ID_),
+    false
+)
+val ACT_IDX_JOBDEF_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_jobdef_tenant_id"),
+    ActRuJobdef.ACT_RU_JOBDEF,
+    arrayOf(ActRuJobdef.ACT_RU_JOBDEF.TENANT_ID_),
+    false
+)
+val ACT_IDX_MEMB_GROUP: Index = Internal.createIndex(
+    DSL.name("act_idx_memb_group"),
+    ActIdMembership.ACT_ID_MEMBERSHIP,
+    arrayOf(ActIdMembership.ACT_ID_MEMBERSHIP.GROUP_ID_),
+    false
+)
+val ACT_IDX_MEMB_USER: Index = Internal.createIndex(
+    DSL.name("act_idx_memb_user"),
+    ActIdMembership.ACT_ID_MEMBERSHIP,
+    arrayOf(ActIdMembership.ACT_ID_MEMBERSHIP.USER_ID_),
+    false
+)
+val ACT_IDX_METER_LOG: Index = Internal.createIndex(
+    DSL.name("act_idx_meter_log"),
+    ActRuMeterLog.ACT_RU_METER_LOG,
+    arrayOf(ActRuMeterLog.ACT_RU_METER_LOG.NAME_, ActRuMeterLog.ACT_RU_METER_LOG.TIMESTAMP_),
+    false
+)
+val ACT_IDX_METER_LOG_MS: Index = Internal.createIndex(
+    DSL.name("act_idx_meter_log_ms"),
+    ActRuMeterLog.ACT_RU_METER_LOG,
+    arrayOf(ActRuMeterLog.ACT_RU_METER_LOG.MILLISECONDS_),
+    false
+)
+val ACT_IDX_METER_LOG_NAME_MS: Index = Internal.createIndex(
+    DSL.name("act_idx_meter_log_name_ms"),
+    ActRuMeterLog.ACT_RU_METER_LOG,
+    arrayOf(ActRuMeterLog.ACT_RU_METER_LOG.NAME_, ActRuMeterLog.ACT_RU_METER_LOG.MILLISECONDS_),
+    false
+)
+val ACT_IDX_METER_LOG_REPORT: Index = Internal.createIndex(
+    DSL.name("act_idx_meter_log_report"),
+    ActRuMeterLog.ACT_RU_METER_LOG,
+    arrayOf(
+        ActRuMeterLog.ACT_RU_METER_LOG.NAME_,
+        ActRuMeterLog.ACT_RU_METER_LOG.REPORTER_,
+        ActRuMeterLog.ACT_RU_METER_LOG.MILLISECONDS_
+    ),
+    false
+)
+val ACT_IDX_METER_LOG_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_meter_log_time"),
+    ActRuMeterLog.ACT_RU_METER_LOG,
+    arrayOf(ActRuMeterLog.ACT_RU_METER_LOG.TIMESTAMP_),
+    false
+)
+val ACT_IDX_PROCDEF_DEPLOYMENT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_procdef_deployment_id"),
+    ActReProcdef.ACT_RE_PROCDEF,
+    arrayOf(ActReProcdef.ACT_RE_PROCDEF.DEPLOYMENT_ID_),
+    false
+)
+val ACT_IDX_PROCDEF_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_procdef_tenant_id"),
+    ActReProcdef.ACT_RE_PROCDEF,
+    arrayOf(ActReProcdef.ACT_RE_PROCDEF.TENANT_ID_),
+    false
+)
+val ACT_IDX_PROCDEF_VER_TAG: Index = Internal.createIndex(
+    DSL.name("act_idx_procdef_ver_tag"),
+    ActReProcdef.ACT_RE_PROCDEF,
+    arrayOf(ActReProcdef.ACT_RE_PROCDEF.VERSION_TAG_),
+    false
+)
+val ACT_IDX_TASK_ASSIGNEE: Index = Internal.createIndex(
+    DSL.name("act_idx_task_assignee"),
+    ActRuTask.ACT_RU_TASK,
+    arrayOf(ActRuTask.ACT_RU_TASK.ASSIGNEE_),
+    false
+)
+val ACT_IDX_TASK_CASE_DEF_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_task_case_def_id"),
+    ActRuTask.ACT_RU_TASK,
+    arrayOf(ActRuTask.ACT_RU_TASK.CASE_DEF_ID_),
+    false
+)
+val ACT_IDX_TASK_CASE_EXEC: Index = Internal.createIndex(
+    DSL.name("act_idx_task_case_exec"),
+    ActRuTask.ACT_RU_TASK,
+    arrayOf(ActRuTask.ACT_RU_TASK.CASE_EXECUTION_ID_),
+    false
+)
+val ACT_IDX_TASK_CREATE: Index = Internal.createIndex(
+    DSL.name("act_idx_task_create"),
+    ActRuTask.ACT_RU_TASK,
+    arrayOf(ActRuTask.ACT_RU_TASK.CREATE_TIME_),
+    false
+)
+val ACT_IDX_TASK_EXEC: Index = Internal.createIndex(
+    DSL.name("act_idx_task_exec"),
+    ActRuTask.ACT_RU_TASK,
+    arrayOf(ActRuTask.ACT_RU_TASK.EXECUTION_ID_),
+    false
+)
+val ACT_IDX_TASK_LAST_UPDATED: Index = Internal.createIndex(
+    DSL.name("act_idx_task_last_updated"),
+    ActRuTask.ACT_RU_TASK,
+    arrayOf(ActRuTask.ACT_RU_TASK.LAST_UPDATED_),
+    false
+)
+val ACT_IDX_TASK_METER_LOG_TIME: Index = Internal.createIndex(
+    DSL.name("act_idx_task_meter_log_time"),
+    ActRuTaskMeterLog.ACT_RU_TASK_METER_LOG,
+    arrayOf(ActRuTaskMeterLog.ACT_RU_TASK_METER_LOG.TIMESTAMP_),
+    false
+)
+val ACT_IDX_TASK_OWNER: Index = Internal.createIndex(
+    DSL.name("act_idx_task_owner"),
+    ActRuTask.ACT_RU_TASK,
+    arrayOf(ActRuTask.ACT_RU_TASK.OWNER_),
+    false
+)
+val ACT_IDX_TASK_PROCDEF: Index = Internal.createIndex(
+    DSL.name("act_idx_task_procdef"),
+    ActRuTask.ACT_RU_TASK,
+    arrayOf(ActRuTask.ACT_RU_TASK.PROC_DEF_ID_),
+    false
+)
+val ACT_IDX_TASK_PROCINST: Index = Internal.createIndex(
+    DSL.name("act_idx_task_procinst"),
+    ActRuTask.ACT_RU_TASK,
+    arrayOf(ActRuTask.ACT_RU_TASK.PROC_INST_ID_),
+    false
+)
+val ACT_IDX_TASK_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_task_tenant_id"),
+    ActRuTask.ACT_RU_TASK,
+    arrayOf(ActRuTask.ACT_RU_TASK.TENANT_ID_),
+    false
+)
+val ACT_IDX_TENANT_MEMB: Index = Internal.createIndex(
+    DSL.name("act_idx_tenant_memb"),
+    ActIdTenantMember.ACT_ID_TENANT_MEMBER,
+    arrayOf(ActIdTenantMember.ACT_ID_TENANT_MEMBER.TENANT_ID_),
+    false
+)
+val ACT_IDX_TENANT_MEMB_GROUP: Index = Internal.createIndex(
+    DSL.name("act_idx_tenant_memb_group"),
+    ActIdTenantMember.ACT_ID_TENANT_MEMBER,
+    arrayOf(ActIdTenantMember.ACT_ID_TENANT_MEMBER.GROUP_ID_),
+    false
+)
+val ACT_IDX_TENANT_MEMB_USER: Index = Internal.createIndex(
+    DSL.name("act_idx_tenant_memb_user"),
+    ActIdTenantMember.ACT_ID_TENANT_MEMBER,
+    arrayOf(ActIdTenantMember.ACT_ID_TENANT_MEMBER.USER_ID_),
+    false
+)
+val ACT_IDX_TSKASS_TASK: Index = Internal.createIndex(
+    DSL.name("act_idx_tskass_task"),
+    ActRuIdentitylink.ACT_RU_IDENTITYLINK,
+    arrayOf(ActRuIdentitylink.ACT_RU_IDENTITYLINK.TASK_ID_),
+    false
+)
+val ACT_IDX_VAR_BYTEARRAY: Index = Internal.createIndex(
+    DSL.name("act_idx_var_bytearray"),
+    ActRuVariable.ACT_RU_VARIABLE,
+    arrayOf(ActRuVariable.ACT_RU_VARIABLE.BYTEARRAY_ID_),
+    false
+)
+val ACT_IDX_VAR_CASE_EXE: Index = Internal.createIndex(
+    DSL.name("act_idx_var_case_exe"),
+    ActRuVariable.ACT_RU_VARIABLE,
+    arrayOf(ActRuVariable.ACT_RU_VARIABLE.CASE_EXECUTION_ID_),
+    false
+)
+val ACT_IDX_VAR_CASE_INST_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_var_case_inst_id"),
+    ActRuVariable.ACT_RU_VARIABLE,
+    arrayOf(ActRuVariable.ACT_RU_VARIABLE.CASE_INST_ID_),
+    false
+)
+val ACT_IDX_VAR_EXE: Index = Internal.createIndex(
+    DSL.name("act_idx_var_exe"),
+    ActRuVariable.ACT_RU_VARIABLE,
+    arrayOf(ActRuVariable.ACT_RU_VARIABLE.EXECUTION_ID_),
+    false
+)
+val ACT_IDX_VAR_PROCINST: Index = Internal.createIndex(
+    DSL.name("act_idx_var_procinst"),
+    ActRuVariable.ACT_RU_VARIABLE,
+    arrayOf(ActRuVariable.ACT_RU_VARIABLE.PROC_INST_ID_),
+    false
+)
+val ACT_IDX_VARIABLE_TASK_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_variable_task_id"),
+    ActRuVariable.ACT_RU_VARIABLE,
+    arrayOf(ActRuVariable.ACT_RU_VARIABLE.TASK_ID_),
+    false
+)
+val ACT_IDX_VARIABLE_TASK_NAME_TYPE: Index = Internal.createIndex(
+    DSL.name("act_idx_variable_task_name_type"),
+    ActRuVariable.ACT_RU_VARIABLE,
+    arrayOf(
+        ActRuVariable.ACT_RU_VARIABLE.TASK_ID_,
+        ActRuVariable.ACT_RU_VARIABLE.NAME_,
+        ActRuVariable.ACT_RU_VARIABLE.TYPE_
+    ),
+    false
+)
+val ACT_IDX_VARIABLE_TENANT_ID: Index = Internal.createIndex(
+    DSL.name("act_idx_variable_tenant_id"),
+    ActRuVariable.ACT_RU_VARIABLE,
+    arrayOf(ActRuVariable.ACT_RU_VARIABLE.TENANT_ID_),
+    false
+)
+val IDX_QRTZ_FT_INST_JOB_REQ_RCVRY: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_ft_inst_job_req_rcvry"),
+    QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS,
+    arrayOf(
+        QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.SCHED_NAME,
+        QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.INSTANCE_NAME,
+        QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.REQUESTS_RECOVERY
+    ),
+    false
+)
+val IDX_QRTZ_FT_J_G: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_ft_j_g"),
+    QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS,
+    arrayOf(
+        QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.SCHED_NAME,
+        QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.JOB_NAME,
+        QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.JOB_GROUP
+    ),
+    false
+)
+val IDX_QRTZ_FT_JG: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_ft_jg"),
+    QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS,
+    arrayOf(QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.SCHED_NAME, QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.JOB_GROUP),
+    false
+)
+val IDX_QRTZ_FT_T_G: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_ft_t_g"),
+    QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS,
+    arrayOf(
+        QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.SCHED_NAME,
+        QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.TRIGGER_NAME,
+        QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.TRIGGER_GROUP
+    ),
+    false
+)
+val IDX_QRTZ_FT_TG: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_ft_tg"),
+    QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS,
+    arrayOf(QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.SCHED_NAME, QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.TRIGGER_GROUP),
+    false
+)
+val IDX_QRTZ_FT_TRIG_INST_NAME: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_ft_trig_inst_name"),
+    QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS,
+    arrayOf(QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.SCHED_NAME, QrtzFiredTriggers.QRTZ_FIRED_TRIGGERS.INSTANCE_NAME),
+    false
+)
+val IDX_QRTZ_J_GRP: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_j_grp"),
+    QrtzJobDetails.QRTZ_JOB_DETAILS,
+    arrayOf(QrtzJobDetails.QRTZ_JOB_DETAILS.SCHED_NAME, QrtzJobDetails.QRTZ_JOB_DETAILS.JOB_GROUP),
+    false
+)
+val IDX_QRTZ_J_REQ_RECOVERY: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_j_req_recovery"),
+    QrtzJobDetails.QRTZ_JOB_DETAILS,
+    arrayOf(QrtzJobDetails.QRTZ_JOB_DETAILS.SCHED_NAME, QrtzJobDetails.QRTZ_JOB_DETAILS.REQUESTS_RECOVERY),
+    false
+)
+val IDX_QRTZ_T_C: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_t_c"),
+    QrtzTriggers.QRTZ_TRIGGERS,
+    arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.CALENDAR_NAME),
+    false
+)
+val IDX_QRTZ_T_G: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_t_g"),
+    QrtzTriggers.QRTZ_TRIGGERS,
+    arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_GROUP),
+    false
+)
+val IDX_QRTZ_T_J: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_t_j"),
+    QrtzTriggers.QRTZ_TRIGGERS,
+    arrayOf(
+        QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME,
+        QrtzTriggers.QRTZ_TRIGGERS.JOB_NAME,
+        QrtzTriggers.QRTZ_TRIGGERS.JOB_GROUP
+    ),
+    false
+)
+val IDX_QRTZ_T_JG: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_t_jg"),
+    QrtzTriggers.QRTZ_TRIGGERS,
+    arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.JOB_GROUP),
+    false
+)
+val IDX_QRTZ_T_N_G_STATE: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_t_n_g_state"),
+    QrtzTriggers.QRTZ_TRIGGERS,
+    arrayOf(
+        QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME,
+        QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_GROUP,
+        QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_STATE
+    ),
+    false
+)
+val IDX_QRTZ_T_N_STATE: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_t_n_state"),
+    QrtzTriggers.QRTZ_TRIGGERS,
+    arrayOf(
+        QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME,
+        QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_NAME,
+        QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_GROUP,
+        QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_STATE
+    ),
+    false
+)
+val IDX_QRTZ_T_NEXT_FIRE_TIME: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_t_next_fire_time"),
+    QrtzTriggers.QRTZ_TRIGGERS,
+    arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.NEXT_FIRE_TIME),
+    false
+)
+val IDX_QRTZ_T_NFT_MISFIRE: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_t_nft_misfire"),
+    QrtzTriggers.QRTZ_TRIGGERS,
+    arrayOf(
+        QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME,
+        QrtzTriggers.QRTZ_TRIGGERS.MISFIRE_INSTR,
+        QrtzTriggers.QRTZ_TRIGGERS.NEXT_FIRE_TIME
+    ),
+    false
+)
+val IDX_QRTZ_T_NFT_ST: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_t_nft_st"),
+    QrtzTriggers.QRTZ_TRIGGERS,
+    arrayOf(
+        QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME,
+        QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_STATE,
+        QrtzTriggers.QRTZ_TRIGGERS.NEXT_FIRE_TIME
+    ),
+    false
+)
+val IDX_QRTZ_T_NFT_ST_MISFIRE: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_t_nft_st_misfire"),
+    QrtzTriggers.QRTZ_TRIGGERS,
+    arrayOf(
+        QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME,
+        QrtzTriggers.QRTZ_TRIGGERS.MISFIRE_INSTR,
+        QrtzTriggers.QRTZ_TRIGGERS.NEXT_FIRE_TIME,
+        QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_STATE
+    ),
+    false
+)
+val IDX_QRTZ_T_NFT_ST_MISFIRE_GRP: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_t_nft_st_misfire_grp"),
+    QrtzTriggers.QRTZ_TRIGGERS,
+    arrayOf(
+        QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME,
+        QrtzTriggers.QRTZ_TRIGGERS.MISFIRE_INSTR,
+        QrtzTriggers.QRTZ_TRIGGERS.NEXT_FIRE_TIME,
+        QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_GROUP,
+        QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_STATE
+    ),
+    false
+)
+val IDX_QRTZ_T_STATE: Index = Internal.createIndex(
+    DSL.name("idx_qrtz_t_state"),
+    QrtzTriggers.QRTZ_TRIGGERS,
+    arrayOf(QrtzTriggers.QRTZ_TRIGGERS.SCHED_NAME, QrtzTriggers.QRTZ_TRIGGERS.TRIGGER_STATE),
+    false
+)
